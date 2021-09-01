@@ -7,8 +7,8 @@ MY_PKG="%%% MY_PKG %%%"
 
 MY_VERSION="%%% MY_VERSION %%%"
 VENVDIR="%%% VENVDIR %%%"
-WORKDIR="%%% WORKDIR %%%"
-WEBROOT="%%% WEBROOT %%%"
+WORKDIR="%%% WORKDIR %%%"  # not used
+WEBROOT="%%% WEBROOT %%%"  # not used
 
 #
 # main

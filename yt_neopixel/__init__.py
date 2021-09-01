@@ -7,11 +7,11 @@ mypkg
 __author__ = 'Yoichi Tanibayashi'
 __version__ = '0.0.1'
 
-__prog_name__ = 'Yt_neopixel'
+__prog_name__ = 'ytNeoPixel'
 
-from .mod1 import MyClass1
+from .yt_neopixel import ytNeoPixel
 
 __all__ = [
     '__author__', '__version__', '__prog_name__',
-    'MyClass1'
+    'ytNeoPixel'
 ]

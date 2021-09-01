@@ -54,9 +54,9 @@ PKGS_TXT="pkgs.txt"
 
 GITHUB_TOP="git@github.com:ytani01"
 
-CUILIB_PKG="cuilib"
-CUILIB_DIR="CuiLib"
-CUILIB_GIT="${GITHUB_TOP}/${CUILIB_DIR}.git"
+# CUILIB_PKG="cuilib"
+# CUILIB_DIR="CuiLib"
+# CUILIB_GIT="${GITHUB_TOP}/${CUILIB_DIR}.git"
 
 BUILD_DIR="$MYDIR/build"
 
@@ -234,11 +234,11 @@ if [ $FAST_MODE -lt 1 ]; then
 fi
 
 #
-# install my python packages
+# install my python packages from my git repositories
 #
-if [ $FAST_MODE -lt 1 ]; then
-    install_python_pkg_from_git $CUILIB_PKG $CUILIB_DIR $CUILIB_GIT
-fi
+# if [ $FAST_MODE -lt 1 ]; then
+#     install_python_pkg_from_git $CUILIB_PKG $CUILIB_DIR $CUILIB_GIT
+# fi
 
 #
 # install my package
