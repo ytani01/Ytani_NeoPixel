@@ -43,8 +43,15 @@ $ cd ~/env1
 $ git clone git@github.com:ytani01/ytNeoPixelPi.git
 ```
 
+### 1.4 install test program
+
+```
+$ cd ~/env1/ytNeoPixel
+$ ./install.sh
+```
 
 ## 2. Sample (test)
+
 
 
 ## A. References
