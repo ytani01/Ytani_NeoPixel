@@ -43,7 +43,15 @@ $ cd ~/env1
 $ git clone git@github.com:ytani01/ytNeoPixelPi.git
 ```
 
-### 1.4 install test program
+### 1.4 install this python package in this environment
+
+```
+$ cd ~/env1/ytNeoPixel
+$ pip3 install .
+```
+
+
+### 1.5 install test program
 
 ```
 $ cd ~/env1/ytNeoPixel
