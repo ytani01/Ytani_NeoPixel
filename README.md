@@ -1,9 +1,11 @@
 # ytNeoPixelPi
 NeoPixel Library for Raspberry Pi and Python
 
-## Install
+## 1. Install
 
-### Raspberry Pi OS setup
+### 1.1 Raspberry Pi OS setup
+
+SPIでNeoPixelを利用するための設定
 
 /boot/cmdline.txt
 ```
@@ -24,7 +26,7 @@ sh
 $ sudo reboot
 ```
 
-### make Python Virtualenv(venv)
+### 1.2 make Python Virtualenv(venv)
 
 ```
 $ cd ~
@@ -34,7 +36,7 @@ $ . ./bin/activate
 (env1) $
 ```
 
-### download source from git
+### 1.3 download source from git
 
 ```
 $ cd ~/env1
@@ -42,9 +44,9 @@ $ git clone git@github.com:ytani01/ytNeoPixelPi.git
 ```
 
 
-## Sample (test)
+## 2. Sample (test)
 
 
-## References
+## A. References
 
 * [jgarff/rpi_ws281x(github)](https://github.com/jgarff/rpi_ws281x)
