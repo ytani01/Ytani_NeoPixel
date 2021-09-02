@@ -10,12 +10,12 @@ SPIでNeoPixelを利用するための設定
 - GPIOが、10に限定されるが..
 - PCMオーディオ、PWM、アナログオーディオなどと共存できる
 
-#### edit ``/boot/cmdline.txt``
+#### 1.1.1 edit ``/boot/cmdline.txt``
 ```
 ... spidev.bufsiz=32768
 ```
 
-#### edit ``/boot/config.txt``
+#### 1.1.2 edit ``/boot/config.txt``
 ```
 [pi3]
 core_freq=250
@@ -24,7 +24,7 @@ core_freq=250
 core_freq_min=500
 ```
 
-#### reboot OS
+#### 1.1.3 reboot OS
 ```
 $ sudo reboot
 ```
