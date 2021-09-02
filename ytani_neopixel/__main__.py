@@ -19,8 +19,8 @@ class Test1App:
     """ Test1App """
     __log = get_logger(__name__, False)
 
-    def __init__(self, led_num:int,
-                 brightness:int, sleep_sec:float,
+    def __init__(self, led_num: int,
+                 brightness: int, sleep_sec: float,
                  debug=False):
         """ Constructor
 
@@ -62,10 +62,11 @@ class Test2App:
     __log = get_logger(__name__, False)
 
     def __init__(self,
-                 led_n:int=Ytani_NeoPixel.DEF_LED_N,
-                 led_i:int=0,
-                 color_r:int=255, color_g:int=255, color_b:int=255,
-                 brightness:int=Ytani_NeoPixel.DEF_BRIGHTNESS,
+                 led_n: int = Ytani_NeoPixel.DEF_LED_N,
+                 led_i: int = 0,
+                 color_r: int = 255, color_g: int = 255, color_b: int = 255,
+                 brightness: int = Ytani_NeoPixel.DEF_BRIGHTNESS,
+                 sec: float = 4.5,
                  debug=False):
         """ Constructor """
         self._dbg = debug
@@ -73,11 +74,13 @@ class Test2App:
         self.__log.debug('led_n, led_i=%s', (led_n, led_i))
         self.__log.debug('color_rgb=%s', (color_r, color_g, color_b))
         self.__log.debug('brightness=%s', brightness)
+        self.__log.debug('sec=%s', sec)
 
         self._led_n = led_n
         self._led_i = led_i
         self._color = Color(color_r, color_g, color_b)
         self._brightness = brightness
+        self._sec = sec
 
         self._obj = Ytani_NeoPixel(led_n=self._led_n,
                                    brightness=self._brightness,
@@ -89,7 +92,7 @@ class Test2App:
 
         self._obj.set(self._led_i, self._color)
 
-        time.sleep(10)
+        time.sleep(self._sec)
 
     def end(self):
         """ end """
@@ -147,14 +150,17 @@ def test1(led_num, brightness, sleep_sec, debug):
 @click.option('--brightness', '-b', 'brightness', type=int,
               default=Ytani_NeoPixel.DEF_BRIGHTNESS,
               help='brightness')
+@click.option('--sec', '-s', 'sec', type=float,
+              default=5.0,
+              help='seconds')
 @click.option('--debug', '-d', 'debug', is_flag=True, default=False,
               help='debug flag')
 @click.version_option(version=__version__)
-def test2(led_n, led_i, color_r, color_g, color_b, brightness, debug):
+def test2(led_n, led_i, color_r, color_g, color_b, brightness, sec, debug):
     """ test1  """
     log = get_logger(__name__, debug)
 
-    app = Test2App(led_n, led_i, color_r, color_g, color_b, brightness,
+    app = Test2App(led_n, led_i, color_r, color_g, color_b, brightness, sec,
                    debug=debug)
     try:
         app.main()
