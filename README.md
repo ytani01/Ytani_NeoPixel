@@ -3,16 +3,19 @@ NeoPixel Library for Raspberry Pi
 
 ## 1. Install
 
-### 1.1 Raspberry Pi OS setup
+### 1.1 Raspberry Pi OS setup for SPI
 
 SPIでNeoPixelを利用するための設定
 
-/boot/cmdline.txt
+- GPIOが、10に限定されるが..
+- PCMオーディオ、PWM、アナログオーディオなどと共存できる
+
+#### edit ``/boot/cmdline.txt``
 ```
 ... spidev.bufsiz=32768
 ```
 
-/boot/config.txt
+#### edit ``/boot/config.txt``
 ```
 [pi3]
 core_freq=250
@@ -21,7 +24,7 @@ core_freq=250
 core_freq_min=500
 ```
 
-sh
+#### reboot OS
 ```
 $ sudo reboot
 ```
@@ -39,16 +42,24 @@ $ . ./bin/activate
 ### 1.3 download source and install
 
 ```
-$ cd ~/env1
-$ git clone git@github.com:ytani01/Ytani_NeoPixel.git
-$ cd Ytani_NeoPixel
-$ ./install.sh
+(env1)$ cd ~/env1  # 他のディレクトリでも可
+(env1)$ git clone git@github.com:ytani01/Ytani_NeoPixel.git
+(env1)$ cd Ytani_NeoPixel
+(env1)$ ./install.sh
 ```
 
 ## 2. Sample (test)
 
+以下のヘルプ参照
 ```
-$ ytani-neopixel test1 14
+$ ytani-neopixel -h
+:
+
+$ ytani-neopixel test1 -h
+:
+
+$ ytani-neopixel test2 -h
+:
 ````
 
 
