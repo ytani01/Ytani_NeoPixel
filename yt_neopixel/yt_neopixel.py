@@ -12,14 +12,14 @@ class ytNeoPixel:
     __log = get_logger(__name__, False)
 
     DEF_PIN        = 10
-    DEF_COUNT      = 14
+    DEF_LED_N      = 14
     DEF_BRIGHTNESS = 20
     DEF_FREQ       = 800000  # 800kHz
     DEF_DMA        = 10
     DEF_INVERT     = False
     DEF_CH         = 0
 
-    def __init__(self, pin=DEF_PIN, count=DEF_COUNT,
+    def __init__(self, pin=DEF_PIN, led_n=DEF_LED_N,
                  brightness=DEF_BRIGHTNESS,
                  freq=DEF_FREQ, dma=DEF_DMA,
                  invert=DEF_INVERT, ch=DEF_CH,
@@ -27,20 +27,20 @@ class ytNeoPixel:
         """ constractor """
         self._dbg = debug
         __class__.__log = get_logger(__class__.__name__, self._dbg)
-        self.__log.debug('pin=%d, count=%d, brightness=%d',
-                         pin, count, brightness)
+        self.__log.debug('pin=%d, led_n=%d, brightness=%d',
+                         pin, led_n, brightness)
         self.__log.debug('freq=%d, dma=%d, invert=%s, ch=%d',
                          freq, dma, invert, ch)
 
         self._pin = pin
-        self._count = count
+        self._led_n = led_n
         self._brightness = brightness
         self._freq = freq
         self._dma = dma
         self._invert = invert
         self._ch = ch
 
-        self._pixel = PixelStrip(self._count, self._pin,
+        self._pixel = PixelStrip(self._led_n, self._pin,
                                  self._freq, self._dma, self._invert,
                                  self._brightness, self._ch)
         self._pixel.begin()
@@ -64,7 +64,7 @@ class ytNeoPixel:
         """ set_all """
         self.__log.debug('color=0x%06X', color)
 
-        for i in range(self._count):
+        for i in range(self._led_n):
             self.set(i, color)
 
     def off_all(self):
@@ -86,7 +86,7 @@ class ytNeoPixel:
         dr = c2.r - c1.r
         dg = c2.g - c1.g
         db = c2.b - c1.b
-        
+
         r = c1.r
         g = c1.g
         b = c1.b
@@ -105,10 +105,10 @@ class ytNeoPixel:
         self.__log.debug('color=0x%06X, n=%d, interval=%s',
                          color, n, interval)
 
-        c1 = [None] * self._count
-        c2 = [None] * self._count
-        d  = [None] * self._count
-        for i in range(self._count):
+        c1 = [None] * self._led_n
+        c2 = [None] * self._led_n
+        d  = [None] * self._led_n
+        for i in range(self._led_n):
             c1[i] = self._pixel.getPixelColorRGB(i)
 
             c2[i] = lambda: None
@@ -122,7 +122,7 @@ class ytNeoPixel:
             setattr(d[i], 'b', c2[i].b - c1[i].b)
 
         for j in range(n):
-            for i in range(self._count):
+            for i in range(self._led_n):
                 c1[i].r += d[i].r / n
                 c1[i].g += d[i].g / n
                 c1[i].b += d[i].b / n
@@ -135,4 +135,3 @@ class ytNeoPixel:
             self._pixel.show()
 
             time.sleep(interval)
-
