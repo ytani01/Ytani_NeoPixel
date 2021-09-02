@@ -42,7 +42,7 @@ $ . ./bin/activate
 ### 1.3 download source and install
 
 ```
-(env1)$ cd ~/env1  # 他のディレクトリでも可
+(env1)$ cd ~/env1  # venv以外の他のディレクトリでも可
 (env1)$ git clone git@github.com:ytani01/Ytani_NeoPixel.git
 (env1)$ cd Ytani_NeoPixel
 (env1)$ ./install.sh
