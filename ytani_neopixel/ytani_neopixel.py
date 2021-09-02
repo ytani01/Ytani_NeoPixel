@@ -65,7 +65,9 @@ class Ytani_NeoPixel:
         self.__log.debug('color=0x%06X', color)
 
         for i in range(self._led_n):
-            self.set(i, color)
+            self._pixel.setPixelColor(i, color)
+
+        self._pixel.show()
 
     def off_all(self):
         """ all_off """
@@ -127,12 +129,9 @@ class Ytani_NeoPixel:
                 c1[i].g += d[i].g / n
                 c1[i].b += d[i].b / n
 
-                self.__log.debug('%d: c1[%d]=(%s, %s, %s)', j, i,
-                                 c1[i].r, c1[i].g, c1[i].b)
-                self._pixel.setPixelColorRGB(i,
-                                             int(c1[i].r),
-                                             int(c1[i].g),
-                                             int(c1[i].b))
+                (r, g, b) = (int(c1[i].r), int(c1[i].g), int(c1[i].b))
+                self.__log.debug('%d: c1[%d]=(%s, %s, %s)', j, i, r, g, b)
+                self._pixel.setPixelColorRGB(i, r, g, b)
 
             self._pixel.show()
 
