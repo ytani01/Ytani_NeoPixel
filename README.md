@@ -1,5 +1,5 @@
-# ytNeoPixelPi
-NeoPixel Library for Raspberry Pi and Python
+# Ytani_NeoPixel
+NeoPixel Library for Raspberry Pi
 
 ## 1. Install
 
@@ -36,30 +36,20 @@ $ . ./bin/activate
 (env1) $
 ```
 
-### 1.3 download source from git
+### 1.3 download source and install
 
 ```
 $ cd ~/env1
-$ git clone git@github.com:ytani01/ytNeoPixelPi.git
-```
-
-### 1.4 install this python package in this environment
-
-```
-$ cd ~/env1/ytNeoPixel
-$ pip3 install .
-```
-
-
-### 1.5 install test program
-
-```
-$ cd ~/env1/ytNeoPixel
+$ git clone git@github.com:ytani01/Ytani_NeoPixel.git
+$ cd Ytani_NeoPixel
 $ ./install.sh
 ```
 
 ## 2. Sample (test)
 
+```
+$ ytani-neopixel test1 14
+````
 
 
 ## A. References

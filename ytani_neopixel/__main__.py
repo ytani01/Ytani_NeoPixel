@@ -2,12 +2,12 @@
 # (c) 2021 Yoichi Tanibayashi
 #
 """
-main for yt_neopixel package
+main for ytani_neopixel package
 """
 import random
 import time
 
-from . import ytNeoPixel, __prog_name__, __version__
+from . import Ytani_NeoPixel, __prog_name__, __version__
 from .my_logger import get_logger
 
 __author__ = 'Yoichi Tanibayashi'
@@ -31,7 +31,7 @@ class Test1App:
 
         self._led_num = led_num
 
-        self._obj = ytNeoPixel(count=self._led_num, debug=self._dbg)
+        self._obj = Ytani_NeoPixel(led_n=self._led_num, debug=self._dbg)
 
     def main(self):
         """ main """
@@ -55,7 +55,7 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 @click.group(invoke_without_command=True,
              context_settings=CONTEXT_SETTINGS, help="""
-ytNeoPixel: version """ + __version__)
+ytani-neopixel: version """ + __version__)
 @click.version_option(version=__version__)
 @click.pass_context
 def cli(ctx):

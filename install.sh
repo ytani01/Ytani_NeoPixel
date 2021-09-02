@@ -14,8 +14,7 @@ help() {
     |
     +- bin/ .. BINDIR シェルスクリプトなど
     |   |
-    |   +- ytNeoPixel .. WRAPPER_SCRIPT
-    |   +- boot-ytNeoPixel.sh .. 起動スクリプト
+    |   +- ytani-neopixel .. WRAPPER_SCRIPT
     |
     +- env1/ .. python3 Virtualenv(venv) 【ユーザが作成する】
         |
@@ -37,8 +36,8 @@ MYDIR=`pwd`
 echo "MYDIR=$MYDIR"
 
 
-MY_PKG="yt_neopixel"
-WRAPPER_SCRIPT="ytNeoPixel"
+MY_PKG="ytani_neopixel"
+WRAPPER_SCRIPT="ytani-neopixel"
 
 
 echo "MY_PKG=$MY_PKG"
