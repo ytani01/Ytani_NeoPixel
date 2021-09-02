@@ -47,7 +47,7 @@ class Test1App:
         self.__log.debug('start')
         self._obj.xfade_all(0xFFFFFF, n=10, interval=.1)
         time.sleep(self._sleep_sec)
-        self._obj.xfade_all(0x000000, n=10, interval=.1)
+        self._obj.xfade_all(0x000000, n=10, interval=.2)
         self.__log.debug('done')
 
     def end(self):
