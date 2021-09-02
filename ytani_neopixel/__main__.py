@@ -43,8 +43,8 @@ class Test1App:
     def end(self):
         """ end: Call at the end of usage """
         self.__log.debug('doing ..')
-        self._obj.xfade_all(0xFFFFFF, n=10, interval=.1)
-        self._obj.xfade_all(0x000000, n=10, interval=.1)
+        self._obj.xfade_all(0xFFFFFF, n=10, interval=1)
+        self._obj.xfade_all(0x000000, n=10, interval=1)
         self._obj.end()
         self.__log.debug('done')
 

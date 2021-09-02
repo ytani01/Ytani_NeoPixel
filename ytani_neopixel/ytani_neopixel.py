@@ -13,7 +13,7 @@ class Ytani_NeoPixel:
 
     DEF_PIN        = 10
     DEF_LED_N      = 14
-    DEF_BRIGHTNESS = 20
+    DEF_BRIGHTNESS = 100
     DEF_FREQ       = 800000  # 800kHz
     DEF_DMA        = 10
     DEF_INVERT     = False
@@ -127,6 +127,8 @@ class Ytani_NeoPixel:
                 c1[i].g += d[i].g / n
                 c1[i].b += d[i].b / n
 
+                self.__log.debug('%d: c1[%d]=(%s, %s, %s)', j, i,
+                                 c1[i].r, c1[i].g, c1[i].b)
                 self._pixel.setPixelColorRGB(i,
                                              int(c1[i].r),
                                              int(c1[i].g),
