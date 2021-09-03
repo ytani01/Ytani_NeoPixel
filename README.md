@@ -16,7 +16,7 @@ SPIでNeoPixelを利用するための設定
 - PCMオーディオ、PWM、アナログオーディオなどと共存できる
 
 上記の理由で、SPIの利用を推奨しますが、他のGPIOピン(PWM, PCM)を使うこともできます。
-詳しくは、[rpi_sw281x/README](https://github.com/jgarff/rpi_ws281x/README.md)を参照ください。
+詳しくは、[rpi_sw281x/README](https://github.com/jgarff/rpi_ws281x/blob/master/README.md)を参照ください。
 
 #### 1.1.1 edit ``/boot/cmdline.txt``
 ```
