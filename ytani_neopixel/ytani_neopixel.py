@@ -146,7 +146,7 @@ class NeoPixel:
 
     def xfade_all(self, color=0x000000, n=10, interval=0.1):
         """ """
-        self.__log.debug('color=0x%06X, n=%d, interval=%s',
+        self.__log.debug('color=%s, n=%d, interval=%s',
                          color, n, interval)
 
         if type(color) == int:
