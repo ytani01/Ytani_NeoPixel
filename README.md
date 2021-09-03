@@ -7,6 +7,9 @@ NeoPixel Library for Raspberry Pi
 
 SPIでNeoPixelを利用するための設定
 
+下記の理由で、SPIの利用を推奨しますが、他のGPIOピン(PWM, PCM)を使うこともできます。
+詳しくは、[rpi_sw281x/README](https://github.com/jgarff/rpi_ws281x/README.md)を参照ください。
+
 - GPIOが、10に限定されるが..
 - PCMオーディオ、PWM、アナログオーディオなどと共存できる
 

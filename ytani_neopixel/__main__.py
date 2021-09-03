@@ -64,7 +64,7 @@ class Test2App:
     def __init__(self,
                  led_n: int = Ytani_NeoPixel.DEF_LED_N,
                  led_i: int = 0,
-                 color_r: int = 255, color_g: int = 255, color_b: int = 255,
+                 color: str = '000000',
                  brightness: int = Ytani_NeoPixel.DEF_BRIGHTNESS,
                  sec: float = 4.5,
                  debug=False):
@@ -72,13 +72,13 @@ class Test2App:
         self._dbg = debug
         __class__.__log = get_logger(__class__.__name__, self._dbg)
         self.__log.debug('led_n, led_i=%s', (led_n, led_i))
-        self.__log.debug('color_rgb=%s', (color_r, color_g, color_b))
+        self.__log.debug('color_rgb=%s', color)
         self.__log.debug('brightness=%s', brightness)
         self.__log.debug('sec=%s', sec)
 
         self._led_n = led_n
         self._led_i = led_i
-        self._color = Color(color_r, color_g, color_b)
+        self._color = int(color, 16)
         self._brightness = brightness
         self._sec = sec
 
@@ -117,7 +117,9 @@ def cli(ctx):
         print(ctx.get_help())
 
 
-@cli.command(help="""test progaram""")
+@cli.command(help="""test progaram
+
+    LED_N   number of LED""")
 @click.argument('led_num', type=int, nargs=1)
 @click.option('--brightness', '-b', 'brightness', type=int,
               default=Ytani_NeoPixel.DEF_BRIGHTNESS,
@@ -141,26 +143,31 @@ def test1(led_num, brightness, sleep_sec, debug):
         log.info('end')
 
 
-@cli.command(help="""test progaram""")
+@cli.command(help="""test progaram
+
+
+    LED_N   number of LED
+
+    LED_I   index of Target LED
+
+    COLOR   hex color code""")
 @click.argument('led_n', type=int, nargs=1)
 @click.argument('led_i', type=int, nargs=1)
-@click.argument('color_r', type=int, nargs=1)
-@click.argument('color_g', type=int, nargs=1)
-@click.argument('color_b', type=int, nargs=1)
+@click.argument('color', type=str, nargs=1)
 @click.option('--brightness', '-b', 'brightness', type=int,
               default=Ytani_NeoPixel.DEF_BRIGHTNESS,
               help='brightness')
 @click.option('--sec', '-s', 'sec', type=float,
-              default=5.0,
+              default=3.0,
               help='seconds')
 @click.option('--debug', '-d', 'debug', is_flag=True, default=False,
               help='debug flag')
 @click.version_option(version=__version__)
-def test2(led_n, led_i, color_r, color_g, color_b, brightness, sec, debug):
+def test2(led_n, led_i, color, brightness, sec, debug):
     """ test1  """
     log = get_logger(__name__, debug)
 
-    app = Test2App(led_n, led_i, color_r, color_g, color_b, brightness, sec,
+    app = Test2App(led_n, led_i, color, brightness, sec,
                    debug=debug)
     try:
         app.main()
