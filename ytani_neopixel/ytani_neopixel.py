@@ -7,7 +7,7 @@ from rpi_ws281x import PixelStrip, Color
 from .my_logger import get_logger
 
 
-class Ytani_NeoPixel_Color:
+class NeoPixel_Color:
     """  """
     __log = get_logger(__name__, False)
 
@@ -27,8 +27,8 @@ class Ytani_NeoPixel_Color:
             self.b = color & 0xff
 
 
-class Ytani_NeoPixel:
-    """ Ytani_NeoPixel """
+class NeoPixel:
+    """ NeoPixel """
     __log = get_logger(__name__, False)
 
     DEF_PIN = 10  # SPI
@@ -65,25 +65,19 @@ class Ytani_NeoPixel:
                                  self._brightness, self._ch)
         self._pixel.begin()
 
-        self.off_all()
+        self.clear()
 
     def end(self):
         """ end """
         self.__log.debug('')
 
-        self.off_all()
+        self.clear()
 
-    def get_rgb(self, color):
-        """  """
-        self.__log.debug('color=0x%06X', color)
-
-        r = color >> 16 & 0xff
-        g = color >> 8 & 0xff
-        b = color & 0xff
-
-        return (r, g, b)
-
-    def set(self, i, color=Color(255, 255, 255)):
+    def __len__(self):
+        """ len """
+        return self._led_n
+    
+    def set(self, i=0, color=Color(255, 255, 255)):
         """ set """
         self.__log.debug('i=%d, color=0x%06X', i, color)
 
@@ -92,18 +86,35 @@ class Ytani_NeoPixel:
 
     def set_all(self, color=Color(255, 255, 255)):
         """ set_all """
-        self.__log.debug('color=0x%06X', color)
 
-        for i in range(self._led_n):
-            self._pixel.setPixelColor(i, color)
+        if type(color) == int:
+            color = [color]
+
+        if len(color) == 0:
+            color = [0]
+
+        while len(color) < self._led_n:
+            color += color
+
+        msg = "[ "
+        i = 0
+        for c in color:
+            self._pixel.setPixelColor(i, c)
+            msg += "#%06X " % c
+            i += 1
+            if i >= self._led_n:
+                break
+
+        msg += "]"
+        self.__log.debug('color=%s', msg)
 
         self._pixel.show()
 
-    def off_all(self):
+    def clear(self):
         """ """
         self.__log.debug('')
 
-        self.set_all(Color(0, 0, 0))
+        self.set_all(0x000000)
 
     def xfade(self, i, color=0x000000, n=5, interval=0.05):
         """ """
@@ -117,7 +128,7 @@ class Ytani_NeoPixel:
         setattr(c2, 'g', color >> 8 & 0xff)
         setattr(c2, 'b', color & 0xff)
 """
-        c2 = Ytani_NeoPixel_Color(color=color, debug=self._dbg)
+        c2 = NeoPixel_Color(color=color, debug=self._dbg)
 
         dr = c2.r - c1.r
         dg = c2.g - c1.g
@@ -138,17 +149,26 @@ class Ytani_NeoPixel:
         self.__log.debug('color=0x%06X, n=%d, interval=%s',
                          color, n, interval)
 
+        if type(color) == int:
+            color = [color]
+
+        if len(color) == 0:
+            color = [0]
+
+        while len(color) < self._led_n:
+            color += color
+
         c1 = []
         c2 = []
         d = []
         for i in range(self._led_n):
             c1.append(self._pixel.getPixelColorRGB(i))
 
-            c2.append(Ytani_NeoPixel_Color(color=color, debug=self._dbg))
+            c2.append(NeoPixel_Color(color=color[i], debug=self._dbg))
 
-            d.append(Ytani_NeoPixel_Color(c2[i].r - c1[i].r,
-                                          c2[i].g - c1[i].g,
-                                          c2[i].b - c1[i].b ))
+            d.append(NeoPixel_Color(c2[i].r - c1[i].r,
+                                    c2[i].g - c1[i].g,
+                                    c2[i].b - c1[i].b))
 
         for n_i in range(n):
             for i in range(self._led_n):

@@ -71,6 +71,20 @@ $ ytani-neopixel test2 -h
 ````
 
 
+## 3. Usage
+
+### 3.1 Simple usage example
+
+```
+#!/usr/bin/env python3
+
+from ytani_neopixel import Ytani_NeoPixel
+
+
+```
+
+
+
 ## A. References
 
 * [jgarff/rpi_ws281x(github)](https://github.com/jgarff/rpi_ws281x)

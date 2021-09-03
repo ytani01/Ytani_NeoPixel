@@ -7,7 +7,7 @@ main for ytani_neopixel package
 import random
 import time
 
-from . import Ytani_NeoPixel, __prog_name__, __version__
+from . import NeoPixel, __prog_name__, __version__
 from rpi_ws281x import Color
 from .my_logger import get_logger
 
@@ -38,9 +38,9 @@ class Test1App:
         self._brightness = brightness
         self._sleep_sec = sleep_sec
 
-        self._obj = Ytani_NeoPixel(led_n=self._led_num,
-                                   brightness=self._brightness,
-                                   debug=self._dbg)
+        self._obj = NeoPixel(led_n=self._led_num,
+                             brightness=self._brightness,
+                             debug=self._dbg)
 
     def main(self):
         """ main """
@@ -62,10 +62,10 @@ class Test2App:
     __log = get_logger(__name__, False)
 
     def __init__(self,
-                 led_n: int = Ytani_NeoPixel.DEF_LED_N,
+                 led_n: int = NeoPixel.DEF_LED_N,
                  led_i: int = 0,
                  color: str = '000000',
-                 brightness: int = Ytani_NeoPixel.DEF_BRIGHTNESS,
+                 brightness: int = NeoPixel.DEF_BRIGHTNESS,
                  sec: float = 4.5,
                  debug=False):
         """ Constructor """
@@ -82,7 +82,7 @@ class Test2App:
         self._brightness = brightness
         self._sec = sec
 
-        self._obj = Ytani_NeoPixel(led_n=self._led_n,
+        self._obj = NeoPixel(led_n=self._led_n,
                                    brightness=self._brightness,
                                    debug=self._dbg)
 
@@ -122,7 +122,7 @@ def cli(ctx):
     LED_N   number of LED""")
 @click.argument('led_num', type=int, nargs=1)
 @click.option('--brightness', '-b', 'brightness', type=int,
-              default=Ytani_NeoPixel.DEF_BRIGHTNESS,
+              default=NeoPixel.DEF_BRIGHTNESS,
               help='brightness')
 @click.option('--sleep_sec', '-s', 'sleep_sec', type=float,
               default=1.0,
@@ -155,7 +155,7 @@ def test1(led_num, brightness, sleep_sec, debug):
 @click.argument('led_i', type=int, nargs=1)
 @click.argument('color', type=str, nargs=1)
 @click.option('--brightness', '-b', 'brightness', type=int,
-              default=Ytani_NeoPixel.DEF_BRIGHTNESS,
+              default=NeoPixel.DEF_BRIGHTNESS,
               help='brightness')
 @click.option('--sec', '-s', 'sec', type=float,
               default=3.0,
