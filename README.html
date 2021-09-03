@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>README.html</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+
+</head>
+
+<body>
+
+<h1>Ytani_NeoPixel</h1>
+
+<p>NeoPixel Library for Raspberry Pi</p>
+
+<h2>0. LED(NeoPixel)の電源について</h2>
+
+<p>NeoPixel(LED)の電源をRaspberry Pi本体と共有すると、電力不足でRaspberry Piが落ちる可能性があります。
+LEDの電源は別にして、十分な電力供給をしてください。</p>
+
+<h2>1. Install</h2>
+
+<h3>1.1 Raspberry Pi OS setup for SPI</h3>
+
+<p>SPIでNeoPixelを利用するための設定</p>
+
+<ul>
+<li>GPIOが、10に限定されるが..</li>
+<li>PCMオーディオ、PWM、アナログオーディオなどと共存できる</li>
+</ul>
+
+<p>上記の理由で、SPIの利用を推奨しますが、他のGPIOピン(PWM, PCM)を使うこともできます。
+詳しくは、<a href="https://github.com/jgarff/rpi_ws281x/blob/master/README.md">rpi_sw281x/README</a>を参照ください。</p>
+
+<h4>1.1.1 edit <code>/boot/cmdline.txt</code></h4>
+
+<p><code>
+... spidev.bufsiz=32768
+</code></p>
+
+<h4>1.1.2 edit <code>/boot/config.txt</code></h4>
+
+<p>```
+[pi3]
+core_freq=250</p>
+
+<p>[pi4]
+core<em>freq</em>min=500
+```</p>
+
+<h4>1.1.3 reboot OS</h4>
+
+<p><code>
+$ sudo reboot
+</code></p>
+
+<h3>1.2 make Python Virtualenv(venv)</h3>
+
+<p><code>
+$ cd ~
+$ python3 -m venv env1
+$ cd ~/env1
+$ . ./bin/activate
+(env1) $
+</code></p>
+
+<h3>1.3 download source and install</h3>
+
+<p><code>
+(env1)$ cd ~/env1  # venv以外の他のディレクトリでも可
+(env1)$ git clone git@github.com:ytani01/Ytani_NeoPixel.git
+(env1)$ cd Ytani_NeoPixel
+(env1)$ ./install.sh
+</code></p>
+
+<h2>2. Sample (test)</h2>
+
+<p>以下のヘルプ参照
+```
+$ ytani-neopixel -h
+:</p>
+
+<p>$ ytani-neopixel test1 -h
+:</p>
+
+<p>$ ytani-neopixel test2 -h
+:
+````</p>
+
+<h2>A. References</h2>
+
+<ul>
+<li><a href="https://github.com/jgarff/rpi_ws281x">jgarff/rpi_ws281x(github)</a></li>
+</ul>
+
+</body>
+</html>
