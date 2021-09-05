@@ -65,7 +65,7 @@ class NeoPixel:
                                  self._brightness, self._ch)
         self._pixel.begin()
 
-        self.clear()
+        # self.clear()
 
     def end(self):
         """ end """
@@ -76,7 +76,7 @@ class NeoPixel:
     def __len__(self):
         """ len """
         return self._led_n
-    
+
     def set(self, i=0, color=Color(255, 255, 255)):
         """ set """
         self.__log.debug('i=%d, color=0x%06X', i, color)
@@ -87,7 +87,7 @@ class NeoPixel:
     def set_all(self, color=Color(255, 255, 255)):
         """ set_all """
 
-        if type(color) == int:
+        if isinstance(color, int):
             color = [color]
 
         if len(color) == 0:
@@ -121,13 +121,6 @@ class NeoPixel:
         self.__log.debug('i=%d, color=0x%06X', i, color)
 
         c1 = self._pixel.getPixelColorRGB(i)
-
-        """
-        c2 = lambda: None
-        setattr(c2, 'r', color >> 16 & 0xff)
-        setattr(c2, 'g', color >> 8 & 0xff)
-        setattr(c2, 'b', color & 0xff)
-"""
         c2 = NeoPixel_Color(color=color, debug=self._dbg)
 
         dr = c2.r - c1.r
@@ -149,7 +142,7 @@ class NeoPixel:
         self.__log.debug('color=%s, n=%d, interval=%s',
                          color, n, interval)
 
-        if type(color) == int:
+        if isinstance(color, int):
             color = [color]
 
         if len(color) == 0:

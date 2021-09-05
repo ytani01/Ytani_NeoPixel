@@ -86,5 +86,44 @@ def test2(led_num, brightness, sleep_sec, debug):
         pixel.end()
 
 
+@cli.command(help="""test progaram""")
+@click.argument('color', type=str, nargs=-1)
+@click.option('--led_num', '-n', 'led_num', type=int,
+              default=NeoPixel.DEF_LED_N,
+              help='number of LEDs (default: %s)' % NeoPixel.DEF_LED_N)
+@click.option('--brightness', '-b', 'brightness', type=int,
+              default=NeoPixel.DEF_BRIGHTNESS,
+              help='brightness (default: %s)' % NeoPixel.DEF_BRIGHTNESS)
+@click.option('--sleep_sec', '-s', 'sleep_sec', type=float,
+              default=0.5,
+              help='sleep sec (default: %s sec)' % 0.5)
+@click.option('--xfade', '-x', 'xfade', is_flag=True, default=False,
+              help='cross fade flag')
+@click.option('--clear', '-c', 'clear', is_flag=True, default=False,
+              help='clear flag')
+@click.option('--debug', '-d', 'debug', is_flag=True, default=False,
+              help='debug flag')
+@click.version_option(version=__version__)
+def test3(color, led_num, brightness, sleep_sec, xfade, clear, debug):
+    """ test3 """
+
+    pixel = NeoPixel(led_n=led_num, brightness=brightness,
+                     debug=debug)
+
+    try:
+        c_int = [int(c, 16) for c in color]
+        if xfade:
+            pixel.xfade_all(c_int)
+        else:
+            pixel.set_all(c_int)
+        time.sleep(sleep_sec)
+
+    finally:
+        if clear:
+            if xfade:
+                pixel.xfade_all(0)
+            pixel.end()
+
+
 if __name__ == '__main__':
     cli(prog_name=__prog_name__)
