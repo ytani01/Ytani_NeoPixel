@@ -1,10 +1,17 @@
 # Ytani_NeoPixel
 NeoPixel Library for Raspberry Pi
 
+## 特徴
+
+- 繰り返しパターンをリスト構造で簡単に指定できる。
+- クロス・フェードできる
+
+
 ## 0. LED(NeoPixel)の電源について
 
 NeoPixel(LED)の電源をRaspberry Pi本体と共有すると、電力不足でRaspberry Piが落ちる可能性があります。
 LEDの電源は別にして、十分な電力供給をしてください。
+
 
 ## 1. Install
 
@@ -16,12 +23,14 @@ SPIでNeoPixelを利用するための設定
 - PCMオーディオ、PWM、アナログオーディオなどと共存できる
 
 上記の理由で、SPIの利用を推奨しますが、他のGPIOピン(PWM, PCM)を使うこともできます。
-詳しくは、[rpi_sw281x/README](https://github.com/jgarff/rpi_ws281x/blob/master/README.md)を参照ください。
+詳しくは、[rpi_sw281x/README](https://github.com/jgarff/rpi_ws281x/blob/master/README.md)をご参照ください。
+
 
 #### 1.1.1 edit ``/boot/cmdline.txt``
 ```
 ... spidev.bufsiz=32768
 ```
+
 
 #### 1.1.2 edit ``/boot/config.txt``
 ```
@@ -32,10 +41,12 @@ core_freq=250
 core_freq_min=500
 ```
 
+
 #### 1.1.3 reboot OS
 ```
 $ sudo reboot
 ```
+
 
 ### 1.2 make Python Virtualenv(venv)
 
@@ -46,6 +57,7 @@ $ cd ~/env1
 $ . ./bin/activate
 (env1) $
 ```
+
 
 ### 1.3 download source and install
 
@@ -63,26 +75,22 @@ $ . ./bin/activate
 $ ytani-neopixel -h
 :
 
-$ ytani-neopixel test1 -h
-:
-
-$ ytani-neopixel test2 -h
-:
-````
-
 
 ## 3. Usage
 
-### 3.1 Simple usage example
+### 3.1 Simple example
 
-```
+``` python
 #!/usr/bin/env python3
 
-from ytani_neopixel import Ytani_NeoPixel
+from ytani_neopixel import NeoPixel
 
+pixel = NeoPixel()
 
+pixel.xfade_all([0xffffff, 0xff0000, 0x00ff00, 0x0000ff])
+pixel.xfade_all(0)
+pixel.end()
 ```
-
 
 
 ## A. References
