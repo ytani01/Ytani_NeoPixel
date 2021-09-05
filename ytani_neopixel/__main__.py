@@ -8,7 +8,7 @@ __date__ = '2021/09'
 import time
 import click
 from . import NeoPixel, __prog_name__, __version__
-
+from . import RobotEye_Cirle7LEDs
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
@@ -123,6 +123,27 @@ def test3(color, led_num, brightness, sleep_sec, xfade, clear, debug):
             if xfade:
                 pixel.xfade_all(0)
             pixel.end()
+
+
+@cli.command(help="""Robot eyes for cirle serial LED (7LEDs)""")
+@click.option('--brightness', '-b', 'brightness', type=int,
+              default=RobotEye_Cirle7LEDs.DEF_BRIGHTNESS,
+              help='brightness (default: %s)' % (
+                  RobotEye_Cirle7LEDs.DEF_BRIGHTNESS))
+@click.option('--debug', '-d', 'debug', is_flag=True, default=False,
+              help='debug flag')
+@click.version_option(version=__version__)
+def robot_eye1(brightness, debug):
+    """ robot_eye1 """
+
+    robot_eye = RobotEye_Cirle7LEDs(brightness=brightness, debug=debug)
+
+    try:
+        robot_eye.start()
+        robot_eye.join()
+
+    finally:
+        robot_eye.end()
 
 
 if __name__ == '__main__':
