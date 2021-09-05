@@ -1,106 +1,15 @@
 #
 # (c) 2021 Yoichi Tanibayashi
 #
-"""
-main for ytani_neopixel package
-"""
-import random
-import time
-
-from . import NeoPixel, __prog_name__, __version__
-from rpi_ws281x import Color
-from .my_logger import get_logger
-
 __author__ = 'Yoichi Tanibayashi'
 __date__ = '2021/09'
 
 
-class Test1App:
-    """ Test1App """
-    __log = get_logger(__name__, False)
-
-    def __init__(self, led_num: int,
-                 brightness: int, sleep_sec: float,
-                 debug=False):
-        """ Constructor
-
-        Parameters
-        ----------
-        led_num: int
-        """
-        self._dbg = debug
-        self.__log = get_logger(self.__class__.__name__, self._dbg)
-        self.__log.debug('led_num=%d', led_num)
-        self.__log.debug('brightness=%s', brightness)
-        self.__log.debug('sleep_sec=%s', sleep_sec)
-
-        self._led_num = led_num
-        self._brightness = brightness
-        self._sleep_sec = sleep_sec
-
-        self._obj = NeoPixel(led_n=self._led_num,
-                             brightness=self._brightness,
-                             debug=self._dbg)
-
-    def main(self):
-        """ main """
-        self.__log.debug('start')
-        self._obj.xfade_all(0xFFFFFF, n=10, interval=.1)
-        time.sleep(self._sleep_sec)
-        self._obj.xfade_all(0x000000, n=10, interval=.2)
-        self.__log.debug('done')
-
-    def end(self):
-        """ end: Call at the end of usage """
-        self.__log.debug('doing ..')
-        self._obj.end()
-        self.__log.debug('done')
-
-
-class Test2App:
-    """ Test2App """
-    __log = get_logger(__name__, False)
-
-    def __init__(self,
-                 led_n: int = NeoPixel.DEF_LED_N,
-                 led_i: int = 0,
-                 color: str = '000000',
-                 brightness: int = NeoPixel.DEF_BRIGHTNESS,
-                 sec: float = 4.5,
-                 debug=False):
-        """ Constructor """
-        self._dbg = debug
-        __class__.__log = get_logger(__class__.__name__, self._dbg)
-        self.__log.debug('led_n, led_i=%s', (led_n, led_i))
-        self.__log.debug('color_rgb=%s', color)
-        self.__log.debug('brightness=%s', brightness)
-        self.__log.debug('sec=%s', sec)
-
-        self._led_n = led_n
-        self._led_i = led_i
-        self._color = int(color, 16)
-        self._brightness = brightness
-        self._sec = sec
-
-        self._obj = NeoPixel(led_n=self._led_n,
-                                   brightness=self._brightness,
-                                   debug=self._dbg)
-
-    def main(self):
-        """ main """
-        self.__log.debug('')
-
-        self._obj.set(self._led_i, self._color)
-
-        time.sleep(self._sec)
-
-    def end(self):
-        """ end """
-        self.__log.debug('')
-        self._obj.end()
-
-
+import time
 import click
+from . import NeoPixel, __prog_name__, __version__
+
+
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 
@@ -119,62 +28,62 @@ def cli(ctx):
 
 @cli.command(help="""test progaram
 
-    LED_N   number of LED""")
-@click.argument('led_num', type=int, nargs=1)
-@click.option('--brightness', '-b', 'brightness', type=int,
-              default=NeoPixel.DEF_BRIGHTNESS,
-              help='brightness')
-@click.option('--sleep_sec', '-s', 'sleep_sec', type=float,
-              default=1.0,
-              help='sleep sec')
-@click.option('--debug', '-d', 'debug', is_flag=True, default=False,
-              help='debug flag')
-@click.version_option(version=__version__)
-def test1(led_num, brightness, sleep_sec, debug):
-    """ test1  """
-    log = get_logger(__name__, debug)
-
-    app = Test1App(led_num, brightness, sleep_sec, debug=debug)
-    try:
-        app.main()
-    finally:
-        log.debug('finally')
-        app.end()
-        log.info('end')
-
-
-@cli.command(help="""test progaram
-
-
-    LED_N   number of LED
-
     LED_I   index of Target LED
 
     COLOR   hex color code""")
-@click.argument('led_n', type=int, nargs=1)
-@click.argument('led_i', type=int, nargs=1)
-@click.argument('color', type=str, nargs=1)
+@click.argument('led_i', type=int)
+@click.argument('color', type=str)
+@click.option('--led_n', '-n', 'led_n', type=int, default=NeoPixel.DEF_LED_N,
+              help='number of LEDs (default: %s)' % NeoPixel.DEF_LED_N)
 @click.option('--brightness', '-b', 'brightness', type=int,
               default=NeoPixel.DEF_BRIGHTNESS,
-              help='brightness')
+              help='brightness (default: %s)' % NeoPixel.DEF_BRIGHTNESS)
 @click.option('--sec', '-s', 'sec', type=float,
               default=3.0,
-              help='seconds')
+              help='seconds (default: %s)' % 3.0)
 @click.option('--debug', '-d', 'debug', is_flag=True, default=False,
               help='debug flag')
 @click.version_option(version=__version__)
-def test2(led_n, led_i, color, brightness, sec, debug):
+def test1(led_n, led_i, color, brightness, sec, debug):
     """ test1  """
-    log = get_logger(__name__, debug)
 
-    app = Test2App(led_n, led_i, color, brightness, sec,
-                   debug=debug)
+    pixel = NeoPixel(led_n=led_n, brightness=brightness,
+                     debug=debug)
+
     try:
-        app.main()
+        pixel.set(led_i, int(color, 16))
+        time.sleep(sec)
+
     finally:
-        log.debug('finally')
-        app.end()
-        log.info('end')
+        pixel.end()
+
+
+@cli.command(help="""test progaram""")
+@click.option('--led_num', '-n', 'led_num', type=int,
+              default=NeoPixel.DEF_LED_N,
+              help='number of LEDs (default: %s)' % NeoPixel.DEF_LED_N)
+@click.option('--brightness', '-b', 'brightness', type=int,
+              default=NeoPixel.DEF_BRIGHTNESS,
+              help='brightness (default: %s)' % NeoPixel.DEF_BRIGHTNESS)
+@click.option('--sleep_sec', '-s', 'sleep_sec', type=float,
+              default=1.0,
+              help='sleep sec (default: %s sec)' % 1.0)
+@click.option('--debug', '-d', 'debug', is_flag=True, default=False,
+              help='debug flag')
+@click.version_option(version=__version__)
+def test2(led_num, brightness, sleep_sec, debug):
+    """ test2  """
+
+    pixel = NeoPixel(led_n=led_num, brightness=brightness,
+                     debug=debug)
+
+    try:
+        pixel.xfade_all(0xFFFFFF, n=10, interval=.1)
+        time.sleep(sleep_sec)
+        pixel.xfade_all(0x000000, n=10, interval=.1)
+
+    finally:
+        pixel.end()
 
 
 if __name__ == '__main__':
