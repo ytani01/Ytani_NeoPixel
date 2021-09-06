@@ -88,7 +88,7 @@ class RobotEye_Cirle7LEDs(threading.Thread):
             color = [0] * self._pos_n
             color[self._cur_pos] = eye_color
 
-            self._pixel.xfade_all(color, n=4, interval=0.05)
+            self._pixel.xfade_all(color, n=2, interval=0.1)
 
             sleep_sec = random.random()
             self.__log.debug('sleep_sec=%s', sleep_sec)
