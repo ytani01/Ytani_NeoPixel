@@ -126,16 +126,29 @@ def test3(color, led_num, brightness, sleep_sec, xfade, clear, debug):
 
 
 @cli.command(help="""Robot eyes for cirle serial LED (7LEDs)""")
+@click.option('--xfade_n', '--xn', '-xn', 'xfade_n', type=int,
+              default=RobotEyes_Cirle7LEDs.DEF_XFADE_N,
+              help='cross-fade count (default: %s)' % (
+                  RobotEyes_Cirle7LEDs.DEF_XFADE_N))
+@click.option('--xfade_sec', '--xs', '-xs', 'xfade_sec', type=float,
+              default=RobotEyes_Cirle7LEDs.DEF_XFADE_SEC,
+              help='cross-fade interval sec (default: %s)' % (
+                  RobotEyes_Cirle7LEDs.DEF_XFADE_SEC))
+@click.option('--pin', '-p', 'pin', type=int,
+              default=NeoPixel.DEF_PIN,
+              help='GPIO pin (default: %s)' % (NeoPixel.DEF_PIN))
 @click.option('--brightness', '-b', 'brightness', type=int,
               default=NeoPixel.DEF_BRIGHTNESS,
               help='brightness (default: %s)' % (NeoPixel.DEF_BRIGHTNESS))
 @click.option('--debug', '-d', 'debug', is_flag=True, default=False,
               help='debug flag')
 @click.version_option(version=__version__)
-def robot_eye1(brightness, debug):
+def robot_eye1(xfade_n, xfade_sec, pin, brightness, debug):
     """ robot_eye1 """
 
-    robot_eye = RobotEyes_Cirle7LEDs(brightness=brightness, debug=debug)
+    robot_eye = RobotEyes_Cirle7LEDs(xfade_n=xfade_n, xfade_sec=xfade_sec,
+                                     pin=pin, brightness=brightness,
+                                     debug=debug)
 
     try:
         robot_eye.start()

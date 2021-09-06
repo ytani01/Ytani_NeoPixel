@@ -17,6 +17,9 @@ class RobotEyes_Cirle7LEDs(threading.Thread):
         [06]  [05]         [13]  [12]
 """
 
+    DEF_XFADE_N = 3
+    DEF_XFADE_SEC = 0.05
+
     NEXT_POS_LIST = [
         [0, 0, 0, 1, 2, 3, 4, 5, 6],
         [0, 1, 1, 1, 2, 6],
@@ -29,13 +32,17 @@ class RobotEyes_Cirle7LEDs(threading.Thread):
 
     __log = get_logger(__name__, False)
 
-    def __init__(self, pin=NeoPixel.DEF_PIN, led_n=NeoPixel.DEF_LED_N,
+    def __init__(self, xfade_n=DEF_XFADE_N, xfade_sec=DEF_XFADE_SEC,
+                 pin=NeoPixel.DEF_PIN, led_n=NeoPixel.DEF_LED_N,
                  brightness=NeoPixel.DEF_BRIGHTNESS,
                  debug=False):
         """ constructor """
         self._dbg = debug
         __class__.__log = get_logger(__class__.__name__, self._dbg)
+        self.__log.debug('xfade: (n, sec)=%s', (xfade_n, xfade_sec))
 
+        self._xfade_n = xfade_n
+        self._xfade_sec = xfade_sec
         self._pin = pin
         self._led_n = led_n
         self._brightness = brightness
@@ -84,7 +91,9 @@ class RobotEyes_Cirle7LEDs(threading.Thread):
             color = [0] * self._pos_n
             color[self._cur_pos] = eye_color
 
-            self._pixel.xfade_all(color, n=2, interval=0.1)
+            self._pixel.xfade_all(color,
+                                  n=self._xfade_n,
+                                  interval=self._xfade_sec)
 
             sleep_sec = random.random()
             self.__log.debug('sleep_sec=%s', sleep_sec)
