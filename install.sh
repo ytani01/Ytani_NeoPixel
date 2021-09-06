@@ -135,6 +135,30 @@ clean() {
 #
 # main
 #
+
+#
+# venv
+#
+if [ -z $VIRTUAL_ENV ]; then
+    while [ ! -f ./bin/activate ]; do
+        cd ..
+        if [ `pwd` = "/" ]; then
+            echo
+            echo "ERROR: Please create and activate Python3 Virtualenv(venv) and run again"
+            echo
+            echo "\$ cd ~"
+            echo "\$ python -m venv env1"
+            echo "\$ . ~/env1/bin/activate"
+            echo
+            exit 1
+        fi
+    done
+    echo "### activate venv"
+    . ./bin/activate
+fi
+cd_echo $VIRTUAL_ENV
+
+###
 cd_echo $MYDIR
 MY_VERSION=`python setup.py --version`
 echo "MY_VERSION=$MY_VERSION"
@@ -163,28 +187,6 @@ if [ -f $PKGS_TXT ]; then
         echo
     fi
 fi
-
-#
-# venv
-#
-if [ -z $VIRTUAL_ENV ]; then
-    while [ ! -f ./bin/activate ]; do
-        cd ..
-        if [ `pwd` = "/" ]; then
-            echo
-            echo "ERROR: Please create and activate Python3 Virtualenv(venv) and run again"
-            echo
-            echo "\$ cd ~"
-            echo "\$ python -m venv env1"
-            echo "\$ . ~/env1/bin/activate"
-            echo
-            exit 1
-        fi
-    done
-    echo "### activate venv"
-    . ./bin/activate
-fi
-cd_echo $VIRTUAL_ENV
 
 #
 # make $WRAPPER_SCRIPT
