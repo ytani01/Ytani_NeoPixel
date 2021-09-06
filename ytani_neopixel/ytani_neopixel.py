@@ -77,6 +77,19 @@ class NeoPixel:
         """ len """
         return self._led_n
 
+    def get_brightness(self):
+        """ get_brightness """
+        self.__log.debug('')
+
+        return self._pixel.getBrightness()
+
+    def set_brightness(self, brightness):
+        """ set_brightness """
+        self.__log.debug('brightness=%s', brightness)
+
+        self._pixel.setBrightness(brightness)
+        self._pixel.show()
+
     def set(self, i=0, color=Color(255, 255, 255)):
         """ set """
         self.__log.debug('i=%d, color=0x%06X', i, color)

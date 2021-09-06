@@ -7,8 +7,11 @@ __date__ = '2021/09'
 
 import time
 import click
-from . import NeoPixel, __prog_name__, __version__
+from cuilib import Cui
+from . import __prog_name__, __version__
+from . import NeoPixel
 from . import RobotEyes_Cirle7LEDs
+from . import get_logger
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
@@ -123,6 +126,179 @@ def test3(color, led_num, brightness, sleep_sec, xfade, clear, debug):
             if xfade:
                 pixel.xfade_all(0)
             pixel.end()
+
+
+@cli.command(help="""RGB test""")
+@click.option('--pin', '-p', 'pin', type=int,
+              default=NeoPixel.DEF_PIN,
+              help='GPIO pin (default: %s)' % (NeoPixel.DEF_PIN))
+@click.option('--led_num', '-n', 'led_num', type=int,
+              default=NeoPixel.DEF_LED_N,
+              help='number of LEDs (default: %s)' % NeoPixel.DEF_LED_N)
+@click.option('--debug', '-d', 'debug', is_flag=True, default=False,
+              help='debug flag')
+@click.version_option(version=__version__)
+def rgb_test(pin, led_num, debug):
+    """ rgb_test """
+
+    app = RGBtest(pin, led_num, debug=debug)
+
+    try:
+        app.main()
+
+    finally:
+        app.end()
+
+
+class RGBtest:
+    """ RGB test """
+    __log = get_logger(__name__, False)
+
+    def __init__(self, pin, led_n, debug=False):
+        """ init """
+        self._dbg = debug
+        __class__.__log = get_logger(__class__.__name__, self._dbg)
+        self.__log.debug('pin=%s, led_n=%s', pin, led_n)
+
+        self._r = 0xff
+        self._g = 0xff
+        self._b = 0xff
+        self._brightness = 16
+
+        self._pixel = NeoPixel(pin=pin, led_n=led_n,
+                               brightness=self._brightness,
+                               debug=debug)
+        self._cui = Cui(debug=debug)
+        self._cui.add('hH?', self.cmd_help, 'command help')
+        self._cui.add(['q', 'Q', 'KEY_ESCAPE', '\x04'], self.cmd_quit, 'quit')
+        self._cui.add(['KEY_UP'], self.cmd_brightness_up, 'up brightness')
+        self._cui.add(['KEY_DOWN'], self.cmd_brightness_down, 'down brightness')
+        self._cui.add('r', self.cmd_r_up, 'up R')
+        self._cui.add('R', self.cmd_r_down, 'down R')
+        self._cui.add('g', self.cmd_g_up, 'up G')
+        self._cui.add('G', self.cmd_g_down, 'down G')
+        self._cui.add('b', self.cmd_b_up, 'up B')
+        self._cui.add('B', self.cmd_b_down, 'down B')
+
+    def main(self):
+        """ main """
+        self.__log.debug('')
+
+        self.update()
+        self.print_status()
+
+        self._cui.start()
+        self._cui.join()
+
+    def end(self):
+        """ end """
+        self.__log.debug('')
+
+        self._pixel.end()
+        self._cui.end()
+        self._cui.join()
+
+    def update(self):
+        """ get_color """
+        self.__log.debug('')
+
+        color = self.rgb2color(self._r, self._g, self._b)
+        self._pixel.set_all(color)
+        self._pixel.set_brightness(self._brightness)
+
+    def rgb2color(self, r, g, b):
+        """ rgb2color """
+        self.__log.debug('RGB=#%02X%02X%02X', r, g, b)
+
+        color = (r << 16) + (g << 8) + b
+        self.__log.debug('color=0x%06X', color)
+
+        return color
+
+    def print_status(self):
+        """ print_status """
+        self.__log.debug('')
+
+        print('#%02X%02X%02X, %d' % (
+            self._r, self._g, self._b, self._brightness))
+
+    def cmd_help(self, cmd):
+        """ cmd_help """
+        self.__log.debug('cmd=%s', cmd)
+
+        self._cui.help(True)
+        self.print_status()
+
+    def cmd_quit(self, cmd):
+        """ cmd_quit """
+        self.__log.debug('cmd=%s', cmd)
+
+        self._cui.end()
+        self.print_status()
+
+    def cmd_brightness_up(self, cmd):
+        """ cmd_brightness_up """
+        self.__log.debug('cmd=%s', cmd)
+
+        self._brightness = min(self._brightness * 2, 255)
+        self.update()
+        self.print_status()
+
+    def cmd_brightness_down(self, cmd):
+        """ cmd_brightness_down """
+        self.__log.debug('cmd=%s', cmd)
+
+        self._brightness = round(max(self._brightness / 2, 1))
+        self.update()
+        self.print_status()
+
+    def cmd_r_up(self, cmd):
+        """ cmd_r_up """
+        self.__log.debug('cmd=%s', cmd)
+
+        self._r = round(min(self._r + 4, 0xff))
+        self.update()
+        self.print_status()
+
+    def cmd_r_down(self, cmd):
+        """ cmd_r_down """
+        self.__log.debug('cmd=%s', cmd)
+
+        self._r = round(max(self._r - 4, 0))
+        self.update()
+        self.print_status()
+
+    def cmd_g_up(self, cmd):
+        """ cmd_g_up """
+        self.__log.debug('cmd=%s', cmd)
+
+        self._g = round(min(self._g + 4, 0xff))
+        self.update()
+        self.print_status()
+
+    def cmd_g_down(self, cmd):
+        """ cmd_g_down """
+        self.__log.debug('cmd=%s', cmd)
+
+        self._g = round(max(self._g - 4, 0))
+        self.update()
+        self.print_status()
+
+    def cmd_b_up(self, cmd):
+        """ cmd_b_up """
+        self.__log.debug('cmd=%s', cmd)
+
+        self._b = round(min(self._b + 4, 0xff))
+        self.update()
+        self.print_status()
+
+    def cmd_b_down(self, cmd):
+        """ cmd_b_down """
+        self.__log.debug('cmd=%s', cmd)
+
+        self._b = round(max(self._b - 4, 0))
+        self.update()
+        self.print_status()
 
 
 @cli.command(help="""Robot eyes for cirle serial LED (7LEDs)""")
