@@ -68,15 +68,15 @@ $ . ./bin/activate
 (env1)$ ./install.sh
 ```
 
-## 2. Sample (test)
+## 2. Sample (test) Programs
 
 以下のヘルプ参照
 ```
 $ ytani-neopixel -h
 :
+```
 
-
-## 3. Usage
+## 3. Library Usage
 
 ### 3.1 Simple example
 
@@ -85,13 +85,12 @@ $ ytani-neopixel -h
 
 from ytani_neopixel import NeoPixel
 
-pixel = NeoPixel()
+pixel = NeoPixel(pin=10, led_n=16)
 
 pixel.xfade_all([0xffffff, 0xff0000, 0x00ff00, 0x0000ff])
 pixel.xfade_all(0)
 pixel.end()
 ```
-
 
 ## A. References
 
