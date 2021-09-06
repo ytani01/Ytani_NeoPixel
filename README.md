@@ -21,18 +21,31 @@ SPIでNeoPixelを利用するための設定
 
 - GPIOが、10に限定されるが..
 - PCMオーディオ、PWM、アナログオーディオなどと共存できる
+- 個人的な経験上、一番安定している(?)
 
 上記の理由で、SPIの利用を推奨しますが、他のGPIOピン(PWM, PCM)を使うこともできます。
 詳しくは、[rpi_sw281x/README](https://github.com/jgarff/rpi_ws281x/blob/master/README.md)をご参照ください。
 
 
-#### 1.1.1 edit ``/boot/cmdline.txt``
+#### 1.1.1 add user to group ``spi``
+
+一般ユーザー(ここでは ``pi``)が、
+spiデバイス(/dev/spi*)にアクセスできるようにする。
+
 ```
-... spidev.bufsiz=32768
+$ sudo gpasswd -a pi spi
 ```
 
 
-#### 1.1.2 edit ``/boot/config.txt``
+#### 1.1.2 edit ``/boot/cmdline.txt``
+
+行末に`` spidev.bufsiz=32768``を追加する。
+
+
+#### 1.1.3 edit ``/boot/config.txt``
+
+GPUコア周波数調整
+
 ```
 [pi3]
 core_freq=250
@@ -42,7 +55,7 @@ core_freq_min=500
 ```
 
 
-#### 1.1.3 reboot OS
+#### 1.1.4 reboot OS
 ```
 $ sudo reboot
 ```
