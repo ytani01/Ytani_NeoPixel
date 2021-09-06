@@ -1,12 +1,6 @@
 #
 # (c) 2021 Yoichi tanibayashi
 #
-# Robot eyes for cirle serial LED (7 LEDs) x 2
-#
-#     [02]  [03]         [09]  [10]
-#   [01] [00]  [04]    [08] [07]  [11]
-#     [06]  [05]         [13]  [12]
-
 import threading
 import time
 import random
@@ -15,11 +9,13 @@ from .ytani_neopixel import NeoPixel
 from .my_logger import get_logger
 
 
-class RobotEye_Cirle7LEDs(threading.Thread):
-    """ Rboto eyes for cirle serial LED (7LEDs) """
-    DEF_PIN = 10    # SPI
-    DEF_LED_N = 14
-    DEF_BRIGHTNESS = 15
+class RobotEyes_Cirle7LEDs(threading.Thread):
+    """ Robot eyes for cirle serial LED (7 LEDs) x 2
+
+        [02]  [03]         [09]  [10]
+      [01] [00]  [04]    [08] [07]  [11]
+        [06]  [05]         [13]  [12]
+"""
 
     NEXT_POS_LIST = [
         [0, 0, 0, 1, 2, 3, 4, 5, 6],
@@ -33,8 +29,8 @@ class RobotEye_Cirle7LEDs(threading.Thread):
 
     __log = get_logger(__name__, False)
 
-    def __init__(self, pin=DEF_PIN, led_n=DEF_LED_N,
-                 brightness=DEF_BRIGHTNESS,
+    def __init__(self, pin=NeoPixel.DEF_PIN, led_n=NeoPixel.DEF_LED_N,
+                 brightness=NeoPixel.DEF_BRIGHTNESS,
                  debug=False):
         """ constructor """
         self._dbg = debug

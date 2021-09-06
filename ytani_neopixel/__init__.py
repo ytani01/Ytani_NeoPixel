@@ -9,7 +9,7 @@ __version__ = '0.0.7'
 __author__ = 'Yoichi Tanibayashi'
 
 from .ytani_neopixel import NeoPixel, NeoPixel_Color
-from .robot_eye import RobotEye_Cirle7LEDs
+from .robot_eyes_7leds import RobotEye_Cirle7LEDs
 
 __all__ = [
     '__author__', '__version__', '__prog_name__',
