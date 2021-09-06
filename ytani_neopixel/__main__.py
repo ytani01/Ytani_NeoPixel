@@ -10,7 +10,7 @@ import click
 from cuilib import Cui
 from . import __prog_name__, __version__
 from . import NeoPixel
-from . import RobotEyes_Cirle7LEDs
+from . import RobotEyes_Circle7LEDs
 from . import get_logger
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -160,29 +160,35 @@ class RGBtest:
         __class__.__log = get_logger(__class__.__name__, self._dbg)
         self.__log.debug('pin=%s, led_n=%s', pin, led_n)
 
-        self._r = 0xff
-        self._g = 0xff
-        self._b = 0xff
+        self._r = 0x80
+        self._g = 0x80
+        self._b = 0x80
         self._brightness = 16
 
         self._pixel = NeoPixel(pin=pin, led_n=led_n,
                                brightness=self._brightness,
                                debug=debug)
+
         self._cui = Cui(debug=debug)
-        self._cui.add('hH?', self.cmd_help, 'command help')
-        self._cui.add(['q', 'Q', 'KEY_ESCAPE', '\x04'], self.cmd_quit, 'quit')
-        self._cui.add(['KEY_UP'], self.cmd_brightness_up, 'up brightness')
-        self._cui.add(['KEY_DOWN'], self.cmd_brightness_down, 'down brightness')
-        self._cui.add('r', self.cmd_r_up, 'up R')
-        self._cui.add('R', self.cmd_r_down, 'down R')
-        self._cui.add('g', self.cmd_g_up, 'up G')
-        self._cui.add('G', self.cmd_g_down, 'down G')
-        self._cui.add('b', self.cmd_b_up, 'up B')
-        self._cui.add('B', self.cmd_b_down, 'down B')
+
+        self._cui.add('hH?', self._cui.help, 'command help')
+        self._cui.add(['KEY_ESCAPE', '\x04'], self._cui.end, 'quit')
+        self._cui.add(['KEY_UP'], self.cmd_brightness_up,
+                      'up brightness')
+        self._cui.add(['KEY_DOWN'], self.cmd_brightness_down,
+                      'down brightness')
+        self._cui.add('qr', self.cmd_r_up, 'up R')
+        self._cui.add('aR', self.cmd_r_down, 'down R')
+        self._cui.add('wg', self.cmd_g_up, 'up G')
+        self._cui.add('sG', self.cmd_g_down, 'down G')
+        self._cui.add('eb', self.cmd_b_up, 'up B')
+        self._cui.add('dB', self.cmd_b_down, 'down B')
 
     def main(self):
         """ main """
         self.__log.debug('')
+
+        print('[ESC] to exit\n')
 
         self.update()
         self.print_status()
@@ -210,7 +216,7 @@ class RGBtest:
         """ rgb2color """
         self.__log.debug('RGB=#%02X%02X%02X', r, g, b)
 
-        color = (r << 16) + (g << 8) + b
+        color = (r << 16) | (g << 8) | b
         self.__log.debug('color=0x%06X', color)
 
         return color
@@ -221,20 +227,6 @@ class RGBtest:
 
         print('#%02X%02X%02X, %d' % (
             self._r, self._g, self._b, self._brightness))
-
-    def cmd_help(self, cmd):
-        """ cmd_help """
-        self.__log.debug('cmd=%s', cmd)
-
-        self._cui.help(True)
-        self.print_status()
-
-    def cmd_quit(self, cmd):
-        """ cmd_quit """
-        self.__log.debug('cmd=%s', cmd)
-
-        self._cui.end()
-        self.print_status()
 
     def cmd_brightness_up(self, cmd):
         """ cmd_brightness_up """
@@ -256,7 +248,7 @@ class RGBtest:
         """ cmd_r_up """
         self.__log.debug('cmd=%s', cmd)
 
-        self._r = round(min(self._r + 4, 0xff))
+        self._r = round(min(self._r + 1, 0xff))
         self.update()
         self.print_status()
 
@@ -264,7 +256,7 @@ class RGBtest:
         """ cmd_r_down """
         self.__log.debug('cmd=%s', cmd)
 
-        self._r = round(max(self._r - 4, 0))
+        self._r = round(max(self._r - 1, 0))
         self.update()
         self.print_status()
 
@@ -272,7 +264,7 @@ class RGBtest:
         """ cmd_g_up """
         self.__log.debug('cmd=%s', cmd)
 
-        self._g = round(min(self._g + 4, 0xff))
+        self._g = round(min(self._g + 1, 0xff))
         self.update()
         self.print_status()
 
@@ -280,7 +272,7 @@ class RGBtest:
         """ cmd_g_down """
         self.__log.debug('cmd=%s', cmd)
 
-        self._g = round(max(self._g - 4, 0))
+        self._g = round(max(self._g - 1, 0))
         self.update()
         self.print_status()
 
@@ -288,7 +280,7 @@ class RGBtest:
         """ cmd_b_up """
         self.__log.debug('cmd=%s', cmd)
 
-        self._b = round(min(self._b + 4, 0xff))
+        self._b = round(min(self._b + 1, 0xff))
         self.update()
         self.print_status()
 
@@ -296,20 +288,20 @@ class RGBtest:
         """ cmd_b_down """
         self.__log.debug('cmd=%s', cmd)
 
-        self._b = round(max(self._b - 4, 0))
+        self._b = round(max(self._b - 1, 0))
         self.update()
         self.print_status()
 
 
-@cli.command(help="""Robot eyes for cirle serial LED (7LEDs)""")
+@cli.command(help="""Robot eyes for circle serial LED (7LEDs)""")
 @click.option('--xfade_n', '--xn', '-xn', 'xfade_n', type=int,
-              default=RobotEyes_Cirle7LEDs.DEF_XFADE_N,
+              default=RobotEyes_Circle7LEDs.DEF_XFADE_N,
               help='cross-fade count (default: %s)' % (
-                  RobotEyes_Cirle7LEDs.DEF_XFADE_N))
+                  RobotEyes_Circle7LEDs.DEF_XFADE_N))
 @click.option('--xfade_sec', '--xs', '-xs', 'xfade_sec', type=float,
-              default=RobotEyes_Cirle7LEDs.DEF_XFADE_SEC,
+              default=RobotEyes_Circle7LEDs.DEF_XFADE_SEC,
               help='cross-fade interval sec (default: %s)' % (
-                  RobotEyes_Cirle7LEDs.DEF_XFADE_SEC))
+                  RobotEyes_Circle7LEDs.DEF_XFADE_SEC))
 @click.option('--pin', '-p', 'pin', type=int,
               default=NeoPixel.DEF_PIN,
               help='GPIO pin (default: %s)' % (NeoPixel.DEF_PIN))
@@ -322,7 +314,7 @@ class RGBtest:
 def robot_eye1(xfade_n, xfade_sec, pin, brightness, debug):
     """ robot_eye1 """
 
-    robot_eye = RobotEyes_Cirle7LEDs(xfade_n=xfade_n, xfade_sec=xfade_sec,
+    robot_eye = RobotEyes_Circle7LEDs(xfade_n=xfade_n, xfade_sec=xfade_sec,
                                      pin=pin, brightness=brightness,
                                      debug=debug)
 

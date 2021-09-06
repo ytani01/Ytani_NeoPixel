@@ -169,12 +169,10 @@ class NeoPixel:
         d = []
         for i in range(self._led_n):
             c1.append(self._pixel.getPixelColorRGB(i))
-
             c2.append(NeoPixel_Color(color=color[i], debug=self._dbg))
-
-            d.append(NeoPixel_Color(c2[i].r - c1[i].r,
-                                    c2[i].g - c1[i].g,
-                                    c2[i].b - c1[i].b))
+            d.append(NeoPixel_Color((c2[i].r - c1[i].r),
+                                    (c2[i].g - c1[i].g),
+                                    (c2[i].b - c1[i].b)))
 
         for n_i in range(n):
             for i in range(self._led_n):
@@ -182,9 +180,10 @@ class NeoPixel:
                 c1[i].g += d[i].g / n
                 c1[i].b += d[i].b / n
 
-                (r, g, b) = (round(c1[i].r), round(c1[i].g), round(c1[i].b))
-                self.__log.debug('%d: c1[%d]=(%s, %s, %s)', n_i, i, r, g, b)
-                self._pixel.setPixelColorRGB(i, r, g, b)
+                self._pixel.setPixelColorRGB(i,
+                                             round(c1[i].r),
+                                             round(c1[i].g),
+                                             round(c1[i].b))
 
             self._pixel.show()
 

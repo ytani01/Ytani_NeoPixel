@@ -9,8 +9,8 @@ from .ytani_neopixel import NeoPixel
 from .my_logger import get_logger
 
 
-class RobotEyes_Cirle7LEDs(threading.Thread):
-    """ Robot eyes for cirle serial LED (7 LEDs) x 2
+class RobotEyes_Circle7LEDs(threading.Thread):
+    """ Robot eyes for circle serial LED (7 LEDs) x 2
 
         [02]  [03]         [09]  [10]
       [01] [00]  [04]    [08] [07]  [11]
