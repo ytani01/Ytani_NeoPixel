@@ -1,5 +1,8 @@
 # Ytani_NeoPixel
-NeoPixel Library for Raspberry Pi
+NeoPixel(WS281x) Library for Python 3 on Raspberry Pi
+
+NeoPixel = WS2812B, SK6812
+
 
 ## 特徴
 
