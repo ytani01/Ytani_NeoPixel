@@ -22,12 +22,12 @@ class RobotEyes_Circle7LEDs(threading.Thread):
 
     NEXT_POS_LIST = [
         [0, 0, 0, 1, 2, 3, 4, 5, 6],
-        [0, 1, 1, 1, 2, 6],
-        [0, 1, 2, 2, 2, 3],
-        [0, 2, 3, 3, 3, 4],
-        [0, 3, 4, 4, 4, 5],
-        [0, 4, 5, 5, 5, 6],
-        [0, 1, 5, 6, 6, 6],
+        [0, 0, 1, 1, 1, 2, 6],
+        [0, 0, 1, 2, 2, 2, 3],
+        [0, 0, 2, 3, 3, 3, 4],
+        [0, 0, 3, 4, 4, 4, 5],
+        [0, 0, 4, 5, 5, 5, 6],
+        [0, 0, 1, 5, 6, 6, 6],
         ]
 
     __log = get_logger(__name__, False)
@@ -55,6 +55,11 @@ class RobotEyes_Circle7LEDs(threading.Thread):
 
         self._active = False
 
+        self._pixel.set_all(0)
+        self._pixel.xfade_all([0x111111, 0, 0, 0, 0, 0, 0], n=20, interval=0.1)
+        self._pixel.xfade_all([0xffffff, 0, 0, 0, 0, 0, 0], n=20, interval=0.1)
+        time.sleep(1)
+
         super().__init__(daemon=True)
 
     def end(self, clear=True):
@@ -74,6 +79,7 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         """ run """
         self.__log.debug('')
 
+        eye_color = random.randrange(0xffffff)
         self._active = True
         while self._active:
             self._prev_pos = self._cur_pos
@@ -83,7 +89,8 @@ class RobotEyes_Circle7LEDs(threading.Thread):
 
             self._cur_pos = next_pos_list[next_pos_i]
 
-            eye_color = random.randrange(0x1000000)
+            if random.random() < 0.3:
+                eye_color = random.randrange(0x1000000)
 
             self.__log.debug('cur_pos=%s, eye_color=#%06X',
                              self._cur_pos, eye_color)
@@ -95,7 +102,7 @@ class RobotEyes_Circle7LEDs(threading.Thread):
                                   n=self._xfade_n,
                                   interval=self._xfade_sec)
 
-            sleep_sec = random.random()
+            sleep_sec = random.random() * 2
             self.__log.debug('sleep_sec=%s', sleep_sec)
             time.sleep(random.random())
 
