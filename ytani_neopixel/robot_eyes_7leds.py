@@ -35,6 +35,7 @@ class RobotEyes_Circle7LEDs(threading.Thread):
     def __init__(self, xfade_n=DEF_XFADE_N, xfade_sec=DEF_XFADE_SEC,
                  pin=NeoPixel.DEF_PIN, led_n=NeoPixel.DEF_LED_N,
                  brightness=NeoPixel.DEF_BRIGHTNESS,
+                 offset=0,
                  debug=False):
         """ constructor """
         self._dbg = debug
@@ -46,6 +47,7 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         self._pin = pin
         self._led_n = led_n
         self._brightness = brightness
+        self._offset = offset
 
         self._pixel = NeoPixel(self._pin, self._led_n, self._brightness)
 
@@ -56,8 +58,12 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         self._active = False
 
         self._pixel.set_all(0)
-        self._pixel.xfade_all([0x111111, 0, 0, 0, 0, 0, 0], n=20, interval=0.1)
-        self._pixel.xfade_all([0xffffff, 0, 0, 0, 0, 0, 0], n=20, interval=0.1)
+        init_color = [0] * 7
+        led_i = offset % 7
+        init_color[led_i] = 0x111111
+        self._pixel.xfade_all(init_color, n=20, interval=0.1)
+        init_color[led_i] = 0xffffff
+        self._pixel.xfade_all(init_color, n=20, interval=0.1)
         time.sleep(1)
 
         super().__init__(daemon=True)
@@ -85,8 +91,9 @@ class RobotEyes_Circle7LEDs(threading.Thread):
             self._prev_pos = self._cur_pos
 
             next_pos_list = self.NEXT_POS_LIST[self._cur_pos]
-            next_pos_i = random.randrange(len(next_pos_list))
+            next_pos_i = (random.randrange(len(next_pos_list)) + self._offset)
 
+            led_i = next_pos_i % 7
             self._cur_pos = next_pos_list[next_pos_i]
 
             if random.random() < 0.3:
@@ -95,8 +102,9 @@ class RobotEyes_Circle7LEDs(threading.Thread):
             self.__log.debug('cur_pos=%s, eye_color=#%06X',
                              self._cur_pos, eye_color)
 
+            led_i = (self._cur_pos + self._offset) % 7
             color = [0] * self._pos_n
-            color[self._cur_pos] = eye_color
+            color[led_i] = eye_color
 
             self._pixel.xfade_all(color,
                                   n=self._xfade_n,
