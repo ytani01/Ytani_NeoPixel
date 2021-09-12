@@ -177,12 +177,12 @@ class RGBtest:
                       'up brightness')
         self._cui.add(['KEY_DOWN'], self.cmd_brightness_down,
                       'down brightness')
-        self._cui.add('qr', self.cmd_r_up, 'up R')
-        self._cui.add('aR', self.cmd_r_down, 'down R')
-        self._cui.add('wg', self.cmd_g_up, 'up G')
-        self._cui.add('sG', self.cmd_g_down, 'down G')
-        self._cui.add('eb', self.cmd_b_up, 'up B')
-        self._cui.add('dB', self.cmd_b_down, 'down B')
+        self._cui.add('qQr', self.cmd_r_up, 'up R')
+        self._cui.add('aAR', self.cmd_r_down, 'down R')
+        self._cui.add('wWg', self.cmd_g_up, 'up G')
+        self._cui.add('sSG', self.cmd_g_down, 'down G')
+        self._cui.add('eEb', self.cmd_b_up, 'up B')
+        self._cui.add('dDB', self.cmd_b_down, 'down B')
 
     def main(self):
         """ main """
@@ -194,7 +194,11 @@ class RGBtest:
         self.print_status()
 
         self._cui.start()
-        self._cui.join()
+        time.sleep(1)
+
+        while self._cui.is_active():
+            self.update()
+            time.sleep(1)
 
     def end(self):
         """ end """
@@ -248,7 +252,10 @@ class RGBtest:
         """ cmd_r_up """
         self.__log.debug('cmd=%s', cmd)
 
-        self._r = round(min(self._r + 1, 0xff))
+        d = 1
+        if cmd == 'q':
+            d = 0x10
+        self._r = round(min(self._r + d, 0xff))
         self.update()
         self.print_status()
 
@@ -256,7 +263,10 @@ class RGBtest:
         """ cmd_r_down """
         self.__log.debug('cmd=%s', cmd)
 
-        self._r = round(max(self._r - 1, 0))
+        d = 1
+        if cmd == 'a':
+            d = 0x10
+        self._r = round(max(self._r - d, 0))
         self.update()
         self.print_status()
 
@@ -264,7 +274,10 @@ class RGBtest:
         """ cmd_g_up """
         self.__log.debug('cmd=%s', cmd)
 
-        self._g = round(min(self._g + 1, 0xff))
+        d = 1
+        if cmd == 'w':
+            d = 0x10
+        self._g = round(min(self._g + d, 0xff))
         self.update()
         self.print_status()
 
@@ -272,7 +285,10 @@ class RGBtest:
         """ cmd_g_down """
         self.__log.debug('cmd=%s', cmd)
 
-        self._g = round(max(self._g - 1, 0))
+        d = 1
+        if cmd == 's':
+            d = 0x10
+        self._g = round(max(self._g - d, 0))
         self.update()
         self.print_status()
 
@@ -280,7 +296,10 @@ class RGBtest:
         """ cmd_b_up """
         self.__log.debug('cmd=%s', cmd)
 
-        self._b = round(min(self._b + 1, 0xff))
+        d = 1
+        if cmd == 'e':
+            d = 0x10
+        self._b = round(min(self._b + d, 0xff))
         self.update()
         self.print_status()
 
@@ -288,7 +307,10 @@ class RGBtest:
         """ cmd_b_down """
         self.__log.debug('cmd=%s', cmd)
 
-        self._b = round(max(self._b - 1, 0))
+        d = 1
+        if cmd == 'd':
+            d = 0x10
+        self._b = round(max(self._b - d, 0))
         self.update()
         self.print_status()
 
