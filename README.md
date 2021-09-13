@@ -45,7 +45,7 @@ $ sudo gpasswd -a pi spi
 行末に`` spidev.bufsiz=32768``を追加する。
 
 
-#### 1.1.3 edit ``/boot/config.txt``
+#### 1.1.3 機種固有の設定
 
 
 #### ``[RPi Zero]``
