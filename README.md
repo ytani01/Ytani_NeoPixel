@@ -48,7 +48,7 @@ $ sudo gpasswd -a pi spi
 #### 1.1.3 edit ``/boot/config.txt``
 
 
-##### RPi Zero
+#### ``[RPi Zero]``
 
 crontabなどで、以下を実行するようにする
 
@@ -57,7 +57,7 @@ echo 1000000| sudo tee /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 ```
 
 
-##### RPi3, RPi4
+#### ``[RPi3, RPi4]``
 
 GPUコア周波数調整
 
