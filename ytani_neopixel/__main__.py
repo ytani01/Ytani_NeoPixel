@@ -327,7 +327,9 @@ class RGBtest:
 @click.option('--pin', '-p', 'pin', type=int,
               default=NeoPixel.DEF_PIN,
               help='GPIO pin (default: %s)' % (NeoPixel.DEF_PIN))
-@click.option('--brightness', '-b', 'brightness', type=int,
+@click.option('--bg_flag', '-bg', 'bg_flag', is_flag=True, default=False,
+              help='background color flag')
+@click.option('--brightness', '-bl', 'brightness', type=int,
               default=NeoPixel.DEF_BRIGHTNESS,
               help='brightness (default: %s)' % (NeoPixel.DEF_BRIGHTNESS))
 @click.option('--offset', '-o', 'offset', type=int, default=0,
@@ -335,11 +337,12 @@ class RGBtest:
 @click.option('--debug', '-d', 'debug', is_flag=True, default=False,
               help='debug flag')
 @click.version_option(version=__version__)
-def robot_eye1(xfade_n, xfade_sec, pin, brightness, offset, debug):
+def robot_eye1(xfade_n, xfade_sec, pin, bg_flag, brightness, offset, debug):
     """ robot_eye1 """
 
     robot_eye = RobotEyes_Circle7LEDs(xfade_n=xfade_n, xfade_sec=xfade_sec,
-                                      pin=pin, brightness=brightness,
+                                      pin=pin, bg_flag=bg_flag,
+                                      brightness=brightness,
                                       offset=offset,
                                       debug=debug)
 

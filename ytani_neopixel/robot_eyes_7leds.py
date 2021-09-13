@@ -34,6 +34,7 @@ class RobotEyes_Circle7LEDs(threading.Thread):
 
     def __init__(self, xfade_n=DEF_XFADE_N, xfade_sec=DEF_XFADE_SEC,
                  pin=NeoPixel.DEF_PIN, led_n=NeoPixel.DEF_LED_N,
+                 bg_flag=False,
                  brightness=NeoPixel.DEF_BRIGHTNESS,
                  offset=0,
                  debug=False):
@@ -41,11 +42,13 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         self._dbg = debug
         __class__.__log = get_logger(__class__.__name__, self._dbg)
         self.__log.debug('xfade: (n, sec)=%s', (xfade_n, xfade_sec))
+        self.__log.debug('bg_flag=%s', bg_flag)
 
         self._xfade_n = xfade_n
         self._xfade_sec = xfade_sec
         self._pin = pin
         self._led_n = led_n
+        self._bg_flag = bg_flag
         self._brightness = brightness
         self._offset = offset
 
@@ -86,6 +89,7 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         self.__log.debug('')
 
         eye_color = random.randrange(0xffffff)
+        eye_bg_color = 0
         self._active = True
         while self._active:
             self._prev_pos = self._cur_pos
@@ -98,12 +102,13 @@ class RobotEyes_Circle7LEDs(threading.Thread):
 
             if random.random() < 0.3:
                 eye_color = random.randrange(0x1000000)
+                eye_bg_color = 0
+                if self._bg_flag:
+                    eye_bg_color = random.randrange(0x1000000)
 
-            self.__log.debug('cur_pos=%s, eye_color=#%06X',
-                             self._cur_pos, eye_color)
+            color = [eye_bg_color] * self._pos_n
 
             led_i = (self._cur_pos + self._offset) % 7
-            color = [0] * self._pos_n
             color[led_i] = eye_color
 
             self._pixel.xfade_all(color,
@@ -111,7 +116,12 @@ class RobotEyes_Circle7LEDs(threading.Thread):
                                   interval=self._xfade_sec)
 
             sleep_sec = random.random() * 2
-            self.__log.debug('sleep_sec=%s', sleep_sec)
+
+            self.__log.debug('[%s] #%06X #%06X %.2f sec',
+                             self._cur_pos,
+                             eye_color, eye_bg_color,
+                             sleep_sec)
+
             time.sleep(random.random())
 
         self.__log.info('done(active=%s)', self._active)
