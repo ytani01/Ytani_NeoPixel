@@ -4,6 +4,7 @@
 import threading
 import time
 import random
+import click
 
 from .ytani_neopixel import NeoPixel
 from .my_logger import get_logger
@@ -125,3 +126,41 @@ class RobotEyes_Circle7LEDs(threading.Thread):
             time.sleep(random.random())
 
         self.__log.info('done(active=%s)', self._active)
+
+
+@click.command(help="""Robot eyes for circle serial LED (7LEDs)""")
+@click.option('--xfade_n', '--xn', '-xn', 'xfade_n', type=int,
+              default=RobotEyes_Circle7LEDs.DEF_XFADE_N,
+              help='cross-fade count (default: %s)' % (
+                  RobotEyes_Circle7LEDs.DEF_XFADE_N))
+@click.option('--xfade_sec', '--xs', '-xs', 'xfade_sec', type=float,
+              default=RobotEyes_Circle7LEDs.DEF_XFADE_SEC,
+              help='cross-fade interval sec (default: %s)' % (
+                  RobotEyes_Circle7LEDs.DEF_XFADE_SEC))
+@click.option('--pin', '-p', 'pin', type=int,
+              default=NeoPixel.DEF_PIN,
+              help='GPIO pin (default: %s)' % (NeoPixel.DEF_PIN))
+@click.option('--bg_flag', '-bg', 'bg_flag', is_flag=True, default=False,
+              help='background color flag')
+@click.option('--brightness', '-bl', 'brightness', type=int,
+              default=NeoPixel.DEF_BRIGHTNESS,
+              help='brightness (default: %s)' % (NeoPixel.DEF_BRIGHTNESS))
+@click.option('--offset', '-o', 'offset', type=int, default=0,
+              help='offset of led index')
+@click.option('--debug', '-d', 'debug', is_flag=True, default=False,
+              help='debug flag')
+def robot_eye1(xfade_n, xfade_sec, pin, bg_flag, brightness, offset, debug):
+    """ robot_eye1 """
+
+    robot_eye = RobotEyes_Circle7LEDs(xfade_n=xfade_n, xfade_sec=xfade_sec,
+                                      pin=pin, bg_flag=bg_flag,
+                                      brightness=brightness,
+                                      offset=offset,
+                                      debug=debug)
+
+    try:
+        robot_eye.start()
+        robot_eye.join()
+
+    finally:
+        robot_eye.end()
