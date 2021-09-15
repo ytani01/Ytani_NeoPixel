@@ -81,6 +81,7 @@ class RobotEyes_Circle7LEDs(threading.Thread):
             self.join()
 
         if clear:
+            self.__log.debug('clear')
             self._pixel.end()
 
         self.__log.debug('done')
