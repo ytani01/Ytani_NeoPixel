@@ -10,7 +10,7 @@ import click
 from cuilib import Cui
 from . import __prog_name__, __version__
 from . import NeoPixel
-from . import robot_eye1
+from . import robot_eye
 from . import get_logger
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -29,13 +29,10 @@ def cli(ctx):
         print(ctx.get_help())
 
 
-@cli.command(help="""test progaram
-
-    LED_I   index of Target LED
-
-    COLOR   hex color code""")
+@cli.command(help="""LED_I   index of Target LED""")
 @click.argument('led_i', type=int)
-@click.argument('color', type=str)
+@click.option('--color', '-c', 'color', type=str, default="0xffffff",
+              help="color")
 @click.option('--led_n', '-n', 'led_n', type=int, default=NeoPixel.DEF_LED_N,
               help='number of LEDs (default: %s)' % NeoPixel.DEF_LED_N)
 @click.option('--brightness', '-b', 'brightness', type=int,
@@ -47,8 +44,8 @@ def cli(ctx):
 @click.option('--debug', '-d', 'debug', is_flag=True, default=False,
               help='debug flag')
 @click.version_option(version=__version__)
-def test1(led_n, led_i, color, brightness, sec, debug):
-    """ test1  """
+def position(led_n, led_i, color, brightness, sec, debug):
+    """ position  """
 
     pixel = NeoPixel(led_n=led_n, brightness=brightness,
                      debug=debug)
@@ -61,35 +58,7 @@ def test1(led_n, led_i, color, brightness, sec, debug):
         pixel.end()
 
 
-@cli.command(help="""test progaram""")
-@click.option('--led_num', '-n', 'led_num', type=int,
-              default=NeoPixel.DEF_LED_N,
-              help='number of LEDs (default: %s)' % NeoPixel.DEF_LED_N)
-@click.option('--brightness', '-b', 'brightness', type=int,
-              default=NeoPixel.DEF_BRIGHTNESS,
-              help='brightness (default: %s)' % NeoPixel.DEF_BRIGHTNESS)
-@click.option('--sleep_sec', '-s', 'sleep_sec', type=float,
-              default=1.0,
-              help='sleep sec (default: %s sec)' % 1.0)
-@click.option('--debug', '-d', 'debug', is_flag=True, default=False,
-              help='debug flag')
-@click.version_option(version=__version__)
-def test2(led_num, brightness, sleep_sec, debug):
-    """ test2  """
-
-    pixel = NeoPixel(led_n=led_num, brightness=brightness,
-                     debug=debug)
-
-    try:
-        pixel.xfade_all(0xFFFFFF, n=10, interval=.1)
-        time.sleep(sleep_sec)
-        pixel.xfade_all(0x000000, n=10, interval=.1)
-
-    finally:
-        pixel.end()
-
-
-@cli.command(help="""test progaram""")
+@cli.command(help="""color pattern""")
 @click.argument('color', type=str, nargs=-1)
 @click.option('--led_num', '-n', 'led_num', type=int,
               default=NeoPixel.DEF_LED_N,
@@ -107,8 +76,8 @@ def test2(led_num, brightness, sleep_sec, debug):
 @click.option('--debug', '-d', 'debug', is_flag=True, default=False,
               help='debug flag')
 @click.version_option(version=__version__)
-def test3(color, led_num, brightness, sleep_sec, xfade, clear, debug):
-    """ test3 """
+def pattern(color, led_num, brightness, sleep_sec, xfade, clear, debug):
+    """ pattern """
 
     pixel = NeoPixel(led_n=led_num, brightness=brightness,
                      debug=debug)
@@ -138,7 +107,7 @@ def test3(color, led_num, brightness, sleep_sec, xfade, clear, debug):
 @click.option('--debug', '-d', 'debug', is_flag=True, default=False,
               help='debug flag')
 @click.version_option(version=__version__)
-def rgb_test(pin, led_num, debug):
+def rgb(pin, led_num, debug):
     """ rgb_test """
 
     app = RGBtest(pin, led_num, debug=debug)
@@ -315,7 +284,7 @@ class RGBtest:
         self.print_status()
 
 
-cli.add_command(robot_eye1)
+cli.add_command(robot_eye)
 
 
 if __name__ == '__main__':

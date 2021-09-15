@@ -149,18 +149,19 @@ class RobotEyes_Circle7LEDs(threading.Thread):
               help='offset of led index')
 @click.option('--debug', '-d', 'debug', is_flag=True, default=False,
               help='debug flag')
-def robot_eye1(xfade_n, xfade_sec, pin, bg_flag, brightness, offset, debug):
-    """ robot_eye1 """
+def robot_eye(xfade_n, xfade_sec, pin, bg_flag, brightness,
+              offset, debug):
+    """ robot_eye """
 
-    robot_eye = RobotEyes_Circle7LEDs(xfade_n=xfade_n, xfade_sec=xfade_sec,
-                                      pin=pin, bg_flag=bg_flag,
-                                      brightness=brightness,
-                                      offset=offset,
-                                      debug=debug)
+    obj = RobotEyes_Circle7LEDs(xfade_n=xfade_n, xfade_sec=xfade_sec,
+                                pin=pin, bg_flag=bg_flag,
+                                brightness=brightness,
+                                offset=offset,
+                                debug=debug)
 
     try:
-        robot_eye.start()
-        robot_eye.join()
+        obj.start()
+        obj.join()
 
     finally:
-        robot_eye.end()
+        obj.end()

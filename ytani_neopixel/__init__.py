@@ -9,12 +9,12 @@ __version__ = '0.1.5'
 __author__ = 'Yoichi Tanibayashi'
 
 from .ytani_neopixel import NeoPixel, NeoPixel_Color
-from .robot_eyes_7leds import RobotEyes_Circle7LEDs, robot_eye1
+from .robot_eyes_7leds import RobotEyes_Circle7LEDs, robot_eye
 from .my_logger import get_logger
 
 __all__ = [
     '__author__', '__version__', '__prog_name__',
     'NeoPixel', 'NeoPixel_Color',
-    'RobotEyes_Circle7LEDs', robot_eye1,
+    'RobotEyes_Circle7LEDs', 'robot_eye',
     'get_logger'
 ]
