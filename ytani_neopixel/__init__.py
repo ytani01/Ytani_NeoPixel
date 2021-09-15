@@ -5,7 +5,7 @@
 ytani_neopixel
 """
 __prog_name__ = 'ytani-neopixel'
-__version__ = '0.1.5'
+__version__ = '0.1.6'
 __author__ = 'Yoichi Tanibayashi'
 
 from .ytani_neopixel import NeoPixel, NeoPixel_Color
