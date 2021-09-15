@@ -50,10 +50,10 @@ $ sudo gpasswd -a pi spi
 
 #### ``[RPi Zero]``
 
-crontabなどで、以下を実行するようにする
+``/etc/rc.local`` または ``crontab``などで、起動時に以下を実行するようにする
 
 ```
-echo 1000000| sudo tee /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+echo 1000000| sudo tee /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq > /dev/null 2>&1
 ```
 
 

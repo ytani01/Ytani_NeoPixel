@@ -159,11 +159,6 @@ fi
 cd_echo $VIRTUAL_ENV
 
 ###
-cd_echo $MYDIR
-MY_VERSION=`python setup.py --version`
-echo "MY_VERSION=$MY_VERSION"
-echo
-
 while getopts fuch OPT; do
     case $OPT in
         f) FAST_MODE=1;echo "FAST_MODE=$FAST_MODE";;
@@ -187,39 +182,6 @@ if [ -f $PKGS_TXT ]; then
         echo
     fi
 fi
-
-#
-# make $WRAPPER_SCRIPT
-#
-cd_echo $MYDIR
-
-mkdir -pv $BUILD_DIR
-echo -n > $INSTALLED_FILE
-echo
-
-echo "### build $WRAPPER_SCRIPT"
-sed -e "s?%%% MY_PKG %%%?$MY_PKG?" \
-    -e "s?%%% MY_VERSION %%%?$MY_VERSION?" \
-    -e "s?%%% VENVDIR %%%?$VIRTUAL_ENV?" \
-    $WRAPPER_SRC > $BUILD_DIR/$WRAPPER_SCRIPT
-
-chmod +x $BUILD_DIR/$WRAPPER_SCRIPT
-echo $BUILD_DIR/$WRAPPER_SCRIPT >> $INSTALLED_FILE
-
-echo '-----'
-cat $BUILD_DIR/$WRAPPER_SCRIPT | sed -n -e '1,/\#* main/p'
-echo '  :'
-echo '-----'
-echo
-
-#
-# install scripts
-#
-echo "### install scripts"
-echo
-cp -fv $BUILD_DIR/$WRAPPER_SCRIPT $BINDIR
-echo $BINDIR/$WRAPPER_SCRIPT >> $INSTALLED_FILE
-echo
 
 #
 # update pip, setuptools, and wheel
@@ -248,6 +210,44 @@ cd_echo $MYDIR
 echo "### install my python package"
 echo
 pip install .
+echo
+
+#
+# make $WRAPPER_SCRIPT
+#
+cd_echo $MYDIR
+MY_VERSION=`python setup.py --version`
+echo "MY_VERSION=$MY_VERSION"
+echo
+
+cd_echo $MYDIR
+
+mkdir -pv $BUILD_DIR
+echo -n > $INSTALLED_FILE
+echo
+
+echo "### build $WRAPPER_SCRIPT"
+sed -e "s?%%% MY_PKG %%%?$MY_PKG?" \
+    -e "s?%%% MY_VERSION %%%?$MY_VERSION?" \
+    -e "s?%%% VENVDIR %%%?$VIRTUAL_ENV?" \
+    $WRAPPER_SRC > $BUILD_DIR/$WRAPPER_SCRIPT
+
+chmod +x $BUILD_DIR/$WRAPPER_SCRIPT
+echo $BUILD_DIR/$WRAPPER_SCRIPT >> $INSTALLED_FILE
+
+echo '-----'
+cat $BUILD_DIR/$WRAPPER_SCRIPT | sed -n -e '1,/\#* main/p'
+echo '  :'
+echo '-----'
+echo
+
+#
+# install scripts
+#
+echo "### install scripts"
+echo
+cp -fv $BUILD_DIR/$WRAPPER_SCRIPT $BINDIR
+echo $BINDIR/$WRAPPER_SCRIPT >> $INSTALLED_FILE
 echo
 
 #

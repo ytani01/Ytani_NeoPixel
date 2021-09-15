@@ -15,7 +15,7 @@ RPI_MODEL=`strings /proc/device-tree/model`
 #
 echo $RPI_MODEL
 if echo $RPI_MODEL | grep Zero > /dev/null 2>&1; then
-    echo 1000000 | sudo tee /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    echo 1000000 | sudo tee /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq > /dev/null 2>&1
 fi
 
 if [ x$VIRTUAL_ENV != x$VENVDIR ]; then
