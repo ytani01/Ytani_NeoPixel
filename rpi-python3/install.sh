@@ -18,11 +18,13 @@ help() {
     |
     +- env1/ .. python3 Virtualenv(venv) 【ユーザが作成する】
         |
-        +- repo1/ .. MYDIR
+        +- repo1/
         |   |
-        |   +- build/ .. BUILD_DIR
+        |   +- this_dir .. MYDIR
+        |       |
+        |       +- build/ .. BUILD_DIR
         |
-        +- subpackage1/
+        +- repo2/
         |
         :
 
@@ -173,8 +175,8 @@ done
 #
 # install Linux packages
 #
-if [ -f $PKGS_TXT ]; then
-    PKGS=`cat $PKGS_TXT`
+if [ -f $MYDIR/$PKGS_TXT ]; then
+    PKGS=`cat $MYDIR/$PKGS_TXT`
     if [ ! -z $PKGS ]; then
         echo "### install Linux packages"
         echo
@@ -199,6 +201,7 @@ fi
 #
 # install my python packages from my git repositories
 #
+cd_echo $VIRTUALENV
 if [ $FAST_MODE -lt 1 ]; then
     install_python_pkg_from_git $CUILIB_PKG $CUILIB_DIR $CUILIB_GIT
 fi
