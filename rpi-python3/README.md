@@ -93,7 +93,7 @@ $ . ./bin/activate
 ```
 (env1)$ cd ~/env1  # venv以外の他のディレクトリでも可
 (env1)$ git clone git@github.com:ytani01/Ytani_NeoPixel.git
-(env1)$ cd Ytani_NeoPixel
+(env1)$ cd Ytani_NeoPixel/rpi-python3
 (env1)$ ./install.sh
 ```
 
