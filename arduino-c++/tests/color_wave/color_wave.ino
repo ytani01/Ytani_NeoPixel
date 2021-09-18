@@ -9,6 +9,18 @@ const int     STEP            = BRIGHTNESS / 4;
 
 const int     LOOP_DELAY      = 100;  // ms
 
+class NeoPixel {
+public:
+  NeoPixel(uint8_t n, uint8_t pin) {
+    this->_pixels = Adafruit_NeoPixel(n, pin, NEO_GRB + NEO_KHZ800);
+  }
+  
+private:
+  Adafruit_NeoPixel _pixels;
+  uint8_t pixels_n = 0;
+  uint8_t pin;
+};
+
 Adafruit_NeoPixel pixels(PIXELS_N, PIN_PIXEL, NEO_GRB + NEO_KHZ800);
 
 uint32_t next_color(uint32_t col, int step=1) {
