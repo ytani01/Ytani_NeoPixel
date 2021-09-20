@@ -21,6 +21,8 @@ class RobotEyes_Circle7LEDs(threading.Thread):
     DEF_XFADE_N = 3
     DEF_XFADE_SEC = 0.05
 
+    DEF_LED_N = 14
+
     NEXT_POS_LIST = [
         [0, 0, 0, 1, 2, 3, 4, 5, 6],
         [0, 0, 1, 1, 1, 2, 6],
@@ -141,6 +143,10 @@ class RobotEyes_Circle7LEDs(threading.Thread):
 @click.option('--pin', '-p', 'pin', type=int,
               default=NeoPixel.DEF_PIN,
               help='GPIO pin (default: %s)' % (NeoPixel.DEF_PIN))
+@click.option('--led_n', '-n', 'led_n', type=int,
+              default=RobotEyes_Circle7LEDs.DEF_LED_N,
+              help='number of LEDs (default: %s)' % (
+                  RobotEyes_Circle7LEDs.DEF_LED_N))
 @click.option('--bg_flag', '-bg', 'bg_flag', is_flag=True, default=False,
               help='background color flag')
 @click.option('--brightness', '-bl', 'brightness', type=int,
@@ -150,12 +156,12 @@ class RobotEyes_Circle7LEDs(threading.Thread):
               help='offset of led index')
 @click.option('--debug', '-d', 'debug', is_flag=True, default=False,
               help='debug flag')
-def robot_eye(xfade_n, xfade_sec, pin, bg_flag, brightness,
+def robot_eye(xfade_n, xfade_sec, pin, led_n, bg_flag, brightness,
               offset, debug):
     """ robot_eye """
 
     obj = RobotEyes_Circle7LEDs(xfade_n=xfade_n, xfade_sec=xfade_sec,
-                                pin=pin, bg_flag=bg_flag,
+                                pin=pin, led_n=led_n, bg_flag=bg_flag,
                                 brightness=brightness,
                                 offset=offset,
                                 debug=debug)

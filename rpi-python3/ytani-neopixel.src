@@ -32,11 +32,10 @@ fi
 echo "(VIRTUAL_ENV=$VIRTUAL_ENV)"
 echo
 
-if [ x$1 = xwebapp ]; then
+if [ x$1 = xdemo ]; then
     shift
-    exec $MY_PKG webapp \
-         --version $MY_VERSION \
-         --workdir $WORKDIR --webroot $WEBROOT $*
+    exec python -m $MY_PKG pattern -n 1024 -l -s 0.1 -c \
+         ff0000 ffff00 00ff00 00ffff 0000ff ff00ff $*
 else
     exec python -m $MY_PKG $*
 fi

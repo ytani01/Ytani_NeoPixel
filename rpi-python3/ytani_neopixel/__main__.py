@@ -71,24 +71,35 @@ def position(led_n, led_i, color, brightness, sec, debug):
               help='sleep sec (default: %s sec)' % 0.5)
 @click.option('--xfade', '-x', 'xfade', is_flag=True, default=False,
               help='cross fade flag')
+@click.option('--loop', '-l', 'loop', is_flag=True, default=False,
+              help='shift and loop')
 @click.option('--clear', '-c', 'clear', is_flag=True, default=False,
               help='clear flag')
 @click.option('--debug', '-d', 'debug', is_flag=True, default=False,
               help='debug flag')
 @click.version_option(version=__version__)
-def pattern(color, led_num, brightness, sleep_sec, xfade, clear, debug):
+def pattern(color, led_num, brightness, sleep_sec, xfade, loop, clear, debug):
     """ pattern """
 
     pixel = NeoPixel(led_n=led_num, brightness=brightness,
                      debug=debug)
 
+    color = list(color)
+
     try:
-        c_int = [int(c, 16) for c in color]
-        if xfade:
-            pixel.xfade_all(c_int)
-        else:
-            pixel.set_all(c_int)
-        time.sleep(sleep_sec)
+        while True:
+            c_int = [int(c, 16) for c in color]
+            if xfade:
+                pixel.xfade_all(c_int, n=5, interval=sleep_sec/5)
+            else:
+                pixel.set_all(c_int)
+                time.sleep(sleep_sec)
+
+            if loop:
+                c1 = color.pop()
+                color.insert(0, c1)
+            else:
+                break
 
     finally:
         if clear:
