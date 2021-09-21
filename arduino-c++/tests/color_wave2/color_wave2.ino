@@ -4,7 +4,7 @@ const uint8_t PIN_ONBOARD_LED = 1;  // DigiSpark ATTiny85
 //const uint8_t PIN_ONBOARD_LED = 13;  // Arduino Uno
 
 const uint8_t PIN_PIXEL        = 4;
-const uint8_t PIXELS_N         = 16;
+const uint8_t PIXELS_N         = 64;
 const int     BRIGHTNESS       = 32;  // 1-255
 
 const unsigned long LOOP_DELAY = 100;  // ms
