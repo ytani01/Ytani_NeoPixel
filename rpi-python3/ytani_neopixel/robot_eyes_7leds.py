@@ -30,7 +30,9 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         0x0000ff,
         0xffff00,
         0x00ffff,
-        0xff00ff
+        0xff00ff,
+        0xff3040,
+        0xff3000
         ]
 
     NEXT_POS_LIST = [
