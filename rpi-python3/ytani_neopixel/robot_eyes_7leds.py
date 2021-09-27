@@ -33,7 +33,9 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         0xff00ff,
         0xff3040,
         0xff3000
-        ]
+    ]
+
+    BG_COLOR = 0x080808
 
     NEXT_POS_LIST = [
         [0, 0, 0, 1, 2, 3, 4, 5, 6],
@@ -43,7 +45,7 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         [0, 0, 3, 4, 4, 4, 5],
         [0, 0, 4, 5, 5, 5, 6],
         [0, 0, 1, 5, 6, 6, 6],
-        ]
+    ]
 
     __log = get_logger(__name__, False)
 
@@ -76,13 +78,6 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         self._active = False
 
         self._pixel.set_all(0)
-        init_color = [0] * 7
-        led_i = offset % 7
-        init_color[led_i] = 0x111111
-        self._pixel.xfade_all(init_color, n=20, interval=0.1)
-        init_color[led_i] = 0xffffff
-        self._pixel.xfade_all(init_color, n=20, interval=0.1)
-        time.sleep(1)
 
         super().__init__(daemon=True)
 
@@ -106,6 +101,8 @@ class RobotEyes_Circle7LEDs(threading.Thread):
 
         eye_color = self.COL[random.randrange(len(self.COL))]
         eye_bg_color = 0
+        if self._bg_flag:
+            eye_bg_color = self.BG_COLOR
         self._active = True
         while self._active:
             self._prev_pos = self._cur_pos
@@ -120,7 +117,7 @@ class RobotEyes_Circle7LEDs(threading.Thread):
                 eye_color = self.COL[random.randrange(len(self.COL))]
                 eye_bg_color = 0
                 if self._bg_flag:
-                    eye_bg_color = random.randrange(0x1000000)
+                    eye_bg_color = self.BG_COLOR
 
             color = [eye_bg_color] * self._pos_n
 
