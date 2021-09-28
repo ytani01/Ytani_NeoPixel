@@ -35,8 +35,6 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         0xff3000
     ]
 
-    BG_COLOR = 0x080808
-
     NEXT_POS_LIST = [
         [0, 0, 0, 1, 2, 3, 4, 5, 6],
         [0, 0, 1, 1, 1, 2, 6],
@@ -51,7 +49,7 @@ class RobotEyes_Circle7LEDs(threading.Thread):
 
     def __init__(self, xfade_n=DEF_XFADE_N, xfade_sec=DEF_XFADE_SEC,
                  pin=NeoPixel.DEF_PIN, led_n=NeoPixel.DEF_LED_N,
-                 bg_flag=False,
+                 bg_color=0,
                  brightness=NeoPixel.DEF_BRIGHTNESS,
                  offset=0,
                  debug=False):
@@ -59,13 +57,13 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         self._dbg = debug
         __class__.__log = get_logger(__class__.__name__, self._dbg)
         self.__log.debug('xfade: (n, sec)=%s', (xfade_n, xfade_sec))
-        self.__log.debug('bg_flag=%s', bg_flag)
+        self.__log.debug('bg_color=%s', bg_color)
 
         self._xfade_n = xfade_n
         self._xfade_sec = xfade_sec
         self._pin = pin
         self._led_n = led_n
-        self._bg_flag = bg_flag
+        self._bg_color = bg_color
         self._brightness = brightness
         self._offset = offset
 
@@ -100,26 +98,20 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         self.__log.debug('')
 
         eye_color = self.COL[random.randrange(len(self.COL))]
-        eye_bg_color = 0
-        if self._bg_flag:
-            eye_bg_color = self.BG_COLOR
         self._active = True
         while self._active:
             self._prev_pos = self._cur_pos
 
             next_pos_list = self.NEXT_POS_LIST[self._cur_pos]
-            next_pos_i = (random.randrange(len(next_pos_list)) + self._offset)
+            next_pos_i = (random.randrange(len(next_pos_list)) + self._offset) % 7
 
             led_i = next_pos_i % 7
             self._cur_pos = next_pos_list[next_pos_i]
 
             if random.random() < 0.3:
                 eye_color = self.COL[random.randrange(len(self.COL))]
-                eye_bg_color = 0
-                if self._bg_flag:
-                    eye_bg_color = self.BG_COLOR
 
-            color = [eye_bg_color] * self._pos_n
+            color = [self._bg_color] * self._pos_n
 
             led_i = (self._cur_pos + self._offset) % 7
             color[led_i] = eye_color
@@ -132,7 +124,7 @@ class RobotEyes_Circle7LEDs(threading.Thread):
 
             self.__log.debug('[%s] #%06X #%06X %.2f sec',
                              self._cur_pos,
-                             eye_color, eye_bg_color,
+                             eye_color, self._bg_color,
                              sleep_sec)
 
             time.sleep(random.random())
@@ -156,8 +148,8 @@ class RobotEyes_Circle7LEDs(threading.Thread):
               default=RobotEyes_Circle7LEDs.DEF_LED_N,
               help='number of LEDs (default: %s)' % (
                   RobotEyes_Circle7LEDs.DEF_LED_N))
-@click.option('--bg_flag', '-bg', 'bg_flag', is_flag=True, default=False,
-              help='background color flag')
+@click.option('--bg_color', '-bg', 'bg_color', type=str, default=0,
+              help='background color')
 @click.option('--brightness', '-bl', 'brightness', type=int,
               default=NeoPixel.DEF_BRIGHTNESS,
               help='brightness (default: %s)' % (NeoPixel.DEF_BRIGHTNESS))
@@ -165,12 +157,12 @@ class RobotEyes_Circle7LEDs(threading.Thread):
               help='offset of led index')
 @click.option('--debug', '-d', 'debug', is_flag=True, default=False,
               help='debug flag')
-def robot_eye(xfade_n, xfade_sec, pin, led_n, bg_flag, brightness,
+def robot_eye(xfade_n, xfade_sec, pin, led_n, bg_color, brightness,
               offset, debug):
     """ robot_eye """
 
     obj = RobotEyes_Circle7LEDs(xfade_n=xfade_n, xfade_sec=xfade_sec,
-                                pin=pin, led_n=led_n, bg_flag=bg_flag,
+                                pin=pin, led_n=led_n, bg_color=int(bg_color, 16),
                                 brightness=brightness,
                                 offset=offset,
                                 debug=debug)
