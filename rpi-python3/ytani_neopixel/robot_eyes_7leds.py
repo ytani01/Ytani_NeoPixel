@@ -19,7 +19,7 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         [06]  [05]         [13]  [12]
 """
 
-    DEF_XFADE_N = 3
+    DEF_XFADE_N = 5
     DEF_XFADE_SEC = 0.05
 
     DEF_LED_N = 14
@@ -32,6 +32,13 @@ class RobotEyes_Circle7LEDs(threading.Thread):
     DEF_SPEED = 5
 
     COL = [
+        0xffffff,
+        0xffffff,
+        0xffffff,
+        0xffffff,
+        0xffffff,
+        0xffffff,
+        0xffffff,
         0xffffff,
         0xff0000,
         0x00ff00,
@@ -75,6 +82,9 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         0x0000ff,
         0x0000ff,
         0xffff00,
+        0xffff00,
+        0xffff00,
+        0xffff00,
         0x00ffff,
         0x00ffff,
         0x00ffff,
@@ -84,6 +94,12 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         0x00ffff,
         0x00ffff,
         0xff00ff,
+        0xff00ff,
+        0xff00ff,
+        0xff00ff,
+        0xff3040,
+        0xff3040,
+        0xff3040,
         0xff3040,
         0xff3000
     ]
@@ -159,6 +175,7 @@ class RobotEyes_Circle7LEDs(threading.Thread):
         """ run """
         self.__log.debug('')
 
+        col_i = 0
         self._active = True
         while self._active:
             try:
@@ -212,7 +229,8 @@ class RobotEyes_Circle7LEDs(threading.Thread):
 
             # color
             if self._color < 0:
-                col_i = int(random.randrange(len(self.COL)))
+                if random.random() < 0.2:
+                    col_i = int(random.randrange(len(self.COL)))
                 # self.__log.debug('col_i=%s', col_i)
                 eye_color = self.COL[col_i]
             else:
@@ -263,7 +281,7 @@ class RobotEyes_Circle7LEDs(threading.Thread):
               help='background color')
 @click.option('--move_mode', '-m', 'move_mode', type=str, default='random',
               help='move mode')
-@click.option('--speed', '-s', 'speed', type=int, default=2,
+@click.option('--speed', '-s', 'speed', type=float, default=1,
               help='speed')
 @click.option('--brightness', '-bl', 'brightness', type=int,
               default=NeoPixel.DEF_BRIGHTNESS,
