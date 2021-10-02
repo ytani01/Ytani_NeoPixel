@@ -1,14 +1,14 @@
 #include "Ytani_NeoPixel.h"
 
-const uint8_t PIN_ONBOARD_LED = 1;  // DigiSpark ATTiny85
+//const uint8_t PIN_ONBOARD_LED = 1;  // DigiSpark ATTiny85
 //const uint8_t PIN_ONBOARD_LED = 13;  // Arduino Uno
 
 const uint8_t PIN_PIXEL        = 4;
 const uint8_t PIN_GND          = 3;
-const uint8_t PIXELS_N         = 64;
-const int     BRIGHTNESS       = 32;  // 1-255
+const uint8_t PIXELS_N         = 4;
+const int     BRIGHTNESS       = 64;  // 1-255
 
-const unsigned long LOOP_DELAY = 100;  // ms
+const unsigned long LOOP_DELAY = 150;  // ms
 
 const uint8_t COLOR_LIST[][3] =
   {
@@ -60,11 +60,11 @@ void set_color_and_show(int color_i, unsigned long delay_msec=0) {
  *
  */
 void setup() {
-  pinMode(PIN_GND, OUTPUT);
-  digitalWrite(PIN_GND, LOW);
+  //  pinMode(PIN_GND, OUTPUT);
+  //  digitalWrite(PIN_GND, LOW);
   
-  pinMode(PIN_ONBOARD_LED, OUTPUT);
-  digitalWrite(PIN_ONBOARD_LED, HIGH);
+  //  pinMode(PIN_ONBOARD_LED, OUTPUT);
+  //  digitalWrite(PIN_ONBOARD_LED, HIGH);
 
   pixels.clear();
   pixels.show();
@@ -79,12 +79,12 @@ void setup() {
 void loop() {
   static int color_i = 1;
 
-  digitalWrite(PIN_ONBOARD_LED, LOW);
+  //  digitalWrite(PIN_ONBOARD_LED, LOW);
 
   set_color_and_show(color_i);
   color_i = (color_i + COLOR_N - 1) % COLOR_N;
 
   delay(LOOP_DELAY / 2);
-  digitalWrite(PIN_ONBOARD_LED, HIGH);
+  //  digitalWrite(PIN_ONBOARD_LED, HIGH);
   delay(LOOP_DELAY / 2);
 }
