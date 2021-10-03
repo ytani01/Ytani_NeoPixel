@@ -3,8 +3,8 @@
 const uint8_t PIN_ONBOARD_LED = 5;
 
 const uint8_t PIN_PIXEL       = 4;
-const uint8_t PIXELS_N        = 16;
-const int     BRIGHTNESS      = 16; // 0-255
+const uint8_t PIXELS_N        = 128;
+const int     BRIGHTNESS      = 32; // 0-255
 const int     STEP            = BRIGHTNESS / 4;
 
 const int     LOOP_DELAY      = 100;  // ms
@@ -76,7 +76,7 @@ void setup() {
                        pixels.Color(BRIGHTNESS, 0, 0));
   pixels.show();
 
-  delay(2000);
+  //delay(2000);
 }
 
 void loop() {
