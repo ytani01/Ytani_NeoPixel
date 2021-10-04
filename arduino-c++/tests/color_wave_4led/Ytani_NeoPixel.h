@@ -41,6 +41,15 @@ public:
     return this->_pixels.Color(r, g, b);
   }
 
+  /**
+   * @param hue 0-65535(0xffff)
+   * @param sat 0-255
+   * @param val 0-255
+   */
+  uint32_t colorHSV(uint16_t hue, uint8_t sat, uint8_t val) {
+    return this->_pixels.ColorHSV(hue, sat, val);
+  }
+
 private:
   Adafruit_NeoPixel _pixels;
   uint8_t pixels_n = 0;
