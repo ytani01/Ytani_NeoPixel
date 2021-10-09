@@ -4,6 +4,10 @@
 .\#*
 flycheck*.py
 
+# Eagle
+*.b#*
+*.s#*
+
 *.pyc
 
 # Byte-compiled / optimized / DLL files
