@@ -8,8 +8,6 @@ flycheck*.py
 *.b#*
 *.s#*
 
-README.html
-
 *.pyc
 
 # Byte-compiled / optimized / DLL files
