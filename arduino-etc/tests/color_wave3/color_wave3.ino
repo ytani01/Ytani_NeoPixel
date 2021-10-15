@@ -1,8 +1,11 @@
 #include "Ytani_NeoPixel.h"
 
-const uint8_t PIN_ONBOARD_LED = 5;  // LOLIN D32 (ESP32)
+// const uint8_t PIN_ONBOARD_LED = 5;  // LOLIN D32 (ESP32)
 // const uint8_t PIN_ONBOARD_LED = 1;  // DigiSpark ATTiny85
 // const uint8_t PIN_ONBOARD_LED = 13;  // Arduino Uno
+// const uint8_t PIN_ONBOARD_LED = 17;  // Arduino Pro Micro (RX)
+const uint8_t PIN_ONBOARD_LED = 30;  // Arduino Pro Micro (TX)
+
 
 const uint8_t  PIN_PIXEL[]    = {4, 16};
 const uint8_t  PIXELS_N       = sizeof(PIN_PIXEL) / sizeof(PIN_PIXEL[0]);
@@ -74,7 +77,7 @@ void set_color_and_show(int color_i, unsigned long delay_msec=0) {
 void setup() {
   Serial.begin(115200);
   delay(2000);
-  Serial.printf("PIXELS_N=%d\n", PIXELS_N);
+  Serial.println("PIXELS_N=" + String(PIXELS_N));
 
   pinMode(PIN_ONBOARD_LED, OUTPUT);
   digitalWrite(PIN_ONBOARD_LED, HIGH);
