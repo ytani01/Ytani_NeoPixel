@@ -684,7 +684,7 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <busses>
 </busses>
 <nets>
-<net name="N$3" class="0">
+<net name="RESET" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="NRES/PB5"/>
 <wire x1="101.6" y1="43.18" x2="101.6" y2="25.4" width="0.1524" layer="91"/>
@@ -698,6 +698,7 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <wire x1="129.54" y1="12.7" x2="129.54" y2="33.02" width="0.1524" layer="91"/>
 <wire x1="129.54" y1="33.02" x2="101.6" y2="25.4" width="0.1524" layer="91"/>
 <junction x="101.6" y="25.4"/>
+<label x="114.3" y="30.48" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="+5V" class="0">
@@ -749,7 +750,7 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <junction x="17.78" y="12.7"/>
 </segment>
 </net>
-<net name="N$8" class="0">
+<net name="PB4" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="PB4"/>
 <wire x1="124.46" y1="30.48" x2="99.06" y2="22.86" width="0.1524" layer="91"/>
@@ -757,9 +758,10 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <wire x1="142.24" y1="15.24" x2="142.24" y2="10.16" width="0.1524" layer="91"/>
 <wire x1="142.24" y1="10.16" x2="124.46" y2="10.16" width="0.1524" layer="91"/>
 <wire x1="124.46" y1="10.16" x2="124.46" y2="30.48" width="0.1524" layer="91"/>
+<label x="111.76" y="25.4" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="N$9" class="0">
+<net name="PB3" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="PB3"/>
 <wire x1="99.06" y1="20.32" x2="127" y2="27.94" width="0.1524" layer="91"/>
@@ -767,9 +769,10 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <wire x1="139.7" y1="15.24" x2="139.7" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="139.7" y1="7.62" x2="127" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="127" y1="7.62" x2="127" y2="27.94" width="0.1524" layer="91"/>
+<label x="111.76" y="21.59" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="N$2" class="0">
+<net name="PB2" class="0">
 <segment>
 <pinref part="SV2" gate="1" pin="3"/>
 <wire x1="139.7" y1="38.1" x2="139.7" y2="45.72" width="0.1524" layer="91"/>
@@ -781,9 +784,10 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <wire x1="99.06" y1="17.78" x2="104.14" y2="17.78" width="0.1524" layer="91"/>
 <wire x1="104.14" y1="17.78" x2="104.14" y2="45.72" width="0.1524" layer="91"/>
 <junction x="104.14" y="45.72"/>
+<label x="100.33" y="17.78" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="N$7" class="0">
+<net name="PB1" class="0">
 <segment>
 <pinref part="SV2" gate="1" pin="2"/>
 <wire x1="142.24" y1="38.1" x2="142.24" y2="48.26" width="0.1524" layer="91"/>
@@ -795,9 +799,10 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <wire x1="99.06" y1="15.24" x2="106.68" y2="15.24" width="0.1524" layer="91"/>
 <wire x1="106.68" y1="15.24" x2="106.68" y2="48.26" width="0.1524" layer="91"/>
 <junction x="106.68" y="48.26"/>
+<label x="100.33" y="13.97" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="N$10" class="0">
+<net name="PB0" class="0">
 <segment>
 <pinref part="D10" gate="1" pin="2"/>
 <wire x1="33.02" y1="35.56" x2="33.02" y2="50.8" width="0.1524" layer="91"/>
@@ -809,6 +814,7 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <wire x1="99.06" y1="12.7" x2="109.22" y2="12.7" width="0.1524" layer="91"/>
 <wire x1="109.22" y1="12.7" x2="109.22" y2="50.8" width="0.1524" layer="91"/>
 <junction x="109.22" y="50.8"/>
+<label x="100.33" y="10.16" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
