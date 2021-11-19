@@ -2,7 +2,7 @@
 #include "Ytani_NeoPixel.h"
 #include "PressureSensor.h"
 
-const int NEXT_LED_N_FACTOR = 85; // 0-99
+const int NEXT_LED_N_FACTOR = 80; // 0-99
 
 const uint8_t PIN_SENSOR = 33;
 PressureSensor *sensor;
@@ -120,7 +120,7 @@ void loop() {
   val = sensor->get();
   Serial.printf("val %d\n", val);
 
-  led_n = val / 10 - 8;
+  led_n = val / 25 - 2;
 
   if ( led_n < next_led_n ) {
     led_n = next_led_n;
