@@ -2,6 +2,11 @@
 #include "Ytani_NeoPixel.h"
 #include "PressureSensor.h"
 
+const int NEXT_LED_N_FACTOR = 85; // 0-99
+
+const uint8_t PIN_SENSOR = 33;
+PressureSensor *sensor;
+
 // const uint8_t PIN_ONBOARD_LED = 5;  // LOLIN D32 (ESP32)
 // const uint8_t PIN_ONBOARD_LED = 1;  // DigiSpark ATTiny85
 // const uint8_t PIN_ONBOARD_LED = 13;  // Arduino Uno
@@ -9,12 +14,13 @@
 // const uint8_t PIN_ONBOARD_LED = 30;  // Arduino Pro Micro (TX)
 const uint8_t PIN_ONBOARD_LED = 27;  // M5Stamp Pico (NeoPixel)
 
-const uint8_t  PIN_PIXEL[]    = {32, PIN_ONBOARD_LED};
+const uint8_t  PIN_PIXEL[]    = {25};
+//const uint8_t  PIN_PIXEL[]    = {25, PIN_ONBOARD_LED};
 //const uint8_t  PIN_PIXEL[]    = {32, PIN_ONBOARD_LED};
 //const uint8_t  PIN_PIXEL[]    = {32, 33};
 const uint8_t  PIXELS_N       = sizeof(PIN_PIXEL) / sizeof(PIN_PIXEL[0]);
 const uint16_t LED_N          = 255;
-const int      BRIGHTNESS     = 32;  // 1-255
+const int      BRIGHTNESS     = 20;  // 1-255
 
 const unsigned long LOOP_DELAY = 100;  // ms
 
@@ -38,22 +44,24 @@ const int COLOR_N = sizeof(COLOR_LIST) / sizeof(COLOR_LIST[0]);
 Ytani_NeoPixel Pixel[] =
   {
    Ytani_NeoPixel(LED_N, PIN_PIXEL[0]),
-   Ytani_NeoPixel(LED_N, PIN_PIXEL[1])
+   Ytani_NeoPixel(LED_N, PIN_PIXEL[1]),
+   Ytani_NeoPixel(LED_N, PIN_PIXEL[2])
   };
 //Ytani_NeoPixel Pixel[PIXELS_N];
-
-const uint8_t PIN_SENSOR = 33;
-PressureSensor *sensor;
 
 /**
  *
  */
-void set_color_and_show(int color_i, unsigned long delay_msec=0) {
+void set_color_and_show(int color_i, int led_n, unsigned long delay_msec=0) {
   if (color_i >= COLOR_N) {
     color_i %= COLOR_N;
   }
 
-  for (int i=0; i < LED_N; i++) {
+  for (int p=0; p < PIXELS_N; p++) {
+    Pixel[p].clear();
+  } // for(PIXELS_N)
+
+  for (int i=0; i < led_n; i++) {
     for (int p=0; p < PIXELS_N; p++) {
       Pixel[p].setColor(i,
                          COLOR_LIST[color_i][0],
@@ -106,13 +114,22 @@ void setup() {
  */
 void loop() {
   static int color_i = 1;
-  int val;
+  static int next_led_n = 0;
+  int val, led_n;
 
   val = sensor->get();
   Serial.printf("val %d\n", val);
 
-  set_color_and_show(color_i);
+  led_n = val / 10 - 8;
+
+  if ( led_n < next_led_n ) {
+    led_n = next_led_n;
+  }
+
+  set_color_and_show(color_i, led_n);
   color_i = (color_i + COLOR_N - 1) % COLOR_N;
 
+  next_led_n = led_n * NEXT_LED_N_FACTOR / 100;
+  
   delay(LOOP_DELAY);
 }
