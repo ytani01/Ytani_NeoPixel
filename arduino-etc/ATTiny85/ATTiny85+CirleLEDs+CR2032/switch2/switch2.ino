@@ -5,6 +5,7 @@
 #include "Ytani_NeoPixel.h"
 
 const unsigned long LOOP_DELAY = 100;  // ms
+const unsigned long DEBOUNCE   = 100;  // ms
 
 const uint8_t PIN_BUTTON       = 3;
 const uint8_t PIN_PIXEL        = 4;
@@ -14,9 +15,24 @@ const int     HUE_STEP         = 0x1800;
 Ytani_NeoPixel pixels(PIXELS_N, PIN_PIXEL);
 Button Btn = Button(PIN_BUTTON, "Button");
 
-static uint32_t      Hue = 0;
+static uint32_t      Hue = 0x0000;
+static uint8_t       Sat = 0xff;
 static unsigned int  BRIGHTNESS_MAX = 255;
 static unsigned int  Brightness = BRIGHTNESS_MAX >> 4;
+
+const int HS[][2] =
+  {
+   {0x0000,             0x00},
+   {0x0000,             0xff},
+   {0x10000 *  30/ 360, 0xff},
+   {0x10000 *  60/ 360, 0xff},
+   {0x10000 * 120/ 360, 0xff},
+   {0x10000 * 180/ 360, 0xff},
+   {0x10000 * 240/ 360, 0xff},
+   {0x10000 * 300/ 360, 0xff}
+  };
+int CurHS = 0;
+int HS_N = sizeof(HS) / sizeof(HS[0]);
 
 /**
  *
@@ -47,22 +63,47 @@ void set_colorHSV_and_show(uint32_t hue, uint32_t hue_step,
  *  PCINT0_vect: ピン変化割り込み要求0(固定)
  */
 ISR(PCINT0_vect) {
+  static unsigned long prev_ms = 0;
+  unsigned long        cur_ms  = millis();
+
+  if ( cur_ms - prev_ms < DEBOUNCE ) {
+    return;
+  }
+  prev_ms = cur_ms;
+  
   cli();
-  Btn.get();
+  if ( Btn.get() ) {
+    btn_intr_hdr(&Btn);
+  }
   sei();
 }
 
 /**
  *
  */
-void btn_loop_hdr(Button *btn) {
-  int n = btn->get_click_count();
+void btn_intr_hdr(Button *btn) {
+  // do nothing
+} // btn_intr_hdr()
 
-  if ( n == 1 || btn->is_repeated() ) {
-    Hue = (Hue + HUE_STEP) % 0x10000;
+/**
+ *
+ */
+void btn_loop_hdr(Button *btn) {
+  if ( btn->get_value() == Button::ON ) {
+    if ( btn->is_repeated() ) {
+      Hue = (Hue + HUE_STEP) % 0x10000;
+    }
     return;
   }
 
+  // Button::OFF
+  int n = btn->get_click_count();
+
+  if ( n == 1 ) {
+    Hue = (Hue + HUE_STEP) % 0x10000;
+    return;
+  }
+  
   if ( n == 2 ) {
     Brightness = Brightness >> 2;
     if ( Brightness <= 0 ) {
@@ -73,8 +114,9 @@ void btn_loop_hdr(Button *btn) {
 
   if ( n > 2 ) {
     Brightness = 0;
+    return;
   }
-}
+} // btn_loop_hdr()
 
 /**
  *
@@ -95,8 +137,11 @@ void setup() {
  *
  */
 void loop() {
-  Btn.get();
-  btn_loop_hdr(&Btn);
+  if ( Btn.get() ) {
+    cli();
+    btn_loop_hdr(&Btn);
+    sei();
+  }
   set_colorHSV_and_show(Hue, HUE_STEP, Brightness, 0);
 
   delay(LOOP_DELAY);
