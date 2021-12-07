@@ -9,7 +9,7 @@ const unsigned long LOOP_DELAY = 100;  // ms
 const unsigned long DEBOUNCE   = 100;  // ms
 
 const uint8_t PIN_LEDS  = 4;
-const uint8_t LEDS_N   = 8;
+const uint8_t LEDS_N   = 7;
 const uint8_t PIN_BUTTON = 3;
 
 Ytani_NeoPixel Leds(LEDS_N, PIN_LEDS);
@@ -56,7 +56,9 @@ void btn_intr_hdr() {
  *
  */
 void btn_loop_hdr() {
-  mode_single_color.btn_loop_hdr();
+  if ( mode_single_color.btn_loop_hdr() ) {
+    return;
+  }
 
   int n = Btn.get_click_count();
 
@@ -65,6 +67,7 @@ void btn_loop_hdr() {
     if ( CurMode >= ModeN ) {
       CurMode = 0;
     }
+    sei();
     return;
   }
 } // btn_loop_hdr()
@@ -81,7 +84,7 @@ void setup() {
   Leds.clear();
   Leds.show();
 
-  // sei();  // 割り込み許可
+  sei();  // 割り込み許可
 } // setup()
 
 /**

@@ -12,7 +12,7 @@ class ModeBase {
   ModeBase(Ytani_NeoPixel *leds, Button *btn);
 
   virtual void loop();
-  virtual void btn_loop_hdr();
+  virtual boolean btn_loop_hdr();
 
  protected:
   Ytani_NeoPixel *_leds;

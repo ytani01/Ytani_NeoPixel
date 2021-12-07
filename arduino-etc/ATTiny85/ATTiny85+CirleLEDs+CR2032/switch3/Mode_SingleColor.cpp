@@ -23,12 +23,12 @@ void Mode_SingleColor::loop() {
 /**
  *
  */
-void Mode_SingleColor::btn_loop_hdr() {
+boolean Mode_SingleColor::btn_loop_hdr() {
   if ( this->_btn->get_value() == Button::ON ) {
     if ( this->_btn->is_repeated() ) {
       this->incHS();
     }
-    return;
+    return true;
   }
 
   // Button::OFF
@@ -36,7 +36,7 @@ void Mode_SingleColor::btn_loop_hdr() {
 
   if ( n == 1 ) {
     this->incHS();
-    return;
+    return true;
   }
   
   if ( n == 2 ) {
@@ -44,9 +44,10 @@ void Mode_SingleColor::btn_loop_hdr() {
     if ( CurBr <= 0 ) {
       CurBr = BRIGHTNESS_MAX;
     }
-    return;
+    return true;
   }
-  
+
+  return false;
 } // loop_intr_hdr()
 
 /**

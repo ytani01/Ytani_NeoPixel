@@ -8,6 +8,9 @@
 
 class Mode_SingleColor: public ModeBase {
 public:
+  const uint8_t BRIGHTNESS_MAX = 64;
+  uint8_t       CurBr = BRIGHTNESS_MAX;
+
   const unsigned long HS[7][2] =
     {
      {0x10000 *   0 / 360, 0x00}, // white
@@ -22,13 +25,10 @@ public:
   unsigned long CurHS = 0;
   unsigned long HS_N = sizeof(HS) / sizeof(HS[0]);
 
-  const uint8_t BRIGHTNESS_MAX = 255;
-  uint8_t       CurBr = BRIGHTNESS_MAX >> 4;
-
   Mode_SingleColor(Ytani_NeoPixel *leds, Button *btn);
 
   void loop();
-  void btn_loop_hdr();
+  boolean btn_loop_hdr();
 
   void incHS();
   void setHS(int i, int hs);
