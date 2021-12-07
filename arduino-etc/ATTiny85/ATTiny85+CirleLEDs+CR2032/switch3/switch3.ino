@@ -1,5 +1,5 @@
 /**
- *
+ * Copyright(c) 2021 Yoichi Tanibayashi
  */
 #include "Button.h"
 #include "Ytani_NeoPixel.h"
@@ -18,18 +18,18 @@ Button Btn = Button(PIN_BUTTON, "Button");
 static uint32_t      Hue = 0x0000;
 static uint8_t       Sat = 0xff;
 static unsigned int  BRIGHTNESS_MAX = 255;
-static unsigned int  Brightness = BRIGHTNESS_MAX >> 4;
+static unsigned int  CurBr = BRIGHTNESS_MAX >> 4;
 
 const unsigned long HS[][2] =
   {
-   {0x0000,             0x00},
-   {0x0000,             0xff},
-   {0x10000 *  30/ 360, 0xff},
-   {0x10000 *  60/ 360, 0xff},
-   {0x10000 * 120/ 360, 0xff},
-   {0x10000 * 180/ 360, 0xff},
-   {0x10000 * 240/ 360, 0xff},
-   {0x10000 * 300/ 360, 0xff}
+   {0x10000 *   0 / 360, 0x00}, // white
+   {0x10000 *   0 / 360, 0xff}, // red
+   {0x10000 *  10 / 360, 0xff}, // oringe
+   {0x10000 *  60 / 360, 0xff}, // yellow
+   {0x10000 * 120 / 360, 0xff}, // green
+   {0x10000 * 180 / 360, 0xff}, // cyan
+   {0x10000 * 240 / 360, 0xff}, // blue
+   {0x10000 * 300 / 360, 0xff}  // purple
   };
 int CurHS = 0;
 int HS_N = sizeof(HS) / sizeof(HS[0]);
@@ -37,25 +37,12 @@ int HS_N = sizeof(HS) / sizeof(HS[0]);
 /**
  *
  */
-void set_colorHSV_and_show(uint32_t hue, uint32_t hue_step,
-                           uint8_t br,
-                           unsigned long delay_msec=0) {
-  for (int i=0; i < PIXELS_N; i++) {
-    uint32_t col = pixels.colorHSV(hue, 255, br);
-    pixels.setColor(i, col);
-
-    hue -= HUE_STEP;
-
-    if ( delay_msec > 0 ) {
-      pixels.show();
-      delay(delay_msec);
-    }
-  } // for(i)
-
-  if (delay_msec == 0) {
-    pixels.show();
+void incHS() {
+  CurHS++;
+  if ( CurHS >= HS_N ) {
+    CurHS = 0;
   }
-} // set_colorHSV_and_show()
+}
 
 /**
  * ATTiny85 の割り込みルーチン(固定)
@@ -91,7 +78,7 @@ void btn_intr_hdr(Button *btn) {
 void btn_loop_hdr(Button *btn) {
   if ( btn->get_value() == Button::ON ) {
     if ( btn->is_repeated() ) {
-      Hue = (Hue + HUE_STEP) % 0x10000;
+      incHS();
     }
     return;
   }
@@ -100,20 +87,20 @@ void btn_loop_hdr(Button *btn) {
   int n = btn->get_click_count();
 
   if ( n == 1 ) {
-    Hue = (Hue + HUE_STEP) % 0x10000;
+    incHS();
     return;
   }
   
   if ( n == 2 ) {
-    Brightness = Brightness >> 2;
-    if ( Brightness <= 0 ) {
-      Brightness = BRIGHTNESS_MAX;
+    CurBr = CurBr >> 2;
+    if ( CurBr <= 0 ) {
+      CurBr = BRIGHTNESS_MAX;
     }
     return;
   }
 
   if ( n > 2 ) {
-    Brightness = 0;
+    CurBr = 0;
     return;
   }
 } // btn_loop_hdr()
@@ -142,7 +129,12 @@ void loop() {
     btn_loop_hdr(&Btn);
     sei();
   }
-  set_colorHSV_and_show(Hue, HUE_STEP, Brightness, 0);
+
+  uint32_t col = pixels.colorHSV(HS[CurHS][0], HS[CurHS][1], CurBr);
+  for (int i=0; i < PIXELS_N; i++) {
+    pixels.setColor(i, col);
+  } // for(i)
+  pixels.show();
 
   delay(LOOP_DELAY);
 } // loop()
