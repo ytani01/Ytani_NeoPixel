@@ -11,7 +11,12 @@
  */
 class Ytani_NeoPixel {
 public:
+  uint8_t pixels_n = 0;
+  uint8_t pin;
+
   Ytani_NeoPixel(uint8_t n, uint8_t pin) {
+    this->pixels_n = n;
+    this->pin = pin;
     this->_pixels = Adafruit_NeoPixel(n, pin, NEO_GRB + NEO_KHZ800);
     this->_pixels.begin();
     this->_pixels.setBrightness(255);
@@ -52,7 +57,5 @@ public:
 
 private:
   Adafruit_NeoPixel _pixels;
-  uint8_t pixels_n = 0;
-  uint8_t pin;
 };
 #endif // YTANI_NEOPIXEL_H
