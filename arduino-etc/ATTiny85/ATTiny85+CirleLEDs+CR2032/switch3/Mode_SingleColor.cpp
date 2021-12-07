@@ -6,27 +6,18 @@
 /**
  *
  */
-Mode_SingleColor::Mode_SingleColor(Ytani_NeoPixel *leds, Button *btn) {
-  this->_leds = leds;
-  this->_btn  = btn;
+Mode_SingleColor::Mode_SingleColor(Ytani_NeoPixel *leds, Button *btn):
+  ModeBase::ModeBase(leds, btn) {
 }
 
 /**
  *
  */
-void Mode_SingleColor::incHS() {
-  CurHS++;
-  if ( CurHS >= HS_N ) {
-    CurHS = 0;
-  }
-} // incHS()
-
-/**
- *
- */
-void Mode_SingleColor::setHS(int i, int hs) {
-  uint32_t col = this->_leds->colorHSV(HS[hs][0], HS[hs][1], CurBr);
-  this->_leds->setColor(i, col);
+void Mode_SingleColor::loop() {
+  for (int i=0; i < this->_leds->pixels_n; i++) {
+    this->setHS(i, CurHS);
+  } // for(i)
+  this->_leds->show();
 }
 
 /**
@@ -61,10 +52,17 @@ void Mode_SingleColor::btn_loop_hdr() {
 /**
  *
  */
-void Mode_SingleColor::loop() {
-  for (int i=0; i < this->_leds->pixels_n; i++) {
-    this->setHS(i, CurHS);
-  } // for(i)
-  this->_leds->show();
-}
+void Mode_SingleColor::incHS() {
+  CurHS++;
+  if ( CurHS >= HS_N ) {
+    CurHS = 0;
+  }
+} // incHS()
 
+/**
+ *
+ */
+void Mode_SingleColor::setHS(int i, int hs) {
+  uint32_t col = this->_leds->colorHSV(HS[hs][0], HS[hs][1], CurBr);
+  this->_leds->setColor(i, col);
+}

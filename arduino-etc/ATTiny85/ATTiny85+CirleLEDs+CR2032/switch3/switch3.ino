@@ -16,7 +16,11 @@ Ytani_NeoPixel Leds(LEDS_N, PIN_LEDS);
 Button         Btn(PIN_BUTTON, "Button");
 
 Mode_SingleColor mode_single_color(&Leds, &Btn);
-
+ModeBase* Mode[] =
+  {
+   &mode_single_color
+  };
+const int ModeN = sizeof(Mode) / sizeof(Mode[0]);
 uint8_t CurMode = 0;
 
 /**
@@ -34,7 +38,7 @@ ISR(PCINT0_vect) {
     prev_ms = cur_ms;
   
     if ( Btn.get() ) {
-      btn_intr_hdr(&Btn);
+      btn_intr_hdr();
     }
   }
 
@@ -44,21 +48,23 @@ ISR(PCINT0_vect) {
 /**
  *
  */
-void btn_intr_hdr(Button *btn) {
+void btn_intr_hdr() {
   // do nothing
 } // btn_intr_hdr()
 
 /**
  *
  */
-void btn_loop_hdr(Button *btn) {
+void btn_loop_hdr() {
   mode_single_color.btn_loop_hdr();
 
   int n = Btn.get_click_count();
 
   if ( n > 2 ) {
-    Leds.clear();
-    Leds.show();
+    CurMode++;
+    if ( CurMode >= ModeN ) {
+      CurMode = 0;
+    }
     return;
   }
 } // btn_loop_hdr()
@@ -84,7 +90,7 @@ void setup() {
 void loop() {
   if ( Btn.get() ) {
     cli();
-    btn_loop_hdr(&Btn);
+    btn_loop_hdr();
     sei();
   }
 

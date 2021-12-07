@@ -4,10 +4,9 @@
 #ifndef MODE_SINGLE_COLOR_H
 #define MODE_SINGLE_COLOR_H
 
-#include "Button.h"
-#include "Ytani_NeoPixel.h"
+#include "ModeBase.h"
 
-class Mode_SingleColor {
+class Mode_SingleColor: public ModeBase {
 public:
   const unsigned long HS[7][2] =
     {
@@ -28,13 +27,10 @@ public:
 
   Mode_SingleColor(Ytani_NeoPixel *leds, Button *btn);
 
+  void loop();
+  void btn_loop_hdr();
+
   void incHS();
   void setHS(int i, int hs);
-  void btn_loop_hdr();
-  void loop();
-
-private:
-  Ytani_NeoPixel *_leds;
-  Button         *_btn;
 };
 #endif // MODE_SINGLE_COLOR_H
