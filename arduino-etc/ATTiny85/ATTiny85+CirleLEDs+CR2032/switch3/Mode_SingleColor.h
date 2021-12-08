@@ -25,12 +25,12 @@ public:
   unsigned long CurHS = 0;
   unsigned long HS_N = sizeof(HS) / sizeof(HS[0]);
 
-  Mode_SingleColor(Ytani_NeoPixel *leds, Button *btn);
+  Mode_SingleColor();
 
-  void loop();
-  boolean btn_loop_hdr();
+  void loop(Ytani_NeoPixel *leds, Button *btn);
+  boolean btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn);
 
   void incHS();
-  void setHS(int i, int hs);
+  void setHS(Ytani_NeoPixel *leds, int i, int hs);
 };
 #endif // MODE_SINGLE_COLOR_H

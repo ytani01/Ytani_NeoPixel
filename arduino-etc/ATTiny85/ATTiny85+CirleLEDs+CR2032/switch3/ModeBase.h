@@ -8,14 +8,11 @@
 #include "Button.h"
 
 class ModeBase {
- public:
-  ModeBase(Ytani_NeoPixel *leds, Button *btn);
+public:
+  ModeBase() {};
 
-  virtual void loop();
-  virtual boolean btn_loop_hdr();
-
- protected:
-  Ytani_NeoPixel *_leds;
-  Button         *_btn;  
+  virtual void loop(Ytani_NeoPixel *leds, Button *btn) {return;};
+  virtual boolean btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn) {return false;};
 };
+
 #endif // MODE_BASE_H
