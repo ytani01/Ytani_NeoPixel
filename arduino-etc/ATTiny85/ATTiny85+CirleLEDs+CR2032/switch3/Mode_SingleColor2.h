@@ -1,15 +1,15 @@
 /**
  * Copyright (c) Yoichi Tanibayashi
  */
-#ifndef MODE_SINGLE_COLOR_H
-#define MODE_SINGLE_COLOR_H
+#ifndef MODE_SINGLE_COLOR2_H
+#define MODE_SINGLE_COLOR2_H
 
 #include "ModeBase.h"
 
 
-class Mode_SingleColor: public ModeBase {
+class Mode_SingleColor2: public ModeBase {
 public:
-  Mode_SingleColor();
+  Mode_SingleColor2();
 
   void loop(Ytani_NeoPixel *leds, Button *btn);
   boolean btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn);
@@ -35,4 +35,4 @@ private:
   unsigned long CurHS = 0;
   unsigned long HS_N = sizeof(HS) / sizeof(HS[0]);
 };
-#endif // MODE_SINGLE_COLOR_H
+#endif // MODE_SINGLE_COLOR2_H

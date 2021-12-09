@@ -11,8 +11,8 @@ class ModeBase {
 public:
   ModeBase() {};
 
-  virtual void loop(Ytani_NeoPixel *leds, Button *btn) {return;};
-  virtual boolean btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn) {return false;};
+  void loop(Ytani_NeoPixel *leds, Button *btn) {};
+  boolean btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn) {};
 };
 
 #endif // MODE_BASE_H
