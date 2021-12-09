@@ -5,7 +5,7 @@
 #include "Ytani_NeoPixel.h"
 #include "Mode_SingleColor.h"
 
-const unsigned long LOOP_DELAY = 100;  // ms
+const unsigned long LOOP_DELAY = 1000;  // ms
 const unsigned long DEBOUNCE   = 100;  // ms
 
 const uint8_t PIN_LEDS  = 4;
@@ -15,12 +15,12 @@ const uint8_t PIN_BUTTON = 3;
 Ytani_NeoPixel Leds(LEDS_N, PIN_LEDS);
 Button         Btn(PIN_BUTTON, "Button");
 
-Mode_SingleColor mode_single_color = Mode_SingleColor();  
-//Mode_SingleColor2 mode_single_color2 = Mode_SingleColor2(&Leds, &Btn);
+Mode_SingleColor *mode_single_color;
+//Mode_SingleColor m2;
 
 ModeBase* Mode[] =
   {
-   &mode_single_color
+   mode_single_color
   };
 const int ModeN = sizeof(Mode) / sizeof(Mode[0]);
 uint8_t CurMode = 0;
@@ -40,7 +40,7 @@ ISR(PCINT0_vect) {
     prev_ms = cur_ms;
   
     if ( Btn.get() ) {
-      btn_intr_hdr();
+      // btn_intr_hdr();
     }
   }
 
@@ -58,7 +58,7 @@ void btn_intr_hdr() {
  *
  */
 void btn_loop_hdr() {
-  if ( mode_single_color.btn_loop_hdr(&Leds, &Btn) ) {
+  if ( mode_single_color->btn_loop_hdr(&Leds, &Btn) ) {
     return;
   }
 
@@ -84,8 +84,26 @@ void setup() {
 
   Leds.clear();
   Leds.show();
+  delay(2000);
+  
+  mode_single_color = new Mode_SingleColor();
 
-  sei();  // 割り込み許可
+  mode_single_color->loop(&Leds, &Btn);
+  delay(100);
+  
+  Leds.clear();
+  Leds.show();
+  delay(2000);
+  
+  //mode_single_color->incHS();
+  mode_single_color->loop(&Leds, &Btn);
+  delay(1000);
+
+  mode_single_color->loop(&Leds, &Btn);
+  mode_single_color->incHS();
+  delay(100);
+  
+  //sei();  // 割り込み許可
 } // setup()
 
 /**
@@ -98,7 +116,7 @@ void loop() {
     sei();
   }
 
-  mode_single_color.loop(&Leds, &Btn);
+  mode_single_color->loop(&Leds, &Btn);
 
   delay(LOOP_DELAY);
 } // loop()
