@@ -8,11 +8,11 @@
 #include "Mode_Rainbow.h"
 
 const unsigned long LOOP_DELAY = 10;  // ms
-const unsigned long DEBOUNCE   = 100;  // ms
+const unsigned long DEBOUNCE   = 50;  // ms
 
 const uint8_t PIN_BTN = 3;
 const uint8_t PIN_LEDS  = 4;
-const uint8_t LEDS_N   = 7;
+const uint8_t LEDS_N   = 8;
 
 Ytani_NeoPixel   Leds(LEDS_N, PIN_LEDS);
 
