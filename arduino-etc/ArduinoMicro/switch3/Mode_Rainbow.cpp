@@ -1,20 +1,20 @@
 /**
  * Copyright (c) 2021 Yoichi Tanibayashi
  */
-#include "Mode_SingleColor2.h"
+#include "Mode_Rainbow.h"
 
 /**
  *
  */
-Mode_SingleColor2::Mode_SingleColor2() {
+Mode_Rainbow::Mode_Rainbow(): ModeBase() {
 }
 
 /**
  *
  */
-void Mode_SingleColor2::loop(Ytani_NeoPixel *leds, Button *btn) {
+void Mode_Rainbow::loop(Ytani_NeoPixel *leds, Button *btn) {
   for (int i=0; i < leds->pixels_n; i++) {
-    this->setHS(leds, i, this->CurHS);
+    setHS(leds, i, this->_cur_hs, CurBr);
   } // for(i)
   leds->show();
   interrupts();
@@ -23,7 +23,7 @@ void Mode_SingleColor2::loop(Ytani_NeoPixel *leds, Button *btn) {
 /**
  *
  */
-boolean Mode_SingleColor2::btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn) {
+boolean Mode_Rainbow::btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn) {
   if ( btn->get_value() == Button::ON ) {
     if ( btn->is_repeated() ) {
       this->incHS();
@@ -53,17 +53,9 @@ boolean Mode_SingleColor2::btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn) {
 /**
  *
  */
-void Mode_SingleColor2::incHS() {
-  this->CurHS++;
-  if ( this->CurHS >= this->HS_N ) {
-    this->CurHS = 0;
+void Mode_Rainbow::incHS() {
+  this->_cur_hs++;
+  if ( this->_cur_hs >= HS_N ) {
+    this->_cur_hs = 0;
   }
 } // incHS()
-
-/**
- *
- */
-void Mode_SingleColor2::setHS(Ytani_NeoPixel *leds, int i, int hs) {
-  uint32_t col = leds->colorHSV(this->HS[hs][0], this->HS[hs][1], this->CurBr);
-  leds->setColor(i, col);
-}

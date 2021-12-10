@@ -1,6 +1,9 @@
 /**
  * Copyright (c) 2021 Yoichi Tanibayashi
  */
+#define _ATTINY85
+// #define _ARDUINO_MICRO
+
 #include "common.h"
 #include "Button.h"
 #include "Ytani_NeoPixel.h"
@@ -29,6 +32,7 @@ ModeBase* Mode[] =
 const int ModeN = sizeof(Mode) / sizeof(Mode[0]);
 uint8_t CurMode = 0;
 
+#ifdef _ATTINY85
 /**
  * ATTiny85 の割り込みルーチン(固定)
  *
@@ -37,6 +41,7 @@ uint8_t CurMode = 0;
 ISR(PCINT0_vect) {
   btn_intr_hdr();
 }
+#endif // _ATTINY85
 
 /**
  *
@@ -50,6 +55,10 @@ void btn_intr_hdr() {
   if ( cur_ms - prev_ms > DEBOUNCE ) {
     prev_ms = cur_ms;
   
+#ifndef _ATTINY85
+    Serial.println("btn_intr_hdr");
+#endif // !_ATTINY85
+  
     if ( Btn.get() ) {
     }
   }
@@ -61,7 +70,12 @@ void btn_intr_hdr() {
  *
  */
 void btn_loop_hdr() {
+#ifndef _ATTINY85
+  Serial.println("btn_loop_hdr");
+#endif // !_ATTINY85
+
   if ( Mode[CurMode]->btn_loop_hdr(&Leds, &Btn) ) {
+  // if ( mode_single_color.btn_loop_hdr(&Leds, &Btn) ) {
     return;
   }
 
@@ -80,31 +94,49 @@ void btn_loop_hdr() {
  *
  */
 void setup() {
+#ifndef _ATTINY85
+  Serial.begin(115200);
+  if ( !Serial ) {
+    delay(1);
+  }
+  Serial.println("start");
+#endif // !_ATTINY85
+  
   Leds.clear();
-  Leds.setColor(0, 0x0000ff);
+  Leds.setColor(0, 0xff0000);
   Leds.show();
 
   pinMode(PIN_BTN, INPUT_PULLUP);
 
-  // 割込設定
+#ifdef _ATTINY85  
   GIMSK |= (1 << PCIE);  // PCINT割り込み有効
   PCMSK = (1 << PCINT3); // Pin3の割り込み許可
-  interrupts();
+#endif // _ATTINY85
 
-  delay(1000);
+#ifdef _ARDUINO_MICRO
+  attachInterrupt(digitalPinToInterrupt(PIN_BTN), btn_intr_hdr, CHANGE);
+#endif // _ARDUINO_MICRO
+
+  interrupts();
+  delay(2000);
 } // setup()
 
 /**
  *
  */
 void loop() {
+#ifndef _ATTINY85
+  Serial.println("loop");
+#endif // !_ATTINY85
+
   if ( Btn.get() ) {
     noInterrupts();
     btn_loop_hdr();
-    interrupts();
+    //interrupts();
   }
 
   Mode[CurMode]->loop(&Leds, &Btn);
+  interrupts();
 
   delay(LOOP_DELAY);
 } // loop()
