@@ -1,13 +1,12 @@
 /**
  * Copyright (c) 2021 Yoichi Tanibayashi
  */
-#include "common.h"
 #include "Button.h"
 #include "Ytani_NeoPixel.h"
 #include "Mode_SingleColor.h"
 #include "Mode_Rainbow.h"
 
-const unsigned long LOOP_DELAY = 10;  // ms
+const unsigned long LOOP_DELAY = 5;  // ms
 const unsigned long DEBOUNCE   = 50;  // ms
 
 const uint8_t PIN_BTN = 3;
@@ -27,7 +26,6 @@ ModeBase* Mode[] =
 const int ModeN = sizeof(Mode) / sizeof(Mode[0]);
 uint8_t CurMode = 0;
 
-#ifdef ATTINY85
 /**
  * ATTiny85 の割り込みルーチン(固定)
  *
@@ -36,7 +34,6 @@ uint8_t CurMode = 0;
 ISR(PCINT0_vect) {
   btn_intr_hdr();
 }
-#endif // ATTINY85
 
 /**
  *
@@ -82,14 +79,6 @@ void btn_loop_hdr() {
  *
  */
 void setup() {
-#ifdef _ARDUINO
-  Serial.begin(115200);
-  while ( !Serial ) {
-    delay(10);
-  }
-  Serial.println("start");
-#endif
-
   Leds = new Ytani_NeoPixel(LEDS_N, PIN_LEDS);
   Leds->clear();
   Leds->setColor(0, 0x0000ff);
@@ -98,15 +87,8 @@ void setup() {
   Btn.print();
 
   // 割込設定
-#ifdef ATTINY85
   GIMSK |= (1 << PCIE);  // PCINT割り込み有効
   PCMSK = (1 << PCINT3); // Pin3の割り込み許可
-#endif // ATTINY85
-
-#ifdef _ARDUINO
-  attachInterrupt(digitalPinToInterrupt(PIN_BTN), btn_intr_hdr, CHANGE);
-#endif
-  
   interrupts();
 
   delay(1000);

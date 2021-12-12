@@ -4,7 +4,6 @@
 #ifndef MODE_SINGLE_COLOR_H
 #define MODE_SINGLE_COLOR_H
 
-#include "common.h"
 #include "Mode_Rainbow.h"
 
 class Mode_SingleColor: public Mode_Rainbow {

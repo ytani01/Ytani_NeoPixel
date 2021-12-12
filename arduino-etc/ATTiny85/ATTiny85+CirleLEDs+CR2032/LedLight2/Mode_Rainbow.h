@@ -4,7 +4,6 @@
 #ifndef MODE_RAINBOW_H
 #define MODE_RAINBOW_H
 
-#include "common.h"
 #include "ModeBase.h"
 
 class Mode_Rainbow: public ModeBase {
