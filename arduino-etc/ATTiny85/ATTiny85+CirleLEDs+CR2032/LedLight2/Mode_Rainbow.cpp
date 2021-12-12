@@ -26,7 +26,7 @@ void Mode_Rainbow::loop(Ytani_NeoPixel *leds, Button *btn) {
  */
 void Mode_Rainbow::display(Ytani_NeoPixel *leds) {
   for (int led_i=0; led_i < leds->pixels_n; led_i++) {
-    uint16_t hue_deg = (this->_cur_hue_deg + led_i * 40) % this->DEG_MAX;
+    uint16_t hue_deg = (this->_cur_hue_deg + led_i * this->DEG_DIFF) % this->DEG_MAX;
     leds->setColorHSVdeg(led_i, hue_deg, 0xff, this->_cur_br);
   } // for(led_i)
 
@@ -43,14 +43,16 @@ boolean Mode_Rainbow::btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn) {
   if ( btn->get_value() == Button::ON ) {
     if ( btn->is_repeated() ) {
       repeat_count++;
-      if ( repeat_count >= 3 ) {
+      if ( repeat_count >= this->REPEAT_UNIT ) {
         if ( this->_continus == 0 ) {
-          this->_continus = 128;
-        } else if ( repeat_count % 3 == 0 ) {
+          this->_continus = this->CONTINUS_INIT;
+          return true;
+        } else if ( repeat_count % this->REPEAT_UNIT == 0 ) {
           this->_continus /= 2;
           if ( this->_continus < 1 ) {
             this->_continus = 1;
           }
+          return true;
         }
       }
     }
@@ -65,14 +67,14 @@ boolean Mode_Rainbow::btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn) {
     if ( this->_continus > 0 ) {
       this->_continus = 0;
     } else {
-      this->_continus = 16;
+      this->_continus = this->CONTINUS_DEF;
     }
     this->incHueDeg();
     return true;
   }
   
   if ( n == 2 ) {
-    this->_cur_br = this->_cur_br >> 2;
+    this->_cur_br /= 2;
     if ( this->_cur_br <= 0 ) {
       this->_cur_br = this->BRIGHTNESS_MAX;
     }

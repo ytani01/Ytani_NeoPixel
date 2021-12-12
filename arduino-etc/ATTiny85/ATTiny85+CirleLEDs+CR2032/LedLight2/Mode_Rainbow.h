@@ -10,8 +10,13 @@
 class Mode_Rainbow: public ModeBase {
 public:
   const uint16_t DEG_MAX = 360;
-  
+  const uint16_t DEG_DEF = 256;
+  const uint16_t DEG_DIFF = 45;
   const uint8_t BRIGHTNESS_MAX = 64;
+
+  const uint16_t CONTINUS_INIT = 256;
+  const uint8_t CONTINUS_DEF = 64;
+  const uint8_t REPEAT_UNIT = 3;
 
   Mode_Rainbow();
 
