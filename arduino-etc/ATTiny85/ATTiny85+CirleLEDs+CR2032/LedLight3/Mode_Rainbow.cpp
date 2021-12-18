@@ -74,7 +74,7 @@ boolean Mode_Rainbow::btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn) {
   }
   
   if ( n == 2 ) {
-    this->_cur_br /= 2;
+    this->_cur_br /= 4;
     if ( this->_cur_br <= 0 ) {
       this->_cur_br = this->BRIGHTNESS_MAX;
     }

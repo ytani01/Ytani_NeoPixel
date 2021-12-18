@@ -11,7 +11,7 @@ public:
   const uint16_t DEG_MAX = 360;
   const uint16_t DEG_DIFF = 45;
   const uint16_t DEG_INC = 2;
-  const uint8_t BRIGHTNESS_MAX = 64;
+  const uint8_t BRIGHTNESS_MAX = 128;
 
   const uint16_t CONTINUS_INIT = 256;
   const uint8_t CONTINUS_DEF = 64;
