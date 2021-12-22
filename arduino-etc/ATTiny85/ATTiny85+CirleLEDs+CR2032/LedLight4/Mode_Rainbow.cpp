@@ -7,11 +7,15 @@
  *
  */
 Mode_Rainbow::Mode_Rainbow(int eepCont): ModeBase() {
+  if ( eepCont < 0 ) {
+    return;
+  }
+
   this->__eep_continuous = eepCont;
 
-  EEPROM.get(this->__eep_continuous, this->_continus);
-  if ( this->_continus > 1000 ) {
-    this->_continus = 0;
+  EEPROM.get(this->__eep_continuous, this->_continuous);
+  if ( this->_continuous > this->CONTINUOUS_INIT ) {
+    this->_continuous = 0;
   }
 }
 
@@ -19,10 +23,10 @@ Mode_Rainbow::Mode_Rainbow(int eepCont): ModeBase() {
  *
  */
 void Mode_Rainbow::loop(Ytani_NeoPixel *leds, Button *btn) {
-  if ( this->_continus > 0 ) {
+  if ( this->_continuous > 0 ) {
     this->incHueDeg(this->DEG_INC);
     
-    delay(this->_continus);
+    delay(this->_continuous);
   }
   this->display(leds);
 }
@@ -50,15 +54,15 @@ boolean Mode_Rainbow::btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn) {
     if ( btn->is_repeated() ) {
       repeat_count++;
       if ( repeat_count >= this->REPEAT_UNIT ) {
-        if ( this->_continus == 0 ) {
-          this->_continus = this->CONTINUS_INIT;
+        if ( this->_continuous == 0 ) {
+          this->_continuous = this->CONTINUOUS_INIT;
         } else if ( repeat_count % this->REPEAT_UNIT == 0 ) {
-          this->_continus /= 2;
-          if ( this->_continus < 1 ) {
-            this->_continus = 1;
+          this->_continuous /= 2;
+          if ( this->_continuous < 1 ) {
+            this->_continuous = 1;
           }
         }
-        EEPROM.put(this->__eep_continuous, this->_continus);
+        EEPROM.put(this->__eep_continuous, this->_continuous);
         return true;
       }
     }
@@ -70,9 +74,9 @@ boolean Mode_Rainbow::btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn) {
   repeat_count = 0;
 
   if ( n == 1 ) {
-    if ( this->_continus > 0 ) {
-      this->_continus = 0;
-      EEPROM.put(this->__eep_continuous, this->_continus);
+    if ( this->_continuous > 0 ) {
+      this->_continuous = 0;
+      EEPROM.put(this->__eep_continuous, this->_continuous);
     } else {
       this->_cur_hue_deg =
         ((this->_cur_hue_deg / this->DEG_DIFF) + 1) * this->DEG_DIFF;

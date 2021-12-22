@@ -8,7 +8,7 @@
 #include "Ytani_NeoPixel.h"
 #include "Button.h"
 
-#define BRIGHTNESS_MAX 128
+extern const uint8_t BRIGHTNESS_MAX;
 extern uint8_t CurBr;
 
 class ModeBase {

@@ -8,8 +8,7 @@
 
 class Mode_SingleColor: public Mode_Rainbow {
 public:
+  Mode_SingleColor(int eepCont): Mode_Rainbow(eepCont) {};
   void display(Ytani_NeoPixel *leds) override;
-protected:
-  int __eep_continuous = 0x12;
 };
 #endif // MODE_SINGLE_COLOR_H

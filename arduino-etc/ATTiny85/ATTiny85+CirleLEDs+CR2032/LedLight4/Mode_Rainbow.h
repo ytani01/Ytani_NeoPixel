@@ -12,8 +12,8 @@ public:
   const uint16_t DEG_DIFF = 45;
   const uint16_t DEG_INC = 2;
 
-  const uint16_t CONTINUS_INIT = 256;
-  const uint8_t CONTINUS_DEF = 64;
+  const uint16_t CONTINUOUS_INIT = 500;
+  const uint8_t CONTINUOUS_DEF = 64;
   const uint8_t REPEAT_UNIT = 1;
 
   Mode_Rainbow(int eepCont);
@@ -26,7 +26,7 @@ public:
 
 protected:
   uint16_t _cur_hue_deg = 0;
-  unsigned long _continus = 0;
-  int __eep_continuous = 0x10;
+  unsigned long _continuous = 0;
+  int __eep_continuous;
 };
 #endif // MODE_RAINBOW_H

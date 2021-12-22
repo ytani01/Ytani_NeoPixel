@@ -8,18 +8,27 @@
 #include "Mode_SingleColor.h"
 #include "Mode_White.h"
 
-const unsigned long LOOP_DELAY = 1;  // ms
+const unsigned long LOOP_DELAY = 0;  // ms
 const unsigned long DEBOUNCE   = 50;  // ms
 
 const uint8_t PIN_BTN = 3;
 const uint8_t PIN_LEDS  = 4;
 const uint8_t LEDS_N   = 8;
+const uint8_t BRIGHTNESS_MAX = 255;
 
 Ytani_NeoPixel   *Leds;
 Button Btn(PIN_BTN, "Button");
 
-Mode_SingleColor mode_single_color;
-Mode_Rainbow     mode_rainbow;
+int eepMode = 0; // uint8_t (1 byte)
+int eepBr   = eepMode + 1; // uint8_t (1 byte)
+int eepContRainbow = eepBr + 1; // unsigned long (4 bytes)
+int eepContSingleColor = eepContRainbow + 4; // unsigned long (4 bytes)
+
+uint8_t CurBr = BRIGHTNESS_MAX / 4;
+uint8_t CurMode = 0;
+
+Mode_Rainbow     mode_rainbow(eepContRainbow);
+Mode_SingleColor mode_single_color(eepContSingleColor);
 Mode_White       mode_white;
 ModeBase* Mode[] =
   {
@@ -28,13 +37,6 @@ ModeBase* Mode[] =
    &mode_white
   };
 const int ModeN = sizeof(Mode) / sizeof(Mode[0]);
-uint8_t CurMode = 0;
-
-int eepMode = 0; // uint8_t (1 byte)
-int eepBr   = 1; // uint8_t (1 byte)
-int eepCont = 2; // unsigned long (4 bytes)
-
-uint8_t CurBr = BRIGHTNESS_MAX / 4;
 
 /**
  * ATTiny85 の割り込みルーチン(固定)

@@ -8,8 +8,7 @@
 
 class Mode_White: public Mode_Rainbow {
 public:
-  Mode_White() {};
+  Mode_White(): Mode_Rainbow(-1) {};
   void display(Ytani_NeoPixel *leds) override;
-  boolean btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn);
 };
 #endif // MODE_WHITE_H
