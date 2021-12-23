@@ -19,8 +19,8 @@ public:
   Mode_Rainbow(int eepCont);
 
   virtual void loop(Ytani_NeoPixel *leds, Button *btn);
-  virtual boolean btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn);
   virtual void display(Ytani_NeoPixel *leds);
+  virtual boolean btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn);
 
   virtual void incHueDeg(uint16_t deg);
 

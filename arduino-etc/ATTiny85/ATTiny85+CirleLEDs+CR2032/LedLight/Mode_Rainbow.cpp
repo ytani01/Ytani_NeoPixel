@@ -10,9 +10,7 @@ Mode_Rainbow::Mode_Rainbow(int eepCont): ModeBase() {
   if ( eepCont < 0 ) {
     return;
   }
-
   this->__eep_continuous = eepCont;
-
   EEPROM.get(this->__eep_continuous, this->_continuous);
   if ( this->_continuous > this->CONTINUOUS_INIT ) {
     this->_continuous = 0;
@@ -25,7 +23,6 @@ Mode_Rainbow::Mode_Rainbow(int eepCont): ModeBase() {
 void Mode_Rainbow::loop(Ytani_NeoPixel *leds, Button *btn) {
   if ( this->_continuous > 0 ) {
     this->incHueDeg(this->DEG_INC);
-    
     delay(this->_continuous);
   }
   this->display(leds);
@@ -39,9 +36,6 @@ void Mode_Rainbow::display(Ytani_NeoPixel *leds) {
     uint16_t hue_deg = (this->_cur_hue_deg + led_i * this->DEG_DIFF) % this->DEG_MAX;
     leds->setColorHSVdeg(led_i, hue_deg, 0xff, CurBr);
   } // for(led_i)
-
-  leds->show();
-  interrupts();
 }
 
 /**
@@ -63,7 +57,6 @@ boolean Mode_Rainbow::btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn) {
           }
         }
         EEPROM.put(this->__eep_continuous, this->_continuous);
-        return true;
       }
     }
     return true;

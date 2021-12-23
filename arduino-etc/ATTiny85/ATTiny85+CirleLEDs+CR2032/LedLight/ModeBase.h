@@ -8,7 +8,9 @@
 #include "Ytani_NeoPixel.h"
 #include "Button.h"
 
+extern const uint8_t LEDS_N;
 extern const uint8_t BRIGHTNESS_MAX;
+//extern int ModeN;
 extern uint8_t CurBr;
 
 class ModeBase {

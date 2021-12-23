@@ -6,6 +6,7 @@
 #include "Ytani_NeoPixel.h"
 #include "Mode_Rainbow.h"
 #include "Mode_SingleColor.h"
+#include "Mode_Random1.h"
 #include "Mode_White.h"
 
 const unsigned long LOOP_DELAY = 0;  // ms
@@ -13,8 +14,9 @@ const unsigned long DEBOUNCE   = 50;  // ms
 
 const uint8_t PIN_BTN = 3;
 const uint8_t PIN_LEDS  = 4;
-const uint8_t LEDS_N   = 8;
+const uint8_t LEDS_N   = 10;
 const uint8_t BRIGHTNESS_MAX = 255;
+uint8_t CurBr = BRIGHTNESS_MAX / 4;
 
 Ytani_NeoPixel   *Leds;
 Button Btn(PIN_BTN, "Button");
@@ -23,20 +25,22 @@ int eepMode = 0; // uint8_t (1 byte)
 int eepBr   = eepMode + 1; // uint8_t (1 byte)
 int eepContRainbow = eepBr + 1; // unsigned long (4 bytes)
 int eepContSingleColor = eepContRainbow + 4; // unsigned long (4 bytes)
-
-uint8_t CurBr = BRIGHTNESS_MAX / 4;
-uint8_t CurMode = 0;
+int eepContRandom1 = eepContSingleColor + 4; // unsigned long (4 bytes)
 
 Mode_Rainbow     mode_rainbow(eepContRainbow);
 Mode_SingleColor mode_single_color(eepContSingleColor);
+Mode_Random1     mode_random1(eepContRandom1);
 Mode_White       mode_white;
+
 ModeBase* Mode[] =
   {
    &mode_rainbow,
    &mode_single_color,
+   &mode_random1,
    &mode_white
   };
 const int ModeN = sizeof(Mode) / sizeof(Mode[0]);
+uint8_t CurMode = 0;
 
 /**
  * ATTiny85 の割り込みルーチン(固定)
@@ -52,20 +56,13 @@ ISR(PCINT0_vect) {
  */
 void btn_intr_hdr() {
   static unsigned long prev_ms = 0;
-  unsigned long        cur_ms;
-
-  //noInterrupts();
-
-  cur_ms = millis();
+  unsigned long        cur_ms = millis();
 
   if ( cur_ms - prev_ms > DEBOUNCE ) {
     prev_ms = cur_ms;
   
-    if ( Btn.get() ) {
-    }
+    (void)Btn.get();
   }
-
-  interrupts();
 } // btn_intr_hdr()
 
 /**
@@ -88,10 +85,7 @@ void btn_loop_hdr() {
   }
 
   if ( n > 2 ) {
-    CurMode++;
-    if ( CurMode >= ModeN ) {
-      CurMode = 0;
-    }
+    CurMode = (CurMode + 1) % ModeN;
     EEPROM.put(eepMode, CurMode);
     return;
   }
@@ -101,6 +95,8 @@ void btn_loop_hdr() {
  *
  */
 void setup() {
+  randomSeed(analogRead(0));
+
   Leds = new Ytani_NeoPixel(LEDS_N, PIN_LEDS);
   Leds->clear();
   Leds->setColor(0, 0x0000ff);
@@ -110,12 +106,11 @@ void setup() {
   if ( CurMode >= ModeN ) {
     CurMode = 0;
   }
+
   EEPROM.get(eepBr, CurBr);
   if ( CurBr == 0 || CurBr > BRIGHTNESS_MAX ) {
     CurBr = BRIGHTNESS_MAX / 4;
   }
-
-  Btn.print();
 
   // 割込設定
   GIMSK |= (1 << PCIE);  // PCINT割り込み有効
@@ -136,6 +131,8 @@ void loop() {
   }
 
   Mode[CurMode]->loop(Leds, &Btn);
+  Leds->show();
+  interrupts();
 
   delay(LOOP_DELAY);
 } // loop()
