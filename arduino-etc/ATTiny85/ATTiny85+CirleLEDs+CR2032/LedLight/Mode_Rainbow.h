@@ -9,7 +9,7 @@
 class Mode_Rainbow: public ModeBase {
 public:
   const uint16_t DEG_MAX = 360;
-  const uint16_t DEG_DIFF = 45;
+  const uint16_t DEG_DIFF = 30;
   const uint16_t DEG_INC = 2;
 
   const uint16_t CONTINUOUS_INIT = 500;
