@@ -7,7 +7,6 @@
 #include "Mode_Rainbow.h"
 #include "Mode_SingleColor.h"
 #include "Mode_Random1.h"
-#include "Mode_White.h"
 
 const unsigned long LOOP_DELAY = 0;  // ms
 const unsigned long DEBOUNCE   = 50;  // ms
@@ -26,18 +25,18 @@ int eepBr   = eepMode + 1; // uint8_t (1 byte)
 int eepContRainbow = eepBr + 1; // unsigned long (4 bytes)
 int eepContSingleColor = eepContRainbow + 4; // unsigned long (4 bytes)
 int eepContRandom1 = eepContSingleColor + 4; // unsigned long (4 bytes)
+int eepSatRainbow = eepContRandom1 + 4; // uint8_t (1 bytes)
+int eepSatSingleColor = eepSatRainbow + 1; // uint8_t (1 bytes)
 
-Mode_Rainbow     mode_rainbow(eepContRainbow);
-Mode_SingleColor mode_single_color(eepContSingleColor);
-Mode_Random1     mode_random1(eepContRandom1);
-Mode_White       mode_white;
+Mode_Rainbow     mode_rainbow(eepContRainbow, eepSatRainbow);
+Mode_SingleColor mode_single_color(eepContSingleColor, eepSatSingleColor);
+Mode_Random1     mode_random1(eepContRandom1, NULL);
 
 ModeBase* Mode[] =
   {
    &mode_rainbow,
    &mode_single_color,
-   &mode_random1,
-   &mode_white
+   &mode_random1
   };
 const int ModeN = sizeof(Mode) / sizeof(Mode[0]);
 uint8_t CurMode = 0;
