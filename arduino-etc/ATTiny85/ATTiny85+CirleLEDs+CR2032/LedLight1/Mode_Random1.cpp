@@ -7,8 +7,8 @@
  *
  */
 void Mode_Random1::display(Ytani_NeoPixel *leds, bool force=false) {
-  if ( ! force && this->_continuous == 0 ) {
-    return;
+  if ( this->_continuous == 0 ) {
+    this->_continuous = this->CONTINUOUS_INIT;
   }
   leds->setColorHSVdeg(random(LEDS_N), random(DEG_MAX), 0xff, CurBr);
 }
