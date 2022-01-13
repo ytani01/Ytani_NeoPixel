@@ -6,7 +6,7 @@
 #include "Ytani_NeoPixel.h"
 #include "Mode_Rainbow.h"
 #include "Mode_SingleColor.h"
-#include "Mode_Random1.h"
+#include "Mode_Belt1.h"
 
 const unsigned long LOOP_DELAY = 0;  // ms
 const unsigned long DEBOUNCE   = 50;  // ms
@@ -22,21 +22,21 @@ Button Btn(PIN_BTN, "Button");
 
 int eepMode = 0; // uint8_t (1 byte)
 int eepBr   = eepMode + 1; // uint8_t (1 byte)
-int eepContRainbow = eepBr + 1; // unsigned long (4 bytes)
-int eepContSingleColor = eepContRainbow + 4; // unsigned long (4 bytes)
-int eepContRandom1 = eepContSingleColor + 4; // unsigned long (4 bytes)
-int eepSatRainbow = eepContRandom1 + 4; // uint8_t (1 bytes)
-int eepSatSingleColor = eepSatRainbow + 1; // uint8_t (1 bytes)
+int eepRainbowCont = eepBr + 1; // unsigned long (4 bytes)
+int eepSingleColorCont = eepRainbowCont + 4; // unsigned long (4 bytes)
+int eepBelt1Cont = eepSingleColorCont + 4; // unsigned long (4 bytes)
+int eepRainbowSat = eepBelt1Cont + 4; // uint8_t (1 bytes)
+int eepSingleColorSat = eepRainbowSat + 1; // uint8_t (1 bytes)
 
-Mode_Rainbow     mode_rainbow(eepContRainbow, eepSatRainbow);
-Mode_SingleColor mode_single_color(eepContSingleColor, eepSatSingleColor);
-Mode_Random1     mode_random1(eepContRandom1, NULL);
+Mode_SingleColor mode_single_color(eepSingleColorCont, eepSingleColorSat);
+Mode_Rainbow     mode_rainbow(eepRainbowCont, eepRainbowSat);
+Mode_Belt1       mode_belt1(eepBelt1Cont, false);
 
 ModeBase* Mode[] =
   {
    &mode_single_color,
    &mode_rainbow,
-   &mode_random1
+   &mode_belt1
   };
 const int ModeN = sizeof(Mode) / sizeof(Mode[0]);
 uint8_t CurMode = 0;
