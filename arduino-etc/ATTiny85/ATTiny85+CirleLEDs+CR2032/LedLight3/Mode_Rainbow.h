@@ -12,7 +12,7 @@ public:
   const uint16_t DEG_DIFF = 60;
   const uint16_t DEG_INC = 2;
 
-  const uint16_t CONTINUOUS_INIT = 500;
+  const uint16_t CONTINUOUS_MAX = 500;
   const uint8_t CONTINUOUS_DEF = 64;
   const uint8_t REPEAT_UNIT = 1;
 

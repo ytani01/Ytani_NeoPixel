@@ -23,14 +23,15 @@ Button Btn(PIN_BTN, "Button");
 int eepMode = 0; // uint8_t (1 byte)
 int eepBr   = eepMode + 1; // uint8_t (1 byte)
 int eepRainbowCont = eepBr + 1; // unsigned long (4 bytes)
-int eepSingleColorCont = eepRainbowCont + 4; // unsigned long (4 bytes)
-int eepBelt1Cont = eepSingleColorCont + 4; // unsigned long (4 bytes)
-int eepRainbowSat = eepBelt1Cont + 4; // uint8_t (1 bytes)
-int eepSingleColorSat = eepRainbowSat + 1; // uint8_t (1 bytes)
+int eepRainbowSat = eepRainbowCont + 4; // uint8_t (1 byte)
+int eepSingleColorCont = eepRainbowSat + 1; // unsigned long (4 bytes)
+int eepSingleColorSat = eepSingleColorCont + 4; // uint8_t (1 byte)
+int eepBelt1Cont = eepSingleColorSat + 1; // unsigned long (4 bytes)
+int eepBelt1Sat = eepBelt1Cont + 4; // uint8_t (1 byte)
 
 Mode_SingleColor mode_single_color(eepSingleColorCont, eepSingleColorSat);
 Mode_Rainbow     mode_rainbow(eepRainbowCont, eepRainbowSat);
-Mode_Belt1       mode_belt1(eepBelt1Cont, false);
+Mode_Belt1       mode_belt1(eepBelt1Cont, eepBelt1Sat);
 
 ModeBase* Mode[] =
   {

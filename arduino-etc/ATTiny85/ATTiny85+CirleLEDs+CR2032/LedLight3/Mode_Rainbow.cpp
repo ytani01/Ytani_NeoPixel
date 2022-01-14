@@ -13,7 +13,7 @@ Mode_Rainbow::Mode_Rainbow(int eepCont, int eepSat): ModeBase() {
 
   this->__eep_continuous = eepCont;
   EEPROM.get(this->__eep_continuous, this->_continuous);
-  if ( this->_continuous > this->CONTINUOUS_INIT ) {
+  if ( this->_continuous > this->CONTINUOUS_MAX ) {
     this->_continuous = 0;
   }
 
@@ -65,7 +65,7 @@ boolean Mode_Rainbow::btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn) {
       repeat_count++;
       if ( repeat_count >= this->REPEAT_UNIT ) {
         if ( this->_continuous == 0 ) {
-          this->_continuous = this->CONTINUOUS_INIT;
+          this->_continuous = this->CONTINUOUS_MAX;
         } else if ( repeat_count % this->REPEAT_UNIT == 0 ) {
           this->_continuous /= 2;
           if ( this->_continuous < 1 ) {
