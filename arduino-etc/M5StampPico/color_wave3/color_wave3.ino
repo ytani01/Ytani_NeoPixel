@@ -4,10 +4,10 @@
 // const uint8_t PIN_ONBOARD_LED = 1;  // DigiSpark ATTiny85
 // const uint8_t PIN_ONBOARD_LED = 13;  // Arduino Uno
 // const uint8_t PIN_ONBOARD_LED = 17;  // Arduino Pro Micro (RX)
-const uint8_t PIN_ONBOARD_LED = 30;  // Arduino Pro Micro (TX)
+// const uint8_t PIN_ONBOARD_LED = 30;  // Arduino Pro Micro (TX)
+const uint8_t PIN_ONBOARD_LED = -1;  // M5STAMP PICO
 
-
-const uint8_t  PIN_PIXEL[]    = {32, 33};
+const uint8_t  PIN_PIXEL[]    = {27};
 const uint8_t  PIXELS_N       = sizeof(PIN_PIXEL) / sizeof(PIN_PIXEL[0]);
 const uint16_t LED_N          = 255;
 const int      BRIGHTNESS     = 32;  // 1-255
@@ -79,8 +79,10 @@ void setup() {
   delay(2000);
   Serial.println("PIXELS_N=" + String(PIXELS_N));
 
-  pinMode(PIN_ONBOARD_LED, OUTPUT);
-  digitalWrite(PIN_ONBOARD_LED, HIGH);
+  if ( PIN_ONBOARD_LED >= 0 ) {
+    pinMode(PIN_ONBOARD_LED, OUTPUT);
+    digitalWrite(PIN_ONBOARD_LED, HIGH);
+  }
 
   for (int p=0; p < PIXELS_N; p++) {
     pixels[p].clear();
@@ -97,12 +99,16 @@ void setup() {
 void loop() {
   static int color_i = 1;
 
-  digitalWrite(PIN_ONBOARD_LED, LOW);
+  if ( PIN_ONBOARD_LED >= 0 ) {
+    digitalWrite(PIN_ONBOARD_LED, LOW);
+  }
 
   set_color_and_show(color_i);
   color_i = (color_i + COLOR_N - 1) % COLOR_N;
 
   delay(LOOP_DELAY / 2);
-  digitalWrite(PIN_ONBOARD_LED, HIGH);
+  if ( PIN_ONBOARD_LED >= 0 ) {
+    digitalWrite(PIN_ONBOARD_LED, HIGH);
+  }
   delay(LOOP_DELAY / 2);
 }
