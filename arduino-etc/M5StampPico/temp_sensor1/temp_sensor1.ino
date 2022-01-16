@@ -9,7 +9,7 @@ const uint8_t PIN_LED = 27;
 const uint8_t LED_BRIGHTNESS = 0x03;
 
 Adafruit_BME280 bme;
-Ytani_NeoPixel  *onBordLed;
+Ytani_NeoPixel  *onBoardLed;
 
 uint16_t temp2deg(float temp) {
   const uint16_t DEG_LOW = 240;
@@ -37,11 +37,10 @@ void setup() {
   while (!Serial) {
     delay(1);
   }
-
-  onBordLed = new Ytani_NeoPixel(1, PIN_LED);
-  onBordLed->clear();
-  onBordLed->setColor(0, 0xFFFFFF);
-  onBordLed->show();
+  delay(1000);
+  Serial.println("Start");
+  
+  onBoardLed = new Ytani_NeoPixel(1, PIN_LED);
   
   bme.begin(I2CADDR_BME280);
   bme.setSampling(Adafruit_BME280::MODE_FORCED);  // !! IMPORTANT !!
@@ -61,10 +60,10 @@ void loop() {
   float pressure = bme.readPressure() / 100.0;
 
   uint16_t deg = temp2deg(temp);
-  onBordLed->setColorHSVdeg(0, deg, 0xff, LED_BRIGHTNESS);
-  onBordLed->show();
+  onBoardLed->setColorHSVdeg(0, deg, 0xff, LED_BRIGHTNESS);
+  onBoardLed->show();
   
   Serial.printf("%.2f %.1f %0.2f %d\n", temp, hum, pressure, deg);
 
-  delay(500);
+  delay(1000);
 } // loop()
