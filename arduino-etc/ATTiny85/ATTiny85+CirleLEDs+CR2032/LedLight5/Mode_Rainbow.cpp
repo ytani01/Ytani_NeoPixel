@@ -42,7 +42,7 @@ void Mode_Rainbow::display1(Ytani_NeoPixel *leds, int led_i, uint16_t hue_deg) {
 /**
  *
  */
-void Mode_Rainbow::display(Ytani_NeoPixel *leds, bool force=false) {
+void Mode_Rainbow::display(Ytani_NeoPixel *leds, bool force) {
   for (int led_i=0; led_i < leds->pixels_n; led_i++) {
     uint16_t hue_deg = (this->_cur_hue_deg + led_i * this->DEG_DIFF) % this->DEG_MAX;
     this->display1(leds, led_i, hue_deg);

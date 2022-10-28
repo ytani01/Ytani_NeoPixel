@@ -5,7 +5,7 @@
 
 const uint8_t PIN_PIXEL        = 4;
 const uint8_t PIXELS_N         = 32;
-const int     BRIGHTNESS       = 128;  // 1-255
+const int     BRIGHTNESS       = 32;  // 1-255
 const int     HUE_STEP         = 0x1800;
 
 const unsigned long LOOP_DELAY = 100;  // ms
