@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2021 Yoichi Tanibayashi
  */
-#ifndef MODE_BASE_H
-#define MODE_BASE_H
+#ifndef _MODE_BASE_H_
+#define _MODE_BASE_H_
 
 #include <EEPROM.h>
 #include "Ytani_NeoPixel.h"
@@ -10,7 +10,6 @@
 
 extern const uint8_t LEDS_N;
 extern const uint8_t BRIGHTNESS_MAX;
-//extern int ModeN;
 extern uint8_t CurBr;
 
 class ModeBase {
@@ -21,4 +20,4 @@ public:
   virtual boolean btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn) = 0;
 };
 
-#endif // MODE_BASE_H
+#endif // _MODE_BASE_H_

@@ -1,8 +1,8 @@
 /**
  * Copyright (c) Yoichi Tanibayashi
  */
-#ifndef MODE_SINGLE_COLOR_H
-#define MODE_SINGLE_COLOR_H
+#ifndef _MODE_SINGLE_COLOR_H_
+#define _MODE_SINGLE_COLOR_H_
 
 #include "Mode_Rainbow.h"
 
@@ -11,4 +11,4 @@ public:
   Mode_SingleColor(int eepCont, int eepSat): Mode_Rainbow(eepCont, eepSat) {};
   void display(Ytani_NeoPixel *leds, bool force) override;
 };
-#endif // MODE_SINGLE_COLOR_H
+#endif // _MODE_SINGLE_COLOR_H_

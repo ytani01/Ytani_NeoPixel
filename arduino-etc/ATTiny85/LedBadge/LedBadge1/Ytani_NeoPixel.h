@@ -1,8 +1,8 @@
 //
 // Copyright (c) 2021 Yoichi Tanibayashi
 //
-#ifndef YTANI_NEOPIXEL_H
-#define YTANI_NEOPIXEL_H
+#ifndef _YTANI_NEOPIXEL_H_
+#define _YTANI_NEOPIXEL_H_
 
 #include <Adafruit_NeoPixel.h>
 
@@ -15,13 +15,29 @@ public:
   uint8_t pin;
 
   Ytani_NeoPixel(uint8_t n, uint8_t pin);
-  void clear() { this->_pixels.clear(); }
-  void show() { this->_pixels.show(); interrupts();}
-  void setColor(int led_i, uint32_t col) { this->_pixels.setPixelColor(led_i, col); }
+
+  void clear() {
+    this->_pixels.clear();
+  }
+
+  void show() {
+    this->_pixels.show(); interrupts();
+  }
+  
+  void setColor(int led_i, uint32_t col) {
+    this->_pixels.setPixelColor(led_i, col);
+  }
   void setColor(int led_i, uint8_t r, uint8_t g, uint8_t b) {
-    this->_pixels.setPixelColor(led_i, r, g, b); }
-  uint32_t getColor(int led_i) { return this->_pixels.getPixelColor(led_i); }
-  uint32_t color(uint8_t r, uint8_t g, uint8_t b) { return this->_pixels.Color(r, g, b); }
+    this->_pixels.setPixelColor(led_i, r, g, b);
+  }
+  
+  uint32_t getColor(int led_i) {
+    return this->_pixels.getPixelColor(led_i);
+  }
+
+  uint32_t color(uint8_t r, uint8_t g, uint8_t b) {
+    return this->_pixels.Color(r, g, b);
+  }
 
   /**
    * @param hue 0-65535(0xffff)
@@ -35,4 +51,4 @@ public:
 protected:
   Adafruit_NeoPixel _pixels;
 };
-#endif // YTANI_NEOPIXEL_H
+#endif // _YTANI_NEOPIXEL_H_

@@ -106,7 +106,7 @@ boolean Mode_Rainbow::btn_loop_hdr(Ytani_NeoPixel *leds, Button *btn) {
   }
   
   return false;
-} // loop_intr_hdr()
+} // loop_loop_hdr()
 
 /**
  *

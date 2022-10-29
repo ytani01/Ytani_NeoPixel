@@ -30,8 +30,8 @@
  *  }
  *  ==========================================================================
  */
-#ifndef BUTTON_H
-#define BUTTON_H
+#ifndef _BUTTON_H_
+#define _BUTTON_H_
 #include <Arduino.h>
 
 typedef uint8_t		button_event_t;
@@ -87,4 +87,4 @@ class Button {
   boolean	_repeated;
 };
 
-#endif
+#endif // _BUTTON_H_

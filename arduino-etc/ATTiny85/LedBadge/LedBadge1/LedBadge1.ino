@@ -6,7 +6,6 @@
 #include "Ytani_NeoPixel.h"
 #include "Mode_Rainbow.h"
 #include "Mode_SingleColor.h"
-#include "Mode_Belt1.h"
 
 const unsigned long LOOP_DELAY = 0;  // ms
 const unsigned long DEBOUNCE   = 50;  // ms
@@ -20,24 +19,24 @@ uint8_t CurBr = BRIGHTNESS_MAX / 4;
 Ytani_NeoPixel   *Leds;
 Button Btn(PIN_BTN, "Button");
 
-int eepMode = 0; // uint8_t (1 byte)
-int eepBr   = eepMode + 1; // uint8_t (1 byte)
-int eepRainbowCont = eepBr + 1; // unsigned long (4 bytes)
-int eepRainbowSat = eepRainbowCont + 4; // uint8_t (1 byte)
-int eepSingleColorCont = eepRainbowSat + 1; // unsigned long (4 bytes)
-int eepSingleColorSat = eepSingleColorCont + 4; // uint8_t (1 byte)
-int eepBelt1Cont = eepSingleColorSat + 1; // unsigned long (4 bytes)
-int eepBelt1Sat = eepBelt1Cont + 4; // uint8_t (1 byte)
+// EEPROM offset
+const int eepMode = 0; // uint8_t (1 byte)
+const int eepBr   = eepMode + 1; // uint8_t (1 byte)
+const int eepRainbowCont = eepBr + 1; // unsigned long (4 bytes)
+const int eepRainbowSat = eepRainbowCont + 4; // uint8_t (1 byte)
+const int eepSingleColorCont = eepRainbowSat + 1; // unsigned long (4 bytes)
+const int eepSingleColorSat = eepSingleColorCont + 4; // uint8_t (1 byte)
+const int eepBelt1Cont = eepSingleColorSat + 1; // unsigned long (4 bytes)
+const int eepBelt1Sat = eepBelt1Cont + 4; // uint8_t (1 byte)
 
+// Modes
 Mode_SingleColor mode_single_color(eepSingleColorCont, eepSingleColorSat);
 Mode_Rainbow     mode_rainbow(eepRainbowCont, eepRainbowSat);
-Mode_Belt1       mode_belt1(eepBelt1Cont, eepBelt1Sat, 1);
 
 ModeBase* Mode[] =
   {
    &mode_single_color,
-   &mode_rainbow,
-   &mode_belt1
+   &mode_rainbow
   };
 const int ModeN = sizeof(Mode) / sizeof(Mode[0]);
 uint8_t CurMode = 0;
@@ -48,7 +47,9 @@ uint8_t CurMode = 0;
  *  PCINT0_vect: ピン変化割り込み要求0(固定)
  */
 ISR(PCINT0_vect) {
-  btn_intr_hdr(); 
+  noInterrupts();
+  btn_intr_hdr();
+  interrupts();
 }
 
 /**
@@ -76,6 +77,7 @@ void btn_loop_hdr() {
   int n = Btn.get_click_count();
 
   if ( n == 2 ) {
+    // change brightness
     CurBr /= 4;
     if ( CurBr == 0 ) {
       CurBr = BRIGHTNESS_MAX;
@@ -85,6 +87,7 @@ void btn_loop_hdr() {
   }
 
   if ( n > 2 ) {
+    // change mode
     CurMode = (CurMode + 1) % ModeN;
     EEPROM.put(eepMode, CurMode);
     return;
