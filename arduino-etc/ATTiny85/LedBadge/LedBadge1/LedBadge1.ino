@@ -31,7 +31,7 @@ int eepBelt1Sat = eepBelt1Cont + 4; // uint8_t (1 byte)
 
 Mode_SingleColor mode_single_color(eepSingleColorCont, eepSingleColorSat);
 Mode_Rainbow     mode_rainbow(eepRainbowCont, eepRainbowSat);
-Mode_Belt1       mode_belt1(eepBelt1Cont, eepBelt1Sat);
+Mode_Belt1       mode_belt1(eepBelt1Cont, eepBelt1Sat, 1);
 
 ModeBase* Mode[] =
   {

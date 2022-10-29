@@ -11,6 +11,10 @@ public:
   const uint8_t DEF_BELT_W = 6;
   
   Mode_Belt1(int eepCont, int eepSat): Mode_Rainbow(eepCont, eepSat) {};
+  Mode_Belt1(int eepCont, int eepSat, uint8_t belt_w): Mode_Rainbow(eepCont, eepSat) {
+    this->_belt_w = belt_w;
+  };
+
   void display(Ytani_NeoPixel *leds, bool force) override;
 
 protected:
