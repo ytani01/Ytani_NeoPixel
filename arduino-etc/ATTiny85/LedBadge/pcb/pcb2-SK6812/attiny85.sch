@@ -130,21 +130,6 @@
 <library name="ytani1" urn="urn:adsk.eagle:library:30941153">
 <description>&lt;a href="https://github.com/ytani01/EagleLib-ytani/"&gt;https://github.com/ytani01/EagleLib-ytani/&lt;/a&gt;</description>
 <packages>
-<package name="PINHEAD-MA01-1" urn="urn:adsk.eagle:footprint:30941173/1" library_version="1" library_locally_modified="yes">
-<description>&lt;b&gt;PIN HEADER&lt;/b&gt;</description>
-<wire x1="0.635" y1="1.27" x2="1.905" y2="1.27" width="0.1524" layer="21"/>
-<wire x1="1.905" y1="1.27" x2="2.54" y2="0.635" width="0.1524" layer="21"/>
-<wire x1="2.54" y1="-0.635" x2="1.905" y2="-1.27" width="0.1524" layer="21"/>
-<wire x1="0" y1="0.635" x2="0" y2="-0.635" width="0.1524" layer="21"/>
-<wire x1="0.635" y1="1.27" x2="0" y2="0.635" width="0.1524" layer="21"/>
-<wire x1="0" y1="-0.635" x2="0.635" y2="-1.27" width="0.1524" layer="21"/>
-<wire x1="1.905" y1="-1.27" x2="0.635" y2="-1.27" width="0.1524" layer="21"/>
-<wire x1="2.54" y1="0.635" x2="2.54" y2="-0.635" width="0.1524" layer="21"/>
-<pad name="1" x="1.27" y="0" drill="0.9" diameter="1.5" rot="R90"/>
-<text x="0" y="1.651" size="1.27" layer="25" ratio="10">&gt;NAME</text>
-<text x="0" y="-2.921" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
-<rectangle x1="1.016" y1="-0.254" x2="1.524" y2="0.254" layer="51"/>
-</package>
 <package name="SW3-1" urn="urn:adsk.eagle:footprint:23610117/1" library_version="1" library_locally_modified="yes">
 <pad name="1" x="-1.27" y="0" drill="0.9" diameter="1.5" shape="square"/>
 <pad name="2" x="1.27" y="0" drill="0.9" diameter="1.5"/>
@@ -157,12 +142,6 @@
 </package>
 </packages>
 <packages3d>
-<package3d name="PINHEAD-MA01-1" urn="urn:adsk.eagle:package:30941190/1" type="box" library_version="1" library_locally_modified="yes">
-<description>&lt;b&gt;PIN HEADER&lt;/b&gt;</description>
-<packageinstances>
-<packageinstance name="PINHEAD-MA01-1"/>
-</packageinstances>
-</package3d>
 <package3d name="SW3-1" urn="urn:adsk.eagle:package:23610140/1" type="box" library_version="1" library_locally_modified="yes">
 <packageinstances>
 <packageinstance name="SW3-1"/>
@@ -170,16 +149,6 @@
 </package3d>
 </packages3d>
 <symbols>
-<symbol name="PINHEAD-MA01-1" urn="urn:adsk.eagle:symbol:30941162/1" library_version="1" library_locally_modified="yes">
-<wire x1="3.81" y1="-2.54" x2="-1.27" y2="-2.54" width="0.4064" layer="94"/>
-<wire x1="-1.27" y1="2.54" x2="-1.27" y2="-2.54" width="0.4064" layer="94"/>
-<wire x1="3.81" y1="-2.54" x2="3.81" y2="2.54" width="0.4064" layer="94"/>
-<wire x1="-1.27" y1="2.54" x2="3.81" y2="2.54" width="0.4064" layer="94"/>
-<wire x1="1.27" y1="0" x2="2.54" y2="0" width="0.508" layer="94"/>
-<text x="-1.27" y="-5.08" size="1.778" layer="96">&gt;VALUE</text>
-<text x="-1.27" y="3.302" size="1.778" layer="95">&gt;NAME</text>
-<pin name="1" x="7.62" y="0" visible="pad" length="middle" direction="pas" rot="R180"/>
-</symbol>
 <symbol name="SW03" urn="urn:adsk.eagle:symbol:30941164/1" library_version="1" library_locally_modified="yes">
 <pin name="1" x="0" y="5.08" visible="pad" length="short" direction="pas" rot="R270"/>
 <pin name="2" x="5.08" y="0" visible="pad" length="short" direction="pas" rot="R180"/>
@@ -194,24 +163,6 @@
 </symbol>
 </symbols>
 <devicesets>
-<deviceset name="PINHEAD-MA01-1" urn="urn:adsk.eagle:component:30941202/1" uservalue="yes" library_version="1" library_locally_modified="yes">
-<gates>
-<gate name="G$1" symbol="PINHEAD-MA01-1" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="PINHEAD-MA01-1">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-</connects>
-<package3dinstances>
-<package3dinstance package3d_urn="urn:adsk.eagle:package:30941190/1"/>
-</package3dinstances>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
 <deviceset name="SW3-1" urn="urn:adsk.eagle:component:30941203/1" prefix="SW" uservalue="yes" library_version="1" library_locally_modified="yes">
 <description>&lt;strong&gt;Slide Switch 3x1 pin &lt;/strong&gt;
 &lt;p&gt;
@@ -8240,6 +8191,48 @@ SOP8 ちょっと幅広</description>
 <package name="PAD5X15">
 <smd name="P$1" x="0" y="0" dx="15" dy="5" layer="1"/>
 </package>
+<package name="PINHEAD-MA03-2">
+<description>&lt;b&gt;PIN HEADER&lt;/b&gt;</description>
+<wire x1="-1.905" y1="1.27" x2="-0.635" y2="1.27" width="0.1524" layer="21"/>
+<wire x1="-0.635" y1="1.27" x2="0" y2="0.635" width="0.1524" layer="21"/>
+<wire x1="0" y1="-0.635" x2="-0.635" y2="-1.27" width="0.1524" layer="21"/>
+<wire x1="0" y1="0.635" x2="0.635" y2="1.27" width="0.1524" layer="21"/>
+<wire x1="0.635" y1="1.27" x2="1.905" y2="1.27" width="0.1524" layer="21"/>
+<wire x1="1.905" y1="1.27" x2="2.54" y2="0.635" width="0.1524" layer="21"/>
+<wire x1="2.54" y1="-0.635" x2="1.905" y2="-1.27" width="0.1524" layer="21"/>
+<wire x1="1.905" y1="-1.27" x2="0.635" y2="-1.27" width="0.1524" layer="21"/>
+<wire x1="0.635" y1="-1.27" x2="0" y2="-0.635" width="0.1524" layer="21"/>
+<wire x1="-2.54" y1="0.635" x2="-2.54" y2="-0.635" width="0.1524" layer="21"/>
+<wire x1="-1.905" y1="1.27" x2="-2.54" y2="0.635" width="0.1524" layer="21"/>
+<wire x1="-2.54" y1="-0.635" x2="-1.905" y2="-1.27" width="0.1524" layer="21"/>
+<wire x1="-0.635" y1="-1.27" x2="-1.905" y2="-1.27" width="0.1524" layer="21"/>
+<wire x1="2.54" y1="0.635" x2="3.175" y2="1.27" width="0.1524" layer="21"/>
+<wire x1="3.175" y1="1.27" x2="4.445" y2="1.27" width="0.1524" layer="21"/>
+<wire x1="4.445" y1="1.27" x2="5.08" y2="0.635" width="0.1524" layer="21"/>
+<wire x1="5.08" y1="-0.635" x2="4.445" y2="-1.27" width="0.1524" layer="21"/>
+<wire x1="4.445" y1="-1.27" x2="3.175" y2="-1.27" width="0.1524" layer="21"/>
+<wire x1="3.175" y1="-1.27" x2="2.54" y2="-0.635" width="0.1524" layer="21"/>
+<wire x1="5.08" y1="0.635" x2="5.08" y2="-0.635" width="0.1524" layer="21"/>
+<text x="-2.54" y="1.651" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-2.54" y="-2.921" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<rectangle x1="1.016" y1="-0.254" x2="1.524" y2="0.254" layer="51"/>
+<rectangle x1="-1.524" y1="-0.254" x2="-1.016" y2="0.254" layer="51"/>
+<rectangle x1="3.556" y1="-0.254" x2="4.064" y2="0.254" layer="51"/>
+<smd name="1" x="-1.27" y="0" dx="1.6764" dy="0.8128" layer="1" rot="R90"/>
+<smd name="2" x="1.27" y="0" dx="1.6764" dy="0.8128" layer="1" rot="R90"/>
+<smd name="3" x="3.81" y="0" dx="1.6764" dy="0.8128" layer="1" rot="R90"/>
+</package>
+<package name="PAD-12X4">
+<smd name="P$1" x="0" y="0" dx="12" dy="4" layer="1"/>
+</package>
+<package name="BAT-CR2032-1">
+<circle x="0" y="0" radius="10.75" width="0.1524" layer="21"/>
+<wire x1="-4" y1="13" x2="-4" y2="10" width="0.1524" layer="21"/>
+<wire x1="4" y1="10" x2="4" y2="13" width="0.1524" layer="21"/>
+<wire x1="4" y1="13" x2="-4" y2="13" width="0.1524" layer="21"/>
+<pad name="BAT+" x="0" y="12.5" drill="1"/>
+<pad name="BAT-" x="0" y="-7.745" drill="1"/>
+</package>
 </packages>
 <packages3d>
 <package3d name="MA03-1" urn="urn:adsk.eagle:package:30941191/1" type="box">
@@ -8303,6 +8296,15 @@ SOP8 ちょっと幅広</description>
 <wire x1="7.62" y1="-2.54" x2="-2.54" y2="-2.54" width="0.1524" layer="94"/>
 <wire x1="-2.54" y1="-2.54" x2="-2.54" y2="2.54" width="0.1524" layer="94"/>
 </symbol>
+<symbol name="BATTERY-1">
+<pin name="BAT+" x="0" y="3.87" visible="off" length="short" rot="R270"/>
+<pin name="P$1" x="0" y="-3.75" visible="off" length="short" rot="R90"/>
+<wire x1="-1.875" y1="-1.25" x2="1.875" y2="-1.25" width="0.4064" layer="94"/>
+<wire x1="-1.875" y1="-1.25" x2="-1.875" y2="-0.879" width="0.4064" layer="94"/>
+<wire x1="-1.875" y1="-0.879" x2="1.875" y2="-0.879" width="0.4064" layer="94"/>
+<wire x1="1.875" y1="-0.879" x2="1.875" y2="-1.25" width="0.4064" layer="94"/>
+<wire x1="-3.75" y1="1.25" x2="3.75" y2="1.25" width="0.1524" layer="94"/>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="ATTINY85" prefix="ATTINY85-" uservalue="yes">
@@ -8342,7 +8344,7 @@ SOP8 ちょっと幅広</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="PINHEAD-MA03-1" urn="urn:adsk.eagle:component:30941200/1" prefix="SV" uservalue="yes">
+<deviceset name="PINHEAD-MA03-1" urn="urn:adsk.eagle:component:30941200/1" locally_modified="yes" prefix="H" uservalue="yes">
 <description>&lt;b&gt;PIN HEADER&lt;/b&gt;</description>
 <gates>
 <gate name="G$1" symbol="PINHEAD-MA03-1" x="0" y="0"/>
@@ -8365,6 +8367,16 @@ SOP8 ちょっと幅広</description>
 <attribute name="OC_NEWARK" value="unknown" constant="no"/>
 <attribute name="POPULARITY" value="48" constant="no"/>
 </technology>
+</technologies>
+</device>
+<device name="SMD" package="PINHEAD-MA03-2">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+<connect gate="G$1" pin="3" pad="3"/>
+</connects>
+<technologies>
+<technology name=""/>
 </technologies>
 </device>
 </devices>
@@ -8408,6 +8420,30 @@ SOP8 ちょっと幅広</description>
 <technology name=""/>
 </technologies>
 </device>
+<device name="12X4" package="PAD-12X4">
+<connects>
+<connect gate="G$1" pin="P$1" pad="P$1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="BAT-CR2032" prefix="BAT" uservalue="yes">
+<gates>
+<gate name="G$1" symbol="BATTERY-1" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="BAT-CR2032-1">
+<connects>
+<connect gate="G$1" pin="BAT+" pad="BAT+"/>
+<connect gate="G$1" pin="P$1" pad="BAT-"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
 </devices>
 </deviceset>
 </devicesets>
@@ -8422,17 +8458,12 @@ SOP8 ちょっと幅広</description>
 </class>
 </classes>
 <parts>
-<part name="BAT+" library="ytani1" library_urn="urn:adsk.eagle:library:30941153" deviceset="PINHEAD-MA01-1" device="" package3d_urn="urn:adsk.eagle:package:30941190/1" value="bat+"/>
-<part name="BAT-" library="ytani1" library_urn="urn:adsk.eagle:library:30941153" deviceset="PINHEAD-MA01-1" device="" package3d_urn="urn:adsk.eagle:package:30941190/1" value="bat-"/>
 <part name="+3V1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="GND1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="SW2" library="ytani1" library_urn="urn:adsk.eagle:library:30941153" deviceset="SW3-1" device="" package3d_urn="urn:adsk.eagle:package:23610140/1" value="POWER"/>
 <part name="ATTINY85-1" library="ytani1" deviceset="ATTINY85" device="SOP8" value="ATTINY85"/>
 <part name="R1" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="M3216" package3d_urn="urn:adsk.eagle:package:23563/2" value="10K"/>
-<part name="SV1" library="ytani1" deviceset="PINHEAD-MA03-1" device="" package3d_urn="urn:adsk.eagle:package:30941191/1" value="PIN-A"/>
-<part name="SV2" library="ytani1" deviceset="PINHEAD-MA03-1" device="" package3d_urn="urn:adsk.eagle:package:30941191/1" value="PIN-B"/>
-<part name="SW1" library="ytani1" deviceset="PINHEAD-MA03-1" device="" package3d_urn="urn:adsk.eagle:package:30941191/1" value="bat+"/>
 <part name="SK1" library="ytani1" deviceset="SK6812MINI-E" device=""/>
 <part name="SK2" library="ytani1" deviceset="SK6812MINI-E" device=""/>
 <part name="SK3" library="ytani1" deviceset="SK6812MINI-E" device=""/>
@@ -8454,29 +8485,25 @@ SOP8 ちょっと幅広</description>
 <part name="GND11" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND12" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND13" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="PAD33" library="ytani1" deviceset="PAD" device="150X50"/>
+<part name="PAD33" library="ytani1" deviceset="PAD" device="12X4" value="PAD12X4"/>
+<part name="H1" library="ytani1" deviceset="PINHEAD-MA03-1" device="SMD"/>
+<part name="H2" library="ytani1" deviceset="PINHEAD-MA03-1" device="SMD"/>
+<part name="BAT1" library="ytani1" deviceset="BAT-CR2032" device=""/>
+<part name="H3" library="ytani1" deviceset="PINHEAD-MA03-1" device="" package3d_urn="urn:adsk.eagle:package:30941191/1"/>
 </parts>
 <sheets>
 <sheet>
 <plain>
 </plain>
 <instances>
-<instance part="BAT+" gate="G$1" x="15.24" y="80.01" smashed="yes">
-<attribute name="VALUE" x="13.97" y="74.93" size="1.778" layer="96"/>
-<attribute name="NAME" x="13.97" y="83.312" size="1.778" layer="95"/>
-</instance>
-<instance part="BAT-" gate="G$1" x="15.24" y="58.42" smashed="yes">
-<attribute name="VALUE" x="13.97" y="53.34" size="1.778" layer="96"/>
-<attribute name="NAME" x="13.97" y="61.722" size="1.778" layer="95"/>
-</instance>
 <instance part="+3V1" gate="G$1" x="25.4" y="85.09" smashed="yes">
 <attribute name="VALUE" x="21.59" y="86.36" size="1.778" layer="96"/>
 </instance>
 <instance part="GND1" gate="1" x="25.4" y="53.34" smashed="yes">
 <attribute name="VALUE" x="22.86" y="50.8" size="1.778" layer="96"/>
 </instance>
-<instance part="GND3" gate="1" x="55.88" y="73.66" smashed="yes">
-<attribute name="VALUE" x="53.34" y="71.12" size="1.778" layer="96"/>
+<instance part="GND3" gate="1" x="38.1" y="76.2" smashed="yes">
+<attribute name="VALUE" x="35.56" y="73.66" size="1.778" layer="96"/>
 </instance>
 <instance part="SW2" gate="G$1" x="25.4" y="68.58" smashed="yes">
 <attribute name="NAME" x="22.86" y="66.04" size="1.778" layer="95" rot="R90"/>
@@ -8485,18 +8512,6 @@ SOP8 ちょっと幅広</description>
 <instance part="R1" gate="G$1" x="55.88" y="91.44" smashed="yes" rot="R90">
 <attribute name="NAME" x="54.3814" y="87.63" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="59.182" y="87.63" size="1.778" layer="96" rot="R90"/>
-</instance>
-<instance part="SV1" gate="G$1" x="83.82" y="78.74" smashed="yes" rot="R180">
-<attribute name="VALUE" x="85.09" y="83.82" size="1.778" layer="96" rot="R180"/>
-<attribute name="NAME" x="85.09" y="70.358" size="1.778" layer="95" rot="R180"/>
-</instance>
-<instance part="SV2" gate="G$1" x="83.82" y="63.5" smashed="yes" rot="R180">
-<attribute name="VALUE" x="85.09" y="68.58" size="1.778" layer="96" rot="R180"/>
-<attribute name="NAME" x="85.09" y="55.118" size="1.778" layer="95" rot="R180"/>
-</instance>
-<instance part="SW1" gate="G$1" x="45.72" y="78.74" smashed="yes">
-<attribute name="VALUE" x="44.45" y="73.66" size="1.778" layer="96"/>
-<attribute name="NAME" x="44.45" y="87.122" size="1.778" layer="95"/>
 </instance>
 <instance part="SK1" gate="G$1" x="22.86" y="22.86" smashed="yes">
 <attribute name="NAME" x="15.24" y="31.75" size="1.778" layer="95"/>
@@ -8572,40 +8587,45 @@ SOP8 ちょっと幅広</description>
 <attribute name="VALUE" x="109.22" y="33.02" size="1.778" layer="96"/>
 </instance>
 <instance part="PAD33" gate="G$1" x="19.05" y="114.3" smashed="yes"/>
+<instance part="H1" gate="G$1" x="83.82" y="78.74" smashed="yes" rot="R180">
+<attribute name="VALUE" x="85.09" y="83.82" size="1.778" layer="96" rot="R180"/>
+<attribute name="NAME" x="85.09" y="70.358" size="1.778" layer="95" rot="R180"/>
+</instance>
+<instance part="H2" gate="G$1" x="83.82" y="63.5" smashed="yes" rot="R180">
+<attribute name="VALUE" x="85.09" y="68.58" size="1.778" layer="96" rot="R180"/>
+<attribute name="NAME" x="85.09" y="55.118" size="1.778" layer="95" rot="R180"/>
+</instance>
+<instance part="BAT1" gate="G$1" x="15.24" y="69.85" smashed="yes"/>
+<instance part="H3" gate="G$1" x="38.1" y="93.98" smashed="yes" rot="R270">
+<attribute name="VALUE" x="33.02" y="95.25" size="1.778" layer="96" rot="R270"/>
+<attribute name="NAME" x="46.482" y="95.25" size="1.778" layer="95" rot="R270"/>
+</instance>
 </instances>
 <busses>
 </busses>
 <nets>
 <net name="+3V3" class="0">
 <segment>
-<pinref part="BAT+" gate="G$1" pin="1"/>
-<wire x1="22.86" y1="80.01" x2="25.4" y2="80.01" width="0.1524" layer="91"/>
 <pinref part="+3V1" gate="G$1" pin="+3V3"/>
-<wire x1="25.4" y1="80.01" x2="25.4" y2="82.55" width="0.1524" layer="91"/>
-<wire x1="25.4" y1="73.66" x2="25.4" y2="80.01" width="0.1524" layer="91"/>
-<junction x="25.4" y="80.01"/>
+<wire x1="25.4" y1="78.74" x2="25.4" y2="82.55" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="73.66" x2="25.4" y2="78.74" width="0.1524" layer="91"/>
 <pinref part="SW2" gate="G$1" pin="1"/>
+<pinref part="BAT1" gate="G$1" pin="BAT+"/>
+<wire x1="15.24" y1="73.72" x2="15.24" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="15.24" y1="78.74" x2="25.4" y2="78.74" width="0.1524" layer="91"/>
+<junction x="25.4" y="78.74"/>
 </segment>
 </net>
 <net name="GND" class="0">
 <segment>
-<pinref part="BAT-" gate="G$1" pin="1"/>
-<wire x1="22.86" y1="58.42" x2="25.4" y2="58.42" width="0.1524" layer="91"/>
 <pinref part="GND1" gate="1" pin="GND"/>
 <wire x1="25.4" y1="58.42" x2="25.4" y2="55.88" width="0.1524" layer="91"/>
 <pinref part="ATTINY85-1" gate="G$1" pin="GND"/>
 <wire x1="25.4" y1="58.42" x2="40.64" y2="58.42" width="0.1524" layer="91"/>
 <junction x="25.4" y="58.42"/>
-</segment>
-<segment>
-<pinref part="SW1" gate="G$1" pin="1"/>
-<wire x1="53.34" y1="78.74" x2="55.88" y2="78.74" width="0.1524" layer="91"/>
-<pinref part="GND3" gate="1" pin="GND"/>
-<wire x1="55.88" y1="78.74" x2="55.88" y2="76.2" width="0.1524" layer="91"/>
-<pinref part="SW1" gate="G$1" pin="2"/>
-<wire x1="53.34" y1="81.28" x2="55.88" y2="81.28" width="0.1524" layer="91"/>
-<wire x1="55.88" y1="81.28" x2="55.88" y2="78.74" width="0.1524" layer="91"/>
-<junction x="55.88" y="78.74"/>
+<pinref part="BAT1" gate="G$1" pin="P$1"/>
+<wire x1="15.24" y1="66.1" x2="15.24" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="15.24" y1="58.42" x2="25.4" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND2" gate="1" pin="GND"/>
@@ -8628,11 +8648,6 @@ SOP8 ちょっと幅広</description>
 <pinref part="SK5" gate="G$1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="SV2" gate="G$1" pin="3"/>
-<wire x1="76.2" y1="58.42" x2="73.66" y2="53.34" width="0.1524" layer="91"/>
-<pinref part="GND4" gate="1" pin="GND"/>
-</segment>
-<segment>
 <pinref part="GND9" gate="1" pin="GND"/>
 <pinref part="C1" gate="G$1" pin="2"/>
 </segment>
@@ -8652,19 +8667,31 @@ SOP8 ちょっと幅広</description>
 <pinref part="GND13" gate="1" pin="GND"/>
 <pinref part="C5" gate="G$1" pin="2"/>
 </segment>
+<segment>
+<pinref part="H2" gate="G$1" pin="3"/>
+<pinref part="GND4" gate="1" pin="GND"/>
+<wire x1="76.2" y1="58.42" x2="73.66" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="58.42" x2="73.66" y2="53.34" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="GND3" gate="1" pin="GND"/>
+<wire x1="38.1" y1="78.74" x2="38.1" y2="86.36" width="0.1524" layer="91"/>
+<pinref part="H3" gate="G$1" pin="1"/>
+</segment>
 </net>
 <net name="PB3" class="0">
 <segment>
-<wire x1="53.34" y1="83.82" x2="55.88" y2="83.82" width="0.1524" layer="91"/>
 <wire x1="55.88" y1="83.82" x2="55.88" y2="86.36" width="0.1524" layer="91"/>
 <label x="57.15" y="83.82" size="1.778" layer="95"/>
 <pinref part="ATTINY85-1" gate="G$1" pin="PB3"/>
 <wire x1="60.96" y1="60.96" x2="63.5" y2="60.96" width="0.1524" layer="91"/>
 <wire x1="63.5" y1="60.96" x2="63.5" y2="83.82" width="0.1524" layer="91"/>
 <wire x1="63.5" y1="83.82" x2="55.88" y2="83.82" width="0.1524" layer="91"/>
-<junction x="55.88" y="83.82"/>
 <pinref part="R1" gate="G$1" pin="1"/>
-<pinref part="SW1" gate="G$1" pin="3"/>
+<pinref part="H3" gate="G$1" pin="3"/>
+<wire x1="43.18" y1="86.36" x2="43.18" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="83.82" x2="55.88" y2="83.82" width="0.1524" layer="91"/>
+<junction x="55.88" y="83.82"/>
 </segment>
 </net>
 <net name="BAT+" class="0">
@@ -8688,7 +8715,6 @@ SOP8 ちょっと幅広</description>
 <wire x1="55.88" y1="97.79" x2="55.88" y2="96.52" width="0.1524" layer="91"/>
 <wire x1="66.04" y1="97.79" x2="55.88" y2="97.79" width="0.1524" layer="91"/>
 <junction x="55.88" y="97.79"/>
-<pinref part="SV2" gate="G$1" pin="2"/>
 <wire x1="76.2" y1="60.96" x2="66.04" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="SK1" gate="G$1" pin="VDD"/>
 <wire x1="27.94" y1="33.02" x2="27.94" y2="45.72" width="0.1524" layer="91"/>
@@ -8726,6 +8752,7 @@ SOP8 ちょっと幅広</description>
 <pinref part="C5" gate="G$1" pin="1"/>
 <wire x1="111.76" y1="45.72" x2="109.22" y2="45.72" width="0.1524" layer="91"/>
 <junction x="109.22" y="45.72"/>
+<pinref part="H2" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="N$1" class="0">
@@ -8744,15 +8771,15 @@ SOP8 ちょっと幅広</description>
 <pinref part="ATTINY85-1" gate="G$1" pin="RESET"/>
 <wire x1="60.96" y1="55.88" x2="68.58" y2="55.88" width="0.1524" layer="91"/>
 <wire x1="68.58" y1="55.88" x2="68.58" y2="78.74" width="0.1524" layer="91"/>
-<pinref part="SV1" gate="G$1" pin="1"/>
 <wire x1="68.58" y1="78.74" x2="76.2" y2="78.74" width="0.1524" layer="91"/>
+<pinref part="H1" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="N$2" class="0">
 <segment>
 <pinref part="ATTINY85-1" gate="G$1" pin="PB2"/>
-<pinref part="SV2" gate="G$1" pin="1"/>
 <wire x1="60.96" y1="63.5" x2="76.2" y2="63.5" width="0.1524" layer="91"/>
+<pinref part="H2" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="N$3" class="0">
@@ -8760,8 +8787,8 @@ SOP8 ちょっと幅広</description>
 <pinref part="ATTINY85-1" gate="G$1" pin="PB1"/>
 <wire x1="60.96" y1="66.04" x2="73.66" y2="66.04" width="0.1524" layer="91"/>
 <wire x1="73.66" y1="66.04" x2="73.66" y2="73.66" width="0.1524" layer="91"/>
-<pinref part="SV1" gate="G$1" pin="3"/>
 <wire x1="73.66" y1="73.66" x2="76.2" y2="73.66" width="0.1524" layer="91"/>
+<pinref part="H1" gate="G$1" pin="3"/>
 </segment>
 </net>
 <net name="N$5" class="0">
@@ -8769,8 +8796,8 @@ SOP8 ちょっと幅広</description>
 <pinref part="ATTINY85-1" gate="G$1" pin="PB0"/>
 <wire x1="60.96" y1="68.58" x2="71.12" y2="68.58" width="0.1524" layer="91"/>
 <wire x1="71.12" y1="68.58" x2="71.12" y2="76.2" width="0.1524" layer="91"/>
-<pinref part="SV1" gate="G$1" pin="2"/>
 <wire x1="71.12" y1="76.2" x2="76.2" y2="76.2" width="0.1524" layer="91"/>
+<pinref part="H1" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="N$6" class="0">
