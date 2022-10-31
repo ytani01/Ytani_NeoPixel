@@ -9,12 +9,11 @@
  * @param[in] pin GPIO pin number
  */
 Ytani_NeoPixel::Ytani_NeoPixel(uint8_t n, uint8_t pin) {
-  Serial.println("n=" + String(n));
   this->pixels_n = n;
   this->pin = pin;
-  this->_pixels = Adafruit_NeoPixel(n, pin, NEO_GRB + NEO_KHZ800);
-  this->_pixels.begin();
-  this->_pixels.setBrightness(255);
+  this->_pixels = new Adafruit_NeoPixel(n, pin, NEO_GRB + NEO_KHZ800);
+  this->_pixels->begin();
+  this->setBrightness(BRIGHTNESS_MAX);
 } // Ytani_NeoPixel::Ytani_NeoPixel()
 
 /**
@@ -26,7 +25,7 @@ Ytani_NeoPixel::Ytani_NeoPixel(uint8_t n, uint8_t pin) {
  * @return uint32_t RGB Color
  */
 uint32_t Ytani_NeoPixel::colorHSV(uint16_t hue, uint8_t sat, uint8_t val) {
-    return this->_pixels.ColorHSV(hue, sat, val);
+    return this->_pixels->ColorHSV(hue, sat, val);
 } // Ytani_NeoPixel::colorHSV()
 
 /**
