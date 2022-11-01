@@ -12,36 +12,116 @@ extern const uint8_t LEDS_N;
 extern const uint8_t BRIGHTNESS_MAX;
 extern uint8_t CurBr;
 
+typedef uint16_t mode_base_color_t;
+
 class ModeBase {
 public:
+  static const unsigned long CONTINUOUS_MAX = 1024;
+
   /**
    * @param leds NeoPixel
    * @param btn Button
    */
-  ModeBase(Ytani_NeoPixel *leds, Button *btn) {
+  ModeBase(Ytani_NeoPixel *leds, Button *btn,
+           int eep_color_i=0, int eep_continuous=0) {
     this->_leds = leds;
     this->_btn = btn;
-  };
+    this->_eep_color_i = eep_color_i;
+    this->_eep_continuous = eep_continuous;
+    
+    // 不確定長な配列の初期化はこうするしかない?
+    static mode_base_color_t p[] = {0, 60, 120, 180, 240, 300};
+    this->_hue_deg = p;
+    this->_color_n = sizeof(p) / sizeof(p[0]);
+
+    this->_color_i = 0;
+    if ( this->_eep_color_i != 0 ) {
+      EEPROM.get(this->_eep_color_i, this->_color_i);
+      if ( this->_color_i >= this->_color_n ) {
+        this->_color_i = 0;
+      }
+    }
+
+    this->_continuous = 0;
+    if ( this->_eep_continuous != 0 ) {
+      EEPROM.get(this->_eep_continuous, this->_continuous);
+      if ( this->_continuous >= this->CONTINUOUS_MAX ) {
+        this->_continuous = 0;
+      }
+    }
+
+    this->_continuous_hue_deg = 0;
+  }
+
+  /**
+   *
+   */
+  virtual void display(mode_base_color_t hue_deg) {
+    for (int i=0; i < LEDS_N; i++) {
+      this->_leds->setColorHSVdeg(i, hue_deg, 255, CurBr);
+    }
+  }
 
   /**
    * this->_leds->show() は不要 (
    */
   virtual void loop() {
-    this->_leds->setBrightness(CurBr);
-    this->_leds->setColor(0, 0xffffff);
-    this->_leds->setColor(1, 0x0000ff);
-    this->_leds->setColor(2, 0xff0000);
-    this->_leds->setColorHSVdeg(3, 240, 0xff, 0xff);
-    this->_leds->setColorHSVdeg(4, 0, 0xff, 0xff);
-  };
+    static mode_base_color_t hue_deg;
+
+    if ( this->_continuous > 0 ) {
+      delay(this->_continuous);
+      hue_deg = (hue_deg + 5) % 360;
+    } else {
+      hue_deg = this->_hue_deg[this->_color_i];
+    }
+
+    this->display(hue_deg);
+  }
   
   virtual boolean btn_loop_hdr() {
+    int click_n = this->_btn->get_click_count();
+
+    if ( this->_btn->get_value() == Button::ON ) {
+      if ( this->_btn->is_long_pressed() ) {
+        if ( this->_continuous == 0 ) {
+          this->_continuous = this->CONTINUOUS_MAX;
+        } else {
+          this->_continuous /= 2;
+          if ( this->_continuous < 1 ) {
+            this->_continuous = 1;
+          }
+        }
+        EEPROM.put(this->_eep_continuous, this->_continuous);
+      }
+      return true;
+    }
+
+    // Button::OFF
+    if ( click_n == 1 ) {
+      if ( this->_continuous > 0 ) {
+        this->_continuous = 0;
+        EEPROM.put(this->_eep_continuous, this->_continuous);
+      } else {
+        this->_color_i = (this->_color_i + 1) % this->_color_n;
+        EEPROM.put(this->_eep_color_i, this->_color_i);
+      }
+      return true;
+    }
+
     return false;
   };
 
 protected:
   Ytani_NeoPixel *_leds;
   Button *_btn;
+  int _eep_color_i, _eep_continuous;
+  
+  mode_base_color_t *_hue_deg;
+  uint32_t _color_n;
+  uint32_t _color_i;
+
+  uint32_t _continuous;  
+  mode_base_color_t *_continuous_hue_deg;
 };
 
 #endif // _MODE_BASE_H_

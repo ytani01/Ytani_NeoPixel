@@ -5,6 +5,9 @@
 #include "Button.h"
 #include "Ytani_NeoPixel.h"
 #include "ModeBase.h"
+#include "ModeRainbow.h"
+#include "ModeCross.h"
+#include "ModeRing.h"
 
 const unsigned long LOOP_DELAY = 0;  // ms
 const unsigned long DEBOUNCE = 50;  // ms
@@ -17,25 +20,29 @@ const uint8_t BRIGHTNESS_MIN = 4;
 uint8_t CurBr = BRIGHTNESS_MAX / 4;
 
 // devices
-Ytani_NeoPixel LEDs(LEDS_N, PIN_LEDS);
-Button Btn(PIN_BTN, "Button");
+Ytani_NeoPixel *LEDs;
+Button *Btn;
 
 // EEPROM offset
 const int eepMode = 0; // uint8_t (1 byte)
 const int eepBr   = eepMode + 1; // uint8_t (1 byte)
-const int eepSingleColorCont = eepBr + 1; // unsigned long (4 bytes)
-const int eepSingleColorSat = eepSingleColorCont + 4; // uint8_t (1 byte)
-const int eepCrossCont = eepSingleColorSat + 1; // unsigned long (4 bytes)
-const int eepCrossSat = eepCrossCont + 4; // uint8_t (1 byte)
+const int eepModeBaseColorI = eepBr + 1; // unsigned long (4 bytes)
+const int eepModeBaseCont = eepModeBaseColorI + 4; // (4 bytes)
+const int eepModeRainbowColorI = eepModeBaseCont + 4; // (4 bytes)
+const int eepModeRainbowCont = eepModeRainbowColorI + 4;
+const int eepModeCrossColorI = eepModeRainbowCont + 4; // (4 bytes)
+const int eepModeCrossCont = eepModeCrossColorI + 4;
+const int eepModeRingColorI = eepModeCrossCont + 4; // (4 bytes)
+const int eepModeRingCont = eepModeRingColorI + 4;
 
 // Modes
-ModeBase modeBase(&LEDs, &Btn);
+ModeBase *modeBase;
+ModeRainbow *modeRainbow;
+ModeCross *modeCross;
+ModeRing *modeRing;
 
-ModeBase* Mode[] =
-  {
-   &modeBase
-  };
-const int ModeN = sizeof(Mode) / sizeof(Mode[0]);
+ModeBase **Mode;
+int ModeN;
 uint8_t CurMode = 0;
 
 /**
@@ -59,7 +66,7 @@ void btn_intr_hdr() {
   if ( cur_ms - prev_ms > DEBOUNCE ) {
     prev_ms = cur_ms;
   
-    (void)Btn.get();
+    Btn->get();
   }
 } // btn_intr_hdr()
 
@@ -67,11 +74,7 @@ void btn_intr_hdr() {
  *
  */
 void btn_loop_hdr() {
-  if ( Mode[CurMode]->btn_loop_hdr() ) {
-    return;
-  }
-
-  int n = Btn.get_click_count();
+  int n = Btn->get_click_count();
 
   if ( n == 2 ) {
     // change brightness
@@ -89,6 +92,8 @@ void btn_loop_hdr() {
     EEPROM.put(eepMode, CurMode);
     return;
   }
+
+  Mode[CurMode]->btn_loop_hdr();
 } // btn_loop_hdr()
 
 /**
@@ -96,6 +101,25 @@ void btn_loop_hdr() {
  */
 void setup() {
   randomSeed(analogRead(0));
+
+  LEDs = new Ytani_NeoPixel(LEDS_N, PIN_LEDS);
+  Btn = new Button(PIN_BTN, "Button");
+
+  modeBase = new ModeBase(LEDs, Btn, eepModeBaseColorI, eepModeBaseCont);
+  modeRainbow = new ModeRainbow(LEDs, Btn,
+                                eepModeRainbowColorI, eepModeRainbowCont);
+#if 0
+  modeCross = new ModeCross(LEDs, Btn,
+                            eepModeCrossColorI, eepModeCrossCont);
+#endif
+  modeRing = new ModeRing(LEDs, Btn,
+                          eepModeRingColorI, eepModeRingCont);
+
+  // 不確定長な配列の初期化はこうするしかない?
+  //  static ModeBase *p[] = {modeBase, modeRainbow, modeCross, modeRing};
+  static ModeBase *p[] = {modeBase, modeRainbow, modeRing};
+  Mode = p;
+  ModeN = sizeof(p) / sizeof(p[0]);
 
   EEPROM.get(eepMode, CurMode);
   if ( CurMode >= ModeN ) {
@@ -108,13 +132,13 @@ void setup() {
     CurBr = BRIGHTNESS_MAX / 4;
     EEPROM.put(eepBr, CurBr);
   }
-  LEDs.setBrightness(CurBr);
+  LEDs->setBrightness(CurBr);
 
   // test LEDs
-  LEDs.clear();
+  LEDs->clear();
   for (int i=0; i < LEDS_N; i++) {
-    LEDs.setColor(i, 0xffffff);
-    LEDs.show();
+    LEDs->setColor(i, 0xffffff);
+    LEDs->show();
     delay(200);
   }
 
@@ -129,14 +153,14 @@ void setup() {
  *
  */
 void loop() {
-  if ( Btn.get() ) {
+  if ( Btn->get() ) {
     noInterrupts();
     btn_loop_hdr();
     interrupts();
   }
 
   Mode[CurMode]->loop();
-  LEDs.show();
+  LEDs->show();
 
   delay(LOOP_DELAY);
 } // loop()
