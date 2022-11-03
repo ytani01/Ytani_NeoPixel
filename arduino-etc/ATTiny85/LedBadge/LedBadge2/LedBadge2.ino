@@ -15,8 +15,9 @@ const unsigned long DEBOUNCE = 50;  // ms
 const uint8_t PIN_BTN = 3;
 const uint8_t PIN_LEDS = 4;
 const uint8_t LEDS_N = 8;
-const uint8_t BRIGHTNESS_MAX = 128;
-const uint8_t BRIGHTNESS_MIN = 4;
+const uint8_t BRIGHTNESS_MAX = 0xFF;
+const uint8_t BRIGHTNESS_MIN = 0x08;
+const uint8_t BRIGHTNESS_STEP = 0x04;
 uint8_t CurBr = BRIGHTNESS_MAX / 4;
 
 // devices
@@ -78,7 +79,7 @@ void btn_loop_hdr() {
 
   if ( n == 2 ) {
     // change brightness
-    CurBr /= 4;
+    CurBr /= BRIGHTNESS_STEP;
     if ( CurBr < BRIGHTNESS_MIN ) {
       CurBr = BRIGHTNESS_MAX;
     }
