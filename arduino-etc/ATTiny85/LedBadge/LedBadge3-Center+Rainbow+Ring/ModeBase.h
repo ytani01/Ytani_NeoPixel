@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021 Yoichi Tanibayashi
+ * Copyright (c) 2022 Yoichi Tanibayashi
  */
 #ifndef _MODE_BASE_H_
 #define _MODE_BASE_H_
@@ -51,15 +51,15 @@ public:
   } // constructor
 
   /**
-   * @param hue_deg 0..255
+   * @param hue_deg 0..359
    */
-  virtual void display(hue_t hue_deg) {
+  virtual void display(hue_deg_t hue_deg) {
     this->_leds->clear();
     this->_leds->setColorHSVdeg(0, hue_deg, Ytani_NeoPixel::SAT_MAX, CurBr);
   } // display()
 
   /**
-   * this->_leds->show() は不要 (
+   * this->_leds->show() は不要
    */
   virtual void loop() {
     unsigned long cur_msec = millis();
@@ -117,7 +117,7 @@ protected:
   Button *_btn;
   int _eep_color_i, _eep_continuous;
   
-  uint32_t _color_i;
+  size_t _color_i;
 
   uint32_t _continuous;  
   hue_t *_continuous_hue_deg;

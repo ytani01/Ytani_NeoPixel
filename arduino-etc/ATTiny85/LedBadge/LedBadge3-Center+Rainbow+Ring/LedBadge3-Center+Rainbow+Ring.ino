@@ -6,7 +6,6 @@
 #include "Ytani_NeoPixel.h"
 #include "ModeBase.h"
 #include "ModeRainbow.h"
-#include "ModeCross.h"
 #include "ModeRing.h"
 
 const unsigned long LOOP_DELAY = 0;  // ms
@@ -31,15 +30,12 @@ const int eepModeBaseColorI = eepBr + 1; // unsigned long (4 bytes)
 const int eepModeBaseCont = eepModeBaseColorI + 4; // (4 bytes)
 const int eepModeRainbowColorI = eepModeBaseCont + 4; // (4 bytes)
 const int eepModeRainbowCont = eepModeRainbowColorI + 4;
-const int eepModeCrossColorI = eepModeRainbowCont + 4; // (4 bytes)
-const int eepModeCrossCont = eepModeCrossColorI + 4;
-const int eepModeRingColorI = eepModeCrossCont + 4; // (4 bytes)
+const int eepModeRingColorI = eepModeRainbowCont + 4; // (4 bytes)
 const int eepModeRingCont = eepModeRingColorI + 4;
 
 // Modes
 ModeBase *modeBase;
 ModeRainbow *modeRainbow;
-ModeCross *modeCross;
 ModeRing *modeRing;
 
 ModeBase **Mode;
@@ -101,23 +97,18 @@ void btn_loop_hdr() {
  *
  */
 void setup() {
-  randomSeed(analogRead(0));
-
   LEDs = new Ytani_NeoPixel(LEDS_N, PIN_LEDS);
   Btn = new Button(PIN_BTN, "Button");
 
-  modeBase = new ModeBase(LEDs, Btn, eepModeBaseColorI, eepModeBaseCont);
+  modeBase = new ModeBase(LEDs, Btn,
+                          eepModeBaseColorI, eepModeBaseCont);
   modeRainbow = new ModeRainbow(LEDs, Btn,
                                 eepModeRainbowColorI, eepModeRainbowCont);
-#if 0
-  modeCross = new ModeCross(LEDs, Btn,
-                            eepModeCrossColorI, eepModeCrossCont);
-#endif
   modeRing = new ModeRing(LEDs, Btn,
                           eepModeRingColorI, eepModeRingCont);
 
+  // 各モードのインスタンスを生成してから、配列を初期化する
   // 不確定長な配列の初期化はこうするしかない?
-  //  static ModeBase *p[] = {modeBase, modeRainbow, modeCross, modeRing};
   static ModeBase *p[] = {modeBase, modeRainbow, modeRing};
   Mode = p;
   ModeN = sizeof(p) / sizeof(p[0]);

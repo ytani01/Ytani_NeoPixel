@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021 Yoichi Tanibayashi
+ * Copyright (c) 2022 Yoichi Tanibayashi
  */
 #ifndef _MODE_RING_H_
 #define _MODE_RING_H_
@@ -16,7 +16,7 @@ public:
   /**
    *
    */
-  virtual void display(hue_t hue_deg) {
+  virtual void display(hue_deg_t hue_deg) {
     this->_leds->setColorHSVdeg(0, hue_deg, 255, CurBr);
     hue_deg = (hue_deg + 180) % 360;
     this->_leds->setColorHSVdeg(1, hue_deg, 255, CurBr);

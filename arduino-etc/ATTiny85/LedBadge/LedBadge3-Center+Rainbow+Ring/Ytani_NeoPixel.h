@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2021 Yoichi Tanibayashi
+// Copyright (c) 2022 Yoichi Tanibayashi
 //
 #ifndef _YTANI_NEOPIXEL_H_
 #define _YTANI_NEOPIXEL_H_
