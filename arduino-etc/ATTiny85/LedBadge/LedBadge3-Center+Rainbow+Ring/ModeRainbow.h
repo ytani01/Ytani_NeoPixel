@@ -16,7 +16,7 @@ public:
   /**
    *
    */
-  virtual void display(mode_base_color_t hue_deg) {
+  virtual void display(hue_t hue_deg) {
     for (int i=0; i < LEDS_N; i++) {
       this->_leds->setColorHSVdeg(i, hue_deg, 255, CurBr);
       hue_deg = (hue_deg - 60) % 360;

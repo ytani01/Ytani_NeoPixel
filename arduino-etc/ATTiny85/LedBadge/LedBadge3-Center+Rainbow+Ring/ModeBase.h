@@ -9,15 +9,16 @@
 #include "Button.h"
 
 extern const uint8_t LEDS_N;
-extern const uint8_t BRIGHTNESS_MAX;
-extern uint8_t CurBr;
+extern const br_t BRIGHTNESS_MAX;
+extern br_t CurBr;
 
-typedef uint16_t mode_base_color_t;
+static constexpr hue_t HUE_DEG[] = {0, 15, 50, 120, 180, 240, 300};
+static const size_t HUE_DEG_N = sizeof(HUE_DEG) / sizeof(HUE_DEG[0]);
 
 class ModeBase {
 public:
   static const unsigned long CONTINUOUS_MSEC_MAX = 1024;
-  static const mode_base_color_t CONTINUOUS_HUE_DEG_DIFF = 1;
+  static const hue_t CONTINUOUS_HUE_DEG_DIFF = 1;
 
   /**
    * @param leds NeoPixel
@@ -30,15 +31,10 @@ public:
     this->_eep_color_i = eep_color_i;
     this->_eep_continuous = eep_continuous;
     
-    // 不確定長な配列の初期化はこうするしかない?
-    static mode_base_color_t p[] = {0, 60, 120, 180, 240, 300};
-    this->_hue_deg = p;
-    this->_color_n = sizeof(p) / sizeof(p[0]);
-
     this->_color_i = 0;
     if ( this->_eep_color_i != 0 ) {
       EEPROM.get(this->_eep_color_i, this->_color_i);
-      if ( this->_color_i >= this->_color_n ) {
+      if ( this->_color_i >= HUE_DEG_N ) {
         this->_color_i = 0;
       }
     }
@@ -55,16 +51,11 @@ public:
   } // constructor
 
   /**
-   * @param hue_deg 0..359
+   * @param hue_deg 0..255
    */
-  virtual void display(mode_base_color_t hue_deg) {
+  virtual void display(hue_t hue_deg) {
     this->_leds->clear();
-    this->_leds->setColorHSVdeg(0, hue_deg, 255, CurBr);
-#if 0
-    for (int i=0; i < LEDS_N; i++) {
-      this->_leds->setColorHSVdeg(i, hue_deg, 255, CurBr);
-    }
-#endif
+    this->_leds->setColorHSVdeg(0, hue_deg, Ytani_NeoPixel::SAT_MAX, CurBr);
   } // display()
 
   /**
@@ -74,7 +65,7 @@ public:
     unsigned long cur_msec = millis();
     static unsigned long prev_msec = 0;
 
-    static mode_base_color_t hue_deg;
+    static hue_t hue_deg;
 
     if ( this->_continuous > 0 ) {
       if ( cur_msec - prev_msec > this->_continuous ) {
@@ -82,7 +73,7 @@ public:
         prev_msec = cur_msec;
       }
     } else {
-      hue_deg = this->_hue_deg[this->_color_i];
+      hue_deg = HUE_DEG[this->_color_i];
     }
 
     this->display(hue_deg);
@@ -112,7 +103,7 @@ public:
         this->_continuous = 0;
         EEPROM.put(this->_eep_continuous, this->_continuous);
       } else {
-        this->_color_i = (this->_color_i + 1) % this->_color_n;
+        this->_color_i = (this->_color_i + 1) % HUE_DEG_N;
         EEPROM.put(this->_eep_color_i, this->_color_i);
       }
       return true;
@@ -126,12 +117,10 @@ protected:
   Button *_btn;
   int _eep_color_i, _eep_continuous;
   
-  mode_base_color_t *_hue_deg;
-  uint32_t _color_n;
   uint32_t _color_i;
 
   uint32_t _continuous;  
-  mode_base_color_t *_continuous_hue_deg;
+  hue_t *_continuous_hue_deg;
 };
 
 #endif // _MODE_BASE_H_

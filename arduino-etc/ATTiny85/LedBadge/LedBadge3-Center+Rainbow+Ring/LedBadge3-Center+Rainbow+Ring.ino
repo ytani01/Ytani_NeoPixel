@@ -15,10 +15,10 @@ const unsigned long DEBOUNCE = 50;  // ms
 const uint8_t PIN_BTN = 3;
 const uint8_t PIN_LEDS = 4;
 const uint8_t LEDS_N = 8;
-const uint8_t BRIGHTNESS_MAX = 0xFF;
-const uint8_t BRIGHTNESS_MIN = 0x08;
-const uint8_t BRIGHTNESS_STEP = 0x04;
-uint8_t CurBr = BRIGHTNESS_MAX / 4;
+const br_t BRIGHTNESS_MAX = 0xFF;
+const br_t BRIGHTNESS_MIN = 0x08;
+const br_t BRIGHTNESS_STEP = 0x04;
+br_t CurBr = BRIGHTNESS_MAX / 4;
 
 // devices
 Ytani_NeoPixel *LEDs;
