@@ -15,9 +15,9 @@ const uint8_t PIN_BTN = 3;
 const uint8_t PIN_LEDS = 4;
 const uint8_t LEDS_N = 8;
 const br_t BRIGHTNESS_MAX = 0xFF;
-const br_t BRIGHTNESS_MIN = 0x08;
-const br_t BRIGHTNESS_STEP = 0x04;
-br_t CurBr = BRIGHTNESS_MAX / 4;
+const br_t BRIGHTNESS_MIN = 0xF;
+const br_t BRIGHTNESS_STEP = 4; // CurBr / BRIGHTNESS_STEP
+br_t CurBr = BRIGHTNESS_MAX;
 
 // devices
 Ytani_NeoPixel *LEDs;
@@ -119,17 +119,17 @@ void setup() {
     EEPROM.put(eepMode, CurMode);
   }
 
+  LEDs->setBrightness(BRIGHTNESS_MAX); // 明るさはHSVのVで制御する
   EEPROM.get(eepBr, CurBr);
-  if ( CurBr == 0 || CurBr > BRIGHTNESS_MAX ) {
-    CurBr = BRIGHTNESS_MAX / 4;
+  if ( CurBr == 0 || CurBr < BRIGHTNESS_MIN ) {
+    CurBr = BRIGHTNESS_MAX / BRIGHTNESS_STEP;
     EEPROM.put(eepBr, CurBr);
   }
-  LEDs->setBrightness(CurBr);
 
   // test LEDs
   LEDs->clear();
   for (int i=0; i < LEDS_N; i++) {
-    LEDs->setColor(i, 0xffffff);
+    LEDs->setColor(i, CurBr, CurBr, CurBr);
     LEDs->show();
     delay(200);
   }
