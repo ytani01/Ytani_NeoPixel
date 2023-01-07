@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="plate1.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="11.313709"
+     inkscape:cx="180.00287"
+     inkscape:cy="210.1433"
+     inkscape:window-width="1552"
+     inkscape:window-height="916"
+     inkscape:window-x="349"
+     inkscape:window-y="47"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer2"
+     showguides="true" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="frame"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <circle
+       style="vector-effect:non-scaling-stroke;fill:none;stroke:#ff0000;stroke-width:0.120138;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;-inkscape-stroke:hairline"
+       id="path238"
+       cx="47.647243"
+       cy="64.479332"
+       r="16.5" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="letter">
+    <circle
+       style="vector-effect:non-scaling-stroke;fill:none;stroke:#000000;stroke-width:0.264583;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;-inkscape-stroke:hairline"
+       id="path903"
+       cx="-57.84269"
+       cy="-55.516373"
+       r="12.922903"
+       transform="rotate(-170.28705)" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';letter-spacing:0.26458333px;stroke-width:0.264583;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       id="text959"><textPath
+         xlink:href="#path903"
+         id="textPath1011"><tspan
+           id="tspan957"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">KANNAI YOKOHAMA</tspan></textPath></text>
+    <circle
+       style="vector-effect:non-scaling-stroke;fill:none;stroke:#000000;stroke-width:0.264583;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;-inkscape-stroke:hairline"
+       id="circle1014"
+       cx="-23.517979"
+       cy="76.646912"
+       r="15.25"
+       transform="matrix(-0.94319468,0.33224058,0.33224058,0.94319468,0,0)" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';letter-spacing:0.26458333px;stroke-width:0.264583"
+       id="text1024"><textPath
+         xlink:href="#circle1014"
+         id="textPath1026"><tspan
+           id="tspan1022"
+           style="stroke-width:0.264583">BACKGAMMON CLUB</tspan></textPath></text>
+    <circle
+       style="vector-effect:non-scaling-stroke;fill:none;stroke:#000000;stroke-width:0.264583;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;-inkscape-stroke:hairline"
+       id="circle1083"
+       cx="-57.84269"
+       cy="-55.516373"
+       r="12.922903"
+       transform="rotate(-170.28705)" />
+    <circle
+       style="vector-effect:non-scaling-stroke;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;-inkscape-stroke:hairline"
+       id="path1157"
+       cx="47.647247"
+       cy="64.479332"
+       r="3" />
+    <path
+       style="vector-effect:non-scaling-stroke;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;-inkscape-stroke:hairline"
+       id="path1342"
+       sodipodi:type="arc"
+       sodipodi:cx="47.647247"
+       sodipodi:cy="61.479332"
+       sodipodi:rx="12.922898"
+       sodipodi:ry="9.712429"
+       sodipodi:start="4.4505896"
+       sodipodi:end="4.9741884"
+       sodipodi:arc-type="slice"
+       d="m 44.302555,52.097846 a 12.922898,9.712429 0 0 1 6.689385,0 l -3.344693,9.381486 z" />
+  </g>
+</svg>
