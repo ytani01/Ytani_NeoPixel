@@ -8191,28 +8191,6 @@ SOP8 ちょっと幅広</description>
 <smd name="2" x="1.27" y="0" dx="1.778" dy="1.27" layer="1" rot="R90"/>
 <smd name="3" x="3.81" y="0" dx="1.778" dy="1.27" layer="1" rot="R90"/>
 </package>
-<package name="BAT-CR2032-1">
-<circle x="0" y="0" radius="10.75" width="0.1524" layer="21"/>
-<wire x1="-4" y1="13" x2="-4" y2="10" width="0.1524" layer="21"/>
-<wire x1="4" y1="10" x2="4" y2="13" width="0.1524" layer="21"/>
-<wire x1="4" y1="13" x2="-4" y2="13" width="0.1524" layer="21"/>
-<pad name="BAT+" x="0" y="13" drill="1"/>
-<pad name="BAT-" x="0" y="-7.745" drill="1"/>
-</package>
-<package name="BAT-CR2032-2">
-<circle x="0" y="-0.254" radius="11.25" width="0.1524" layer="21"/>
-<wire x1="-3" y1="16.57" x2="-3" y2="10.57" width="0.1524" layer="21" style="longdash"/>
-<wire x1="3" y1="10.57" x2="3" y2="16.57" width="0.1524" layer="21"/>
-<wire x1="3" y1="16.57" x2="-3" y2="16.57" width="0.1524" layer="21" style="longdash"/>
-<pad name="BAT+" x="0" y="13.158" drill="1"/>
-<pad name="BAT-" x="0" y="-5.93" drill="1"/>
-<wire x1="-1.5" y1="13.57" x2="1.5" y2="13.57" width="0.1524" layer="21"/>
-<wire x1="1.5" y1="13.57" x2="1.5" y2="-6.43" width="0.1524" layer="21"/>
-<wire x1="1.5" y1="-6.43" x2="-1.5" y2="-6.43" width="0.1524" layer="21"/>
-<wire x1="-1.5" y1="-6.43" x2="-1.5" y2="13.57" width="0.1524" layer="21"/>
-<wire x1="-1.27" y1="7.62" x2="1.27" y2="7.62" width="0.1524" layer="21"/>
-<wire x1="-1.27" y1="-3.81" x2="1.27" y2="-3.81" width="0.1524" layer="21"/>
-</package>
 <package name="SK6812MINI-E">
 <smd name="DIN" x="3.6" y="0.75" dx="1.5" dy="0.9" layer="1"/>
 <smd name="GND" x="3.6" y="-0.75" dx="1.5" dy="0.9" layer="1"/>
@@ -8241,6 +8219,47 @@ SOP8 ちょっと幅広</description>
 <smd name="GND" x="2.5" y="-1.9" dx="2" dy="1.3" layer="1"/>
 <smd name="VDD" x="-2.5" y="1.9" dx="2" dy="1.3" layer="1"/>
 <smd name="OUT" x="-2.5" y="-1.9" dx="2" dy="1.3" layer="1"/>
+</package>
+<package name="BAT-CR2032-1">
+<circle x="0" y="0" radius="10.75" width="0.1524" layer="21"/>
+<wire x1="-4" y1="13" x2="-4" y2="10" width="0.1524" layer="21"/>
+<wire x1="4" y1="10" x2="4" y2="13" width="0.1524" layer="21"/>
+<wire x1="4" y1="13" x2="-4" y2="13" width="0.1524" layer="21"/>
+<pad name="BAT+" x="0" y="13" drill="1"/>
+<pad name="BAT-" x="0" y="-7.745" drill="1"/>
+</package>
+<package name="BAT-CR2032-2">
+<circle x="0" y="-0.254" radius="11.25" width="0.1524" layer="21"/>
+<wire x1="-3" y1="16.57" x2="-3" y2="10.57" width="0.1524" layer="21" style="longdash"/>
+<wire x1="3" y1="10.57" x2="3" y2="16.57" width="0.1524" layer="21"/>
+<wire x1="3" y1="16.57" x2="-3" y2="16.57" width="0.1524" layer="21" style="longdash"/>
+<pad name="BAT+" x="0" y="13.158" drill="1"/>
+<pad name="BAT-" x="0" y="-5.93" drill="1"/>
+<wire x1="-1.5" y1="13.57" x2="1.5" y2="13.57" width="0.1524" layer="21"/>
+<wire x1="1.5" y1="13.57" x2="1.5" y2="-6.43" width="0.1524" layer="21"/>
+<wire x1="1.5" y1="-6.43" x2="-1.5" y2="-6.43" width="0.1524" layer="21"/>
+<wire x1="-1.5" y1="-6.43" x2="-1.5" y2="13.57" width="0.1524" layer="21"/>
+<wire x1="-1.27" y1="7.62" x2="1.27" y2="7.62" width="0.1524" layer="21"/>
+<wire x1="-1.27" y1="-3.81" x2="1.27" y2="-3.81" width="0.1524" layer="21"/>
+</package>
+<package name="BAT-CR2032-3">
+<wire x1="-6.5" y1="-8.7" x2="-6.5" y2="-12.7" width="0.1016" layer="21"/>
+<wire x1="-6.5" y1="-12.7" x2="6.5" y2="-12.7" width="0.1016" layer="21"/>
+<wire x1="6.5" y1="-12.7" x2="6.5" y2="-8.7" width="0.1016" layer="21"/>
+<wire x1="-8" y1="-7.7" x2="-8" y2="8.3" width="0.1016" layer="21"/>
+<wire x1="8" y1="8.3" x2="8" y2="-7.7" width="0.1016" layer="21"/>
+<wire x1="-8" y1="8.3" x2="8" y2="8.3" width="0.1016" layer="21" curve="-80"/>
+<wire x1="-6.5" y1="-8.7" x2="-8" y2="-7.7" width="0.1016" layer="21" curve="-20"/>
+<wire x1="8" y1="-7.7" x2="6.5" y2="-8.7" width="0.1016" layer="21" curve="-20"/>
+<wire x1="-0.8" y1="11.3" x2="-0.8" y2="13.8" width="0.1016" layer="21"/>
+<wire x1="-0.8" y1="13.8" x2="0.8" y2="13.8" width="0.1016" layer="21"/>
+<wire x1="0.8" y1="13.8" x2="0.8" y2="11.3" width="0.1016" layer="21"/>
+<wire x1="-1.5" y1="-12.075" x2="1.5" y2="-12.075" width="0.1016" layer="21"/>
+<wire x1="1.5" y1="-12.075" x2="1.5" y2="-14.575" width="0.1016" layer="21"/>
+<wire x1="1.5" y1="-14.575" x2="-1.5" y2="-14.575" width="0.1016" layer="21"/>
+<wire x1="-1.5" y1="-14.575" x2="-1.5" y2="-12.075" width="0.1016" layer="21"/>
+<smd name="V-" x="0" y="12.925" dx="3" dy="4" layer="1"/>
+<smd name="V+" x="0" y="-13.95" dx="5" dy="4" layer="1"/>
 </package>
 </packages>
 <packages3d>
@@ -8383,31 +8402,6 @@ SOP8 ちょっと幅広</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="BAT-CR2032" prefix="BAT" uservalue="yes">
-<gates>
-<gate name="G$1" symbol="BATTERY-1" x="0" y="0"/>
-</gates>
-<devices>
-<device name="A" package="BAT-CR2032-1">
-<connects>
-<connect gate="G$1" pin="BAT+" pad="BAT+"/>
-<connect gate="G$1" pin="P$1" pad="BAT-"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="B" package="BAT-CR2032-2">
-<connects>
-<connect gate="G$1" pin="BAT+" pad="BAT+"/>
-<connect gate="G$1" pin="P$1" pad="BAT-"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
 <deviceset name="NEOPIXEL" prefix="NP">
 <gates>
 <gate name="G$1" symbol="NEOPIXEL" x="0" y="0"/>
@@ -8437,6 +8431,40 @@ SOP8 ちょっと幅広</description>
 </device>
 </devices>
 </deviceset>
+<deviceset name="BAT-CR2032" prefix="BAT" uservalue="yes">
+<gates>
+<gate name="G$1" symbol="BATTERY-1" x="0" y="0"/>
+</gates>
+<devices>
+<device name="A" package="BAT-CR2032-1">
+<connects>
+<connect gate="G$1" pin="BAT+" pad="BAT+"/>
+<connect gate="G$1" pin="P$1" pad="BAT-"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="B" package="BAT-CR2032-2">
+<connects>
+<connect gate="G$1" pin="BAT+" pad="BAT+"/>
+<connect gate="G$1" pin="P$1" pad="BAT-"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="C" package="BAT-CR2032-3">
+<connects>
+<connect gate="G$1" pin="BAT+" pad="V+"/>
+<connect gate="G$1" pin="P$1" pad="V-"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
 </devicesets>
 </library>
 </libraries>
@@ -8452,7 +8480,7 @@ SOP8 ちょっと幅広</description>
 <part name="+3V1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="GND1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="SW2" library="ytani1" library_urn="urn:adsk.eagle:library:30941153" deviceset="SW3-1" device="" package3d_urn="urn:adsk.eagle:package:23610140/1" value="POWER"/>
+<part name="ON/OFF" library="ytani1" library_urn="urn:adsk.eagle:library:30941153" deviceset="SW3-1" device="" package3d_urn="urn:adsk.eagle:package:23610140/1" value="POWER"/>
 <part name="ATTINY85-1" library="ytani1" deviceset="ATTINY85" device="SOP8" value="ATTINY85"/>
 <part name="R1" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="M3216" package3d_urn="urn:adsk.eagle:package:23563/2" value="10K"/>
 <part name="GND2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -8473,13 +8501,13 @@ SOP8 ちょっと幅広</description>
 <part name="GND13" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="H1" library="ytani1" deviceset="PINHEAD-MA03-1" device="SMD"/>
 <part name="H2" library="ytani1" deviceset="PINHEAD-MA03-1" device="SMD"/>
-<part name="BAT1" library="ytani1" deviceset="BAT-CR2032" device="B"/>
 <part name="H3" library="ytani1" deviceset="PINHEAD-MA03-1" device="" package3d_urn="urn:adsk.eagle:package:30941191/1"/>
 <part name="NP1" library="ytani1" deviceset="NEOPIXEL" device="-SK6812MINI-E"/>
 <part name="NP2" library="ytani1" deviceset="NEOPIXEL" device="-SK6812MINI-E"/>
 <part name="NP3" library="ytani1" deviceset="NEOPIXEL" device="-SK6812MINI-E"/>
 <part name="NP4" library="ytani1" deviceset="NEOPIXEL" device="-SK6812MINI-E"/>
 <part name="NP5" library="ytani1" deviceset="NEOPIXEL" device="-SK6812MINI-E"/>
+<part name="BAT1" library="ytani1" deviceset="BAT-CR2032" device="C"/>
 </parts>
 <sheets>
 <sheet>
@@ -8495,7 +8523,7 @@ SOP8 ちょっと幅広</description>
 <instance part="GND3" gate="1" x="38.1" y="76.2" smashed="yes">
 <attribute name="VALUE" x="35.56" y="73.66" size="1.778" layer="96"/>
 </instance>
-<instance part="SW2" gate="G$1" x="25.4" y="68.58" smashed="yes">
+<instance part="ON/OFF" gate="G$1" x="25.4" y="68.58" smashed="yes">
 <attribute name="NAME" x="22.86" y="66.04" size="1.778" layer="95" rot="R90"/>
 </instance>
 <instance part="ATTINY85-1" gate="G$1" x="50.8" y="63.5" smashed="yes"/>
@@ -8503,20 +8531,20 @@ SOP8 ちょっと幅広</description>
 <attribute name="NAME" x="54.3814" y="87.63" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="59.182" y="87.63" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="GND2" gate="1" x="17.78" y="10.16" smashed="yes">
-<attribute name="VALUE" x="15.24" y="7.62" size="1.778" layer="96"/>
+<instance part="GND2" gate="1" x="17.78" y="7.62" smashed="yes">
+<attribute name="VALUE" x="15.24" y="5.08" size="1.778" layer="96"/>
 </instance>
-<instance part="GND5" gate="1" x="38.1" y="10.16" smashed="yes">
-<attribute name="VALUE" x="35.56" y="7.62" size="1.778" layer="96"/>
+<instance part="GND5" gate="1" x="38.1" y="7.62" smashed="yes">
+<attribute name="VALUE" x="35.56" y="5.08" size="1.778" layer="96"/>
 </instance>
-<instance part="GND6" gate="1" x="58.42" y="10.16" smashed="yes">
-<attribute name="VALUE" x="55.88" y="7.62" size="1.778" layer="96"/>
+<instance part="GND6" gate="1" x="58.42" y="7.62" smashed="yes">
+<attribute name="VALUE" x="55.88" y="5.08" size="1.778" layer="96"/>
 </instance>
-<instance part="GND7" gate="1" x="78.74" y="10.16" smashed="yes">
-<attribute name="VALUE" x="76.2" y="7.62" size="1.778" layer="96"/>
+<instance part="GND7" gate="1" x="78.74" y="7.62" smashed="yes">
+<attribute name="VALUE" x="76.2" y="5.08" size="1.778" layer="96"/>
 </instance>
-<instance part="GND8" gate="1" x="99.06" y="10.16" smashed="yes">
-<attribute name="VALUE" x="96.52" y="7.62" size="1.778" layer="96"/>
+<instance part="GND8" gate="1" x="99.06" y="7.62" smashed="yes">
+<attribute name="VALUE" x="96.52" y="5.08" size="1.778" layer="96"/>
 </instance>
 <instance part="GND4" gate="1" x="73.66" y="50.8" smashed="yes">
 <attribute name="VALUE" x="71.12" y="48.26" size="1.778" layer="96"/>
@@ -8541,20 +8569,20 @@ SOP8 ちょっと幅広</description>
 <attribute name="NAME" x="113.284" y="43.561" size="1.778" layer="95"/>
 <attribute name="VALUE" x="113.284" y="38.481" size="1.778" layer="96"/>
 </instance>
-<instance part="GND9" gate="1" x="30.48" y="35.56" smashed="yes">
-<attribute name="VALUE" x="27.94" y="33.02" size="1.778" layer="96"/>
+<instance part="GND9" gate="1" x="30.48" y="34.29" smashed="yes">
+<attribute name="VALUE" x="27.94" y="31.75" size="1.778" layer="96"/>
 </instance>
-<instance part="GND10" gate="1" x="50.8" y="35.56" smashed="yes">
-<attribute name="VALUE" x="48.26" y="33.02" size="1.778" layer="96"/>
+<instance part="GND10" gate="1" x="50.8" y="34.29" smashed="yes">
+<attribute name="VALUE" x="48.26" y="31.75" size="1.778" layer="96"/>
 </instance>
-<instance part="GND11" gate="1" x="71.12" y="35.56" smashed="yes">
-<attribute name="VALUE" x="68.58" y="33.02" size="1.778" layer="96"/>
+<instance part="GND11" gate="1" x="71.12" y="34.29" smashed="yes">
+<attribute name="VALUE" x="68.58" y="31.75" size="1.778" layer="96"/>
 </instance>
-<instance part="GND12" gate="1" x="91.44" y="35.56" smashed="yes">
-<attribute name="VALUE" x="88.9" y="33.02" size="1.778" layer="96"/>
+<instance part="GND12" gate="1" x="91.44" y="34.29" smashed="yes">
+<attribute name="VALUE" x="88.9" y="31.75" size="1.778" layer="96"/>
 </instance>
-<instance part="GND13" gate="1" x="111.76" y="35.56" smashed="yes">
-<attribute name="VALUE" x="109.22" y="33.02" size="1.778" layer="96"/>
+<instance part="GND13" gate="1" x="111.76" y="34.29" smashed="yes">
+<attribute name="VALUE" x="109.22" y="31.75" size="1.778" layer="96"/>
 </instance>
 <instance part="H1" gate="G$1" x="83.82" y="78.74" smashed="yes" rot="R180">
 <attribute name="VALUE" x="85.09" y="83.82" size="1.778" layer="96" rot="R180"/>
@@ -8564,7 +8592,6 @@ SOP8 ちょっと幅広</description>
 <attribute name="VALUE" x="85.09" y="68.58" size="1.778" layer="96" rot="R180"/>
 <attribute name="NAME" x="85.09" y="55.118" size="1.778" layer="95" rot="R180"/>
 </instance>
-<instance part="BAT1" gate="G$1" x="15.24" y="68.58" smashed="yes"/>
 <instance part="H3" gate="G$1" x="38.1" y="99.06" smashed="yes" rot="R270">
 <attribute name="VALUE" x="33.02" y="100.33" size="1.778" layer="96" rot="R270"/>
 <attribute name="NAME" x="46.482" y="100.33" size="1.778" layer="95" rot="R270"/>
@@ -8589,6 +8616,7 @@ SOP8 ちょっと幅広</description>
 <attribute name="NAME" x="96.52" y="31.75" size="1.778" layer="95"/>
 <attribute name="VALUE" x="101.6" y="12.7" size="1.778" layer="96"/>
 </instance>
+<instance part="BAT1" gate="G$1" x="15.24" y="68.58" smashed="yes"/>
 </instances>
 <busses>
 </busses>
@@ -8598,11 +8626,11 @@ SOP8 ちょっと幅広</description>
 <pinref part="+3V1" gate="G$1" pin="+3V3"/>
 <wire x1="25.4" y1="78.74" x2="25.4" y2="82.55" width="0.1524" layer="91"/>
 <wire x1="25.4" y1="73.66" x2="25.4" y2="78.74" width="0.1524" layer="91"/>
-<pinref part="SW2" gate="G$1" pin="1"/>
-<pinref part="BAT1" gate="G$1" pin="BAT+"/>
+<pinref part="ON/OFF" gate="G$1" pin="1"/>
 <wire x1="15.24" y1="72.45" x2="15.24" y2="78.74" width="0.1524" layer="91"/>
 <wire x1="15.24" y1="78.74" x2="25.4" y2="78.74" width="0.1524" layer="91"/>
 <junction x="25.4" y="78.74"/>
+<pinref part="BAT1" gate="G$1" pin="BAT+"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -8612,29 +8640,34 @@ SOP8 ちょっと幅広</description>
 <pinref part="ATTINY85-1" gate="G$1" pin="GND"/>
 <wire x1="25.4" y1="58.42" x2="40.64" y2="58.42" width="0.1524" layer="91"/>
 <junction x="25.4" y="58.42"/>
-<pinref part="BAT1" gate="G$1" pin="P$1"/>
 <wire x1="15.24" y1="64.83" x2="15.24" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="15.24" y1="58.42" x2="25.4" y2="58.42" width="0.1524" layer="91"/>
+<pinref part="BAT1" gate="G$1" pin="P$1"/>
 </segment>
 <segment>
 <pinref part="GND9" gate="1" pin="GND"/>
 <pinref part="C1" gate="G$1" pin="2"/>
+<wire x1="30.48" y1="36.83" x2="30.48" y2="38.1" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND10" gate="1" pin="GND"/>
 <pinref part="C2" gate="G$1" pin="2"/>
+<wire x1="50.8" y1="36.83" x2="50.8" y2="38.1" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND11" gate="1" pin="GND"/>
 <pinref part="C3" gate="G$1" pin="2"/>
+<wire x1="71.12" y1="36.83" x2="71.12" y2="38.1" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND12" gate="1" pin="GND"/>
 <pinref part="C4" gate="G$1" pin="2"/>
+<wire x1="91.44" y1="36.83" x2="91.44" y2="38.1" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND13" gate="1" pin="GND"/>
 <pinref part="C5" gate="G$1" pin="2"/>
+<wire x1="111.76" y1="36.83" x2="111.76" y2="38.1" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="H2" gate="G$1" pin="3"/>
@@ -8650,22 +8683,27 @@ SOP8 ちょっと幅広</description>
 <segment>
 <pinref part="GND2" gate="1" pin="GND"/>
 <pinref part="NP1" gate="G$1" pin="GND"/>
+<wire x1="17.78" y1="10.16" x2="17.78" y2="12.7" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND5" gate="1" pin="GND"/>
 <pinref part="NP2" gate="G$1" pin="GND"/>
+<wire x1="38.1" y1="10.16" x2="38.1" y2="12.7" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND6" gate="1" pin="GND"/>
 <pinref part="NP3" gate="G$1" pin="GND"/>
+<wire x1="58.42" y1="10.16" x2="58.42" y2="12.7" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND7" gate="1" pin="GND"/>
 <pinref part="NP4" gate="G$1" pin="GND"/>
+<wire x1="78.74" y1="10.16" x2="78.74" y2="12.7" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND8" gate="1" pin="GND"/>
 <pinref part="NP5" gate="G$1" pin="GND"/>
+<wire x1="99.06" y1="10.16" x2="99.06" y2="12.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="PB3" class="0">
@@ -8679,17 +8717,22 @@ SOP8 ちょっと幅広</description>
 <pinref part="R1" gate="G$1" pin="1"/>
 <wire x1="43.18" y1="83.82" x2="55.88" y2="83.82" width="0.1524" layer="91"/>
 <junction x="55.88" y="83.82"/>
-<wire x1="43.18" y1="91.44" x2="43.18" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="91.44" x2="43.18" y2="88.9" width="0.1524" layer="91"/>
 <pinref part="H3" gate="G$1" pin="3"/>
+<pinref part="H3" gate="G$1" pin="2"/>
+<wire x1="43.18" y1="88.9" x2="43.18" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="91.44" x2="40.64" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="88.9" x2="43.18" y2="88.9" width="0.1524" layer="91"/>
+<junction x="43.18" y="88.9"/>
 </segment>
 </net>
 <net name="BAT+" class="0">
 <segment>
 <wire x1="30.48" y1="68.58" x2="31.75" y2="68.58" width="0.1524" layer="91"/>
 <label x="31.75" y="68.58" size="1.778" layer="95"/>
-<pinref part="SW2" gate="G$1" pin="2"/>
+<pinref part="ON/OFF" gate="G$1" pin="2"/>
 <pinref part="ATTINY85-1" gate="G$1" pin="VCC"/>
-<pinref part="SW2" gate="G$1" pin="3"/>
+<pinref part="ON/OFF" gate="G$1" pin="3"/>
 <wire x1="31.75" y1="68.58" x2="40.64" y2="68.58" width="0.1524" layer="91"/>
 <wire x1="25.4" y1="63.5" x2="25.4" y2="62.23" width="0.1524" layer="91"/>
 <wire x1="25.4" y1="62.23" x2="31.75" y2="62.23" width="0.1524" layer="91"/>
