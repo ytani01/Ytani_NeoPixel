@@ -636,6 +636,7 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <part name="GND" library="ytani1" library_urn="urn:adsk.eagle:library:30941153" deviceset="PINHEAD-MA01-1" device="" package3d_urn="urn:adsk.eagle:package:30941190/1"/>
 <part name="VCC1" library="ytani1" library_urn="urn:adsk.eagle:library:30941153" deviceset="PINHEAD-MA01-1" device="" package3d_urn="urn:adsk.eagle:package:30941190/1"/>
 <part name="GND2" library="ytani1" library_urn="urn:adsk.eagle:library:30941153" deviceset="PINHEAD-MA01-1" device="" package3d_urn="urn:adsk.eagle:package:30941190/1"/>
+<part name="GND3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -680,6 +681,9 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <attribute name="VALUE" x="12.7" y="24.13" size="1.778" layer="96" rot="R270"/>
 <attribute name="NAME" x="21.082" y="24.13" size="1.778" layer="95" rot="R270"/>
 </instance>
+<instance part="GND3" gate="1" x="144.78" y="5.08" smashed="yes">
+<attribute name="VALUE" x="142.24" y="2.54" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -695,8 +699,8 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <pinref part="SV1" gate="1" pin="1"/>
 <wire x1="137.16" y1="15.24" x2="137.16" y2="12.7" width="0.1524" layer="91"/>
 <wire x1="137.16" y1="12.7" x2="129.54" y2="12.7" width="0.1524" layer="91"/>
-<wire x1="129.54" y1="12.7" x2="129.54" y2="33.02" width="0.1524" layer="91"/>
-<wire x1="129.54" y1="33.02" x2="101.6" y2="25.4" width="0.1524" layer="91"/>
+<wire x1="129.54" y1="12.7" x2="129.54" y2="25.4" width="0.1524" layer="91"/>
+<wire x1="129.54" y1="25.4" x2="101.6" y2="25.4" width="0.1524" layer="91"/>
 <junction x="101.6" y="25.4"/>
 <label x="114.3" y="30.48" size="1.778" layer="95"/>
 </segment>
@@ -733,42 +737,42 @@ Ingenieurbüro ing-rb, &lt;i&gt;mail@ing-rb.de&lt;/i&gt;&lt;/p&gt;&lt;/author&gt
 <wire x1="63.5" y1="12.7" x2="66.04" y2="12.7" width="0.1524" layer="91"/>
 <pinref part="U1" gate="G$1" pin="GND"/>
 <pinref part="GND1" gate="1" pin="GND"/>
-<wire x1="63.5" y1="0" x2="63.5" y2="2.54" width="0.1524" layer="91"/>
 <junction x="63.5" y="12.7"/>
-<wire x1="63.5" y1="2.54" x2="63.5" y2="12.7" width="0.1524" layer="91"/>
-<wire x1="144.78" y1="2.54" x2="63.5" y2="2.54" width="0.1524" layer="91"/>
-<junction x="63.5" y="2.54"/>
+<wire x1="63.5" y1="0" x2="63.5" y2="12.7" width="0.1524" layer="91"/>
 <pinref part="GND" gate="G$1" pin="1"/>
 <wire x1="12.7" y1="15.24" x2="12.7" y2="12.7" width="0.1524" layer="91"/>
 <wire x1="12.7" y1="12.7" x2="17.78" y2="12.7" width="0.1524" layer="91"/>
 <label x="15.24" y="12.7" size="1.778" layer="95" rot="R90"/>
-<pinref part="SV1" gate="1" pin="4"/>
 <wire x1="17.78" y1="12.7" x2="63.5" y2="12.7" width="0.1524" layer="91"/>
-<wire x1="144.78" y1="15.24" x2="144.78" y2="2.54" width="0.1524" layer="91"/>
 <pinref part="GND2" gate="G$1" pin="1"/>
 <wire x1="17.78" y1="15.24" x2="17.78" y2="12.7" width="0.1524" layer="91"/>
 <junction x="17.78" y="12.7"/>
+</segment>
+<segment>
+<pinref part="SV1" gate="1" pin="4"/>
+<wire x1="144.78" y1="15.24" x2="144.78" y2="7.62" width="0.1524" layer="91"/>
+<pinref part="GND3" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="PB4" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="PB4"/>
-<wire x1="124.46" y1="30.48" x2="99.06" y2="22.86" width="0.1524" layer="91"/>
+<wire x1="124.46" y1="22.86" x2="99.06" y2="22.86" width="0.1524" layer="91"/>
 <pinref part="SV1" gate="1" pin="3"/>
 <wire x1="142.24" y1="15.24" x2="142.24" y2="10.16" width="0.1524" layer="91"/>
 <wire x1="142.24" y1="10.16" x2="124.46" y2="10.16" width="0.1524" layer="91"/>
-<wire x1="124.46" y1="10.16" x2="124.46" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="124.46" y1="10.16" x2="124.46" y2="22.86" width="0.1524" layer="91"/>
 <label x="111.76" y="25.4" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PB3" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="PB3"/>
-<wire x1="99.06" y1="20.32" x2="127" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="20.32" x2="127" y2="20.32" width="0.1524" layer="91"/>
 <pinref part="SV1" gate="1" pin="2"/>
 <wire x1="139.7" y1="15.24" x2="139.7" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="139.7" y1="7.62" x2="127" y2="7.62" width="0.1524" layer="91"/>
-<wire x1="127" y1="7.62" x2="127" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="127" y1="7.62" x2="127" y2="20.32" width="0.1524" layer="91"/>
 <label x="111.76" y="21.59" size="1.778" layer="95"/>
 </segment>
 </net>
