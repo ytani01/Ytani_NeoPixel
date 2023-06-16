@@ -6,6 +6,7 @@
 #include "Ytani_NeoPixel.h"
 #include "ModeBase.h"
 #include "ModeTimer.h"
+#include "ModeSetTimer.h"
 
 const unsigned long LOOP_DELAY = 0;  // ms
 const unsigned long DEBOUNCE = 50;  // ms
@@ -33,6 +34,7 @@ const int eepModeTimerCont = eepModeTimerColorI + 4;
 // Modes
 ModeBase *modeBase;
 ModeTimer *modeTimer;
+ModeSetTimer *modeSetTimer;
 
 ModeBase **Mode;
 int ModeN;
@@ -96,12 +98,13 @@ void setup() {
   LEDs = new Ytani_NeoPixel(LEDS_N, PIN_LEDS);
   Btn = new Button(PIN_BTN, "Button");
 
-  modeBase = new ModeBase(LEDs, Btn, eepModeBaseColorI, eepModeBaseCont);
-  modeTimer = new ModeTimer(LEDs, Btn, eepModeTimerColorI, eepModeTimerCont);
-
   // 各モードのインスタンスを生成してから、配列を初期化する
   // 不確定長な配列の初期化はこうするしかない?
-  static ModeBase *p[] = {modeBase, modeTimer};
+  modeBase = new ModeBase(LEDs, Btn, eepModeBaseColorI, eepModeBaseCont);
+  modeTimer = new ModeTimer(LEDs, Btn, eepModeTimerColorI, eepModeTimerCont);
+  modeSetTimer = new ModeSetTimer(LEDs, Btn, eepModeTimerColorI, eepModeTimerCont);
+
+  static ModeBase *p[] = {modeBase, modeTimer, modeSetTimer};
   Mode = p;
   ModeN = sizeof(p) / sizeof(p[0]);
 
